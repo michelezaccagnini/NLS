@@ -1,0 +1,41 @@
+{
+  "slug": "NLS",
+  "name": "NLS",
+  "version": "2.0.0",
+  "license": "proprietary",
+  "brand": "NLS",
+  "author": "",
+  "authorEmail": "",
+  "authorUrl": "",
+  "pluginUrl": "",
+  "manualUrl": "",
+  "sourceUrl": "",
+  "donateUrl": "",
+  "changelogUrl": "",
+  "modules": [
+    {
+      "slug": "CrossSeq2",
+      "name": "CrossSeq2",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "TrigEnv",
+      "name": "TrigEnv",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "CrossSeq3",
+      "name": "CrossSeq3",
+      "description": "",
+      "tags": []
+    },
+    {
+      "slug": "TrigLogic",
+      "name": "TrigLogic",
+      "description": "",
+      "tags": []
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+#include "plugin.hpp"
+#include "CrossSeq3.h"
+
+
+struct CrossSeq3 : Module {
+
+	enum ParamId {
+		FREQ_PARAM,	
+		RATE1_PARAM,
+		RATE2_PARAM,
+		RATE3_PARAM,
+		AMT1_PARAM,
+		AMT2_PARAM,
+		AMT3_PARAM,
+		SHAPE1_PARAM,
+		SHAPE2_PARAM,
+		SHAPE3_PARAM,
+		PHASE1_PARAM,
+		PHASE2_PARAM,
+		PHASE3_PARAM,
+		PW1_PARAM,
+		PW2_PARAM,
+		PW3_PARAM,
+		PARAMS_LEN
+	};
+	enum InputId {
+		FREQ_INPUT,
+		RATE1_INPUT,
+		RATE2_INPUT,	
+		RATE3_INPUT,	
+		SHAPE1_INPUT,
+		SHAPE2_INPUT,
+		SHAPE3_INPUT,
+		AMT1_INPUT,
+		AMT2_INPUT,
+		AMT3_INPUT,
+		SYNC_INPUT,
+		INPUTS_LEN
+	};
+	enum OutputId {
+		TRIG12_OUTPUT,
+		TRIG13_OUTPUT,
+		TRIG23_OUTPUT,
+		TRIG123_OUTPUT,
+		LFO1_OUTPUT,
+		LFO2_OUTPUT,
+		LFO3_OUTPUT,
+		DIFF12_OUTPUT,
+		DIFF13_OUTPUT,
+		DIFF23_OUTPUT,
+		DIFF123_OUTPUT,
+		OUTPUTS_LEN
+	};
+	CrossSeq3_process_type processor;
+
+	CrossSeq3() {
+		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN);
+		configParam(FREQ_PARAM, 0.f, 10.f, 1.f, "freq");
+		configParam(RATE1_PARAM, 0.f, 10.f, 1.f, "rate1");
+		configParam(RATE2_PARAM, 0.f, 10.f, 0.5f, "rate2");
+		configParam(RATE3_PARAM, 0.f, 10.f, 0.5f, "rate3");
+		configParam(AMT1_PARAM, 0.f, 1.0f, 1.f, "amount1");
+		configParam(AMT2_PARAM, 0.f, 1.f, 1.f, "amount2");
+		configParam(AMT3_PARAM, 0.f, 1.f, 1.f, "amount3");
+		configParam(SHAPE1_PARAM, 0.f, 3.f, 0.f, "shape1");
+		configParam(SHAPE2_PARAM, 0.f, 3.f, 1.f, "shape2");
+		configParam(SHAPE3_PARAM, 0.f, 3.f, 1.f, "shape3");
+		configParam(PHASE1_PARAM, 0.f, 1.f, 0.f, "phase1");
+		configParam(PHASE2_PARAM, 0.f, 1.f, 0.f, "phase2");
+		configParam(PHASE3_PARAM, 0.f, 1.f, 0.f, "phase3");
+		configParam(PW1_PARAM, 0.f, 1.f, 0.5f, "pw1");
+		configParam(PW2_PARAM, 0.f, 1.f, 0.5f, "pw2");
+		configParam(PW3_PARAM, 0.f, 1.f, 0.5f, "pw3");
+		configInput(FREQ_INPUT, "freq input");
+		configInput(RATE1_INPUT, "rate1 input");
+		configInput(RATE2_INPUT, "rate2 input");
+		configInput(RATE3_INPUT, "rate3 input");
+		configInput(SHAPE1_INPUT, "shape1 input");
+		configInput(SHAPE2_INPUT, "shape2 input");
+		configInput(SHAPE3_INPUT, "shape3 input");
+		configInput(AMT1_INPUT, "amt1 input");
+		configInput(AMT2_INPUT, "amt2 input");
+		configInput(AMT3_INPUT, "amt3 input");
+		configInput(SYNC_INPUT, "sync input");
+		configOutput(TRIG12_OUTPUT, "trig 12");
+		configOutput(TRIG13_OUTPUT, "trig 13");
+		configOutput(TRIG23_OUTPUT, "trig 23");
+		configOutput(TRIG123_OUTPUT, "trig 123");
+		configOutput(LFO1_OUTPUT, "lfo1");
+		configOutput(LFO2_OUTPUT, "lfo2");
+		configOutput(LFO3_OUTPUT, "lfo3");
+		configOutput(DIFF12_OUTPUT, "diff12");
+		configOutput(DIFF13_OUTPUT, "diff13");
+		configOutput(DIFF23_OUTPUT, "diff23");
+		configOutput(DIFF123_OUTPUT, "diff123");
+	}
+	CrossSeq3_process_init();
+
+	void process(const ProcessArgs& args) override {
+		CrossSeq3_setFreq(processor, params[FREQ_PARAM].value, inputs[FREQ_INPUT].value);
+		CrossSeq3_setSync(processor, inputs[SYNC_INPUT].value);
+		CrossSeq3_setRate1(processor, params[RATE1_PARAM].value,   inputs[RATE1_INPUT].value, params[PHASE1_PARAM].value );
+		CrossSeq3_setRate2(processor, params[RATE2_PARAM].value,   inputs[RATE2_INPUT].value, params[PHASE2_PARAM].value);
+		CrossSeq3_setRate3(processor, params[RATE3_PARAM].value,   inputs[RATE3_INPUT].value, params[PHASE3_PARAM].value);
+		CrossSeq3_setAmt1(processor, params[AMT1_PARAM].value,     inputs[AMT1_INPUT].value);
+		CrossSeq3_setAmt2(processor, params[AMT2_PARAM].value,     inputs[AMT2_INPUT].value);
+		CrossSeq3_setAmt3(processor, params[AMT3_PARAM].value,     inputs[AMT3_INPUT].value);
+		CrossSeq3_setShape1(processor, params[SHAPE1_PARAM].value, inputs[SHAPE1_INPUT].value);
+		CrossSeq3_setShape2(processor, params[SHAPE2_PARAM].value, inputs[SHAPE2_INPUT].value);
+		CrossSeq3_setShape3(processor, params[SHAPE3_PARAM].value, inputs[SHAPE3_INPUT].value);
+		CrossSeq3_setPw1(processor, params[PW1_PARAM].value);
+		CrossSeq3_setPw2(processor, params[PW2_PARAM].value);
+		CrossSeq3_setPw3(processor, params[PW3_PARAM].value);
+		CrossSeq3_process(processor,args.sampleTime);
+		float trig12 = CrossSeq3_process_ret_0(processor);
+		float trig13 = CrossSeq3_process_ret_1(processor);
+		float trig23 = CrossSeq3_process_ret_2(processor);
+		float trig123 = CrossSeq3_process_ret_3(processor);
+		float lfo1 = CrossSeq3_process_ret_4(processor);
+		float lfo2 = CrossSeq3_process_ret_5(processor);
+		float lfo3 = CrossSeq3_process_ret_6(processor);
+		float diff12 = CrossSeq3_process_ret_7(processor);
+		float diff13 = CrossSeq3_process_ret_8(processor);
+		float diff23 = CrossSeq3_process_ret_9(processor);
+		float diff123 = CrossSeq3_process_ret_10(processor);
+		outputs[TRIG12_OUTPUT].setVoltage(5.f * trig12);
+		outputs[TRIG13_OUTPUT].setVoltage(5.f * trig13);
+		outputs[TRIG23_OUTPUT].setVoltage(5.f * trig23);
+		outputs[TRIG123_OUTPUT].setVoltage(5.f * trig123);
+		outputs[LFO1_OUTPUT].setVoltage(5.f * lfo1);
+		outputs[LFO2_OUTPUT].setVoltage(5.f * lfo2);
+		outputs[LFO3_OUTPUT].setVoltage(5.f * lfo3);
+		outputs[DIFF12_OUTPUT].setVoltage(5.f * diff12);
+		outputs[DIFF13_OUTPUT].setVoltage(5.f * diff13);
+		outputs[DIFF23_OUTPUT].setVoltage(5.f * diff23);
+		outputs[DIFF123_OUTPUT].setVoltage(5.f * diff123);
+	}
+};
+
+
+
+struct CrossSeq3Widget : ModuleWidget {
+	CrossSeq3Widget(CrossSeq3* module) {
+		setModule(module);
+		setPanel(createPanel(asset::plugin(pluginInstance, "res/cross3.svg")));
+		addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, 0)));
+		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, 0)));
+		addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
+		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
+
+		addParam(createParam<Rogan1PBlue>   (Vec(247, 275), module, CrossSeq3::FREQ_PARAM));
+		addParam(createParam<Rogan1PBlue>    (Vec(108, 39), module, CrossSeq3::RATE1_PARAM));
+		addParam(createParam<Rogan1PBlue>    (Vec(202, 39), module, CrossSeq3::RATE2_PARAM));
+		addParam(createParam<Rogan1PBlue>    (Vec(292, 39), module, CrossSeq3::RATE3_PARAM));
+		addParam(createParam<Rogan1PGreen>   (Vec(108, 80), module, CrossSeq3::AMT1_PARAM));
+		addParam(createParam<Rogan1PGreen>   (Vec(202, 80), module, CrossSeq3::AMT2_PARAM));
+		addParam(createParam<Rogan1PGreen>   (Vec(292, 80), module, CrossSeq3::AMT3_PARAM));
+		addParam(createParam<Rogan1PRed>     (Vec(108, 121), module, CrossSeq3::SHAPE1_PARAM));
+		addParam(createParam<Rogan1PRed>     (Vec(202, 121), module, CrossSeq3::SHAPE2_PARAM));
+		addParam(createParam<Rogan1PRed>     (Vec(292, 121), module, CrossSeq3::SHAPE3_PARAM));
+		addParam(createParam<Rogan1PWhite>   (Vec(108, 162), module, CrossSeq3::PHASE1_PARAM));
+		addParam(createParam<Rogan1PWhite>   (Vec(202, 162), module, CrossSeq3::PHASE2_PARAM));
+		addParam(createParam<Rogan1PWhite>   (Vec(292, 162), module, CrossSeq3::PHASE3_PARAM));
+		addParam(createParam<Rogan1PWhite>   (Vec(108, 201), module, CrossSeq3::PW1_PARAM));
+		addParam(createParam<Rogan1PWhite>   (Vec(202, 201), module, CrossSeq3::PW2_PARAM));
+		addParam(createParam<Rogan1PWhite>   (Vec(292, 201), module, CrossSeq3::PW3_PARAM));
+
+		addInput(createInput<CL1362Port>(  Vec(247, 237 ), module, CrossSeq3::FREQ_INPUT));
+		addInput(createInput<CL1362Port>(  Vec(64, 237  ), module, CrossSeq3::SYNC_INPUT));
+		addInput(createInput<CL1362Port>(  Vec(64 , 39   ), module, CrossSeq3::RATE1_INPUT));
+		addInput(createInput<CL1362Port>(  Vec(153, 39   ), module, CrossSeq3::RATE2_INPUT));
+		addInput(createInput<CL1362Port>(  Vec(247, 39   ), module, CrossSeq3::RATE3_INPUT));
+		addInput(createInput<CL1362Port>(  Vec(64 , 80   ), module, CrossSeq3::AMT1_INPUT));
+		addInput(createInput<CL1362Port>(  Vec(153, 80   ), module, CrossSeq3::AMT2_INPUT));
+		addInput(createInput<CL1362Port>(  Vec(247, 80   ), module, CrossSeq3::AMT3_INPUT));
+		addInput(createInput<CL1362Port>(  Vec(64 , 121  ), module, CrossSeq3::SHAPE1_INPUT));
+		addInput(createInput<CL1362Port>(  Vec(153, 121  ), module, CrossSeq3::SHAPE2_INPUT));
+		addInput(createInput<CL1362Port>(  Vec(247, 121  ), module, CrossSeq3::SHAPE3_INPUT));
+		addOutput(createOutput<CL1362Port>(Vec(333,  230), module, CrossSeq3::TRIG12_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(333,  266), module, CrossSeq3::TRIG13_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(333,  303), module, CrossSeq3::TRIG23_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(333,  339), module, CrossSeq3::TRIG123_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(8,   327), module, CrossSeq3::LFO1_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(49,   327), module, CrossSeq3::LFO2_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(91,   327), module, CrossSeq3::LFO3_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(133,   327), module, CrossSeq3::DIFF12_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(175,   327), module, CrossSeq3::DIFF13_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(217,   327), module, CrossSeq3::DIFF23_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(259,   327), module, CrossSeq3::DIFF123_OUTPUT));
+
+	}
+};
+
+
+Model* modelCrossSeq3 = createModel<CrossSeq3, CrossSeq3Widget>("CrossSeq3");

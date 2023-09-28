@@ -1,0 +1,87 @@
+fun edge(x:bool) : bool {
+   mem pre;
+   val ret = x && not(pre);
+   pre = x;
+   return ret;
+}
+
+fun trig2gate (trig, len, st){
+    mem dur;
+    mem state;
+    val bgate = trig > 0.0;
+    if(state == 0){
+        if(edge(bgate)){
+            state = 1;
+            dur = dur + st;
+        }
+    }
+    if(state == 1){
+        if(dur < len   ){
+            dur = dur + st;
+        }
+        if(edge(bgate)){
+            dur  = 0.0;
+        }
+        if( dur > len  ) {
+            state = 0;
+            dur = 0.0;
+        }
+            
+    }
+    return real(state) * 5.0;
+}
+fun env(gate, a, d) {
+   mem state;
+   mem out;
+   mem rate;
+   mem target;
+   mem scale;
+
+   val a_rate = 1.0 / (100.0 * a + 0.01);
+   val d_rate = 1.0 / (100.0 * d + 0.01);
+
+   val bgate = gate > 0.0;
+
+   out = out + (target - out) * rate * 0.004;
+
+   // idle // release
+   if(state == 0) {
+      if(edge(bgate)) {
+         state = 1; // goto attack
+         scale = gate / 5.0;
+      }
+      rate = d_rate;
+      target = 0.0;
+   }
+   // attack
+   if(state == 1) {
+      if(not(bgate) || out > 1024.0) state = 0; // goto release
+      rate = a_rate;
+      target = 1.2 * 1024.0;
+   }
+
+   return clip(out/1024.0,0.0,1.0) *scale ;
+}
+
+fun process(trig:real, st){
+    mem gateLen, a , d;
+    val gate = trig2gate(trig, gateLen, st);
+    return env(gate, a, d); 
+    //return gate; 
+}
+and setGateLen(value){
+    gateLen = value;
+}
+and setA(value){
+    a = value;
+}
+and setD(value){
+    d = value;
+}
+
+// Called on initialization to define initial values
+and default(){
+   mem gateLen = 0.2;
+   mem a = 0.1;
+   mem d = 0.5;
+}

@@ -1,0 +1,151 @@
+
+fun soft(x1) {
+   mem x2,x3,x4;
+   val o = (x1+x2+x3+x4)/4.0;
+   x2,x3,x4 = x1,x2,x3;
+   return o;
+}
+
+fun edge(x:bool) : bool {
+   mem pre;
+   val ret = x && not(pre);
+   pre = x;
+   return ret;
+}
+
+fun change(x:real):bool {
+    mem pre_x;
+    val v:bool = pre_x <> x;
+    pre_x = x;
+    return v;
+}
+
+
+fun lerp(a,b,i){
+
+    return a * (1.0 - i) + (b *  i);
+}
+
+fun lfo_interp(cv, shape, amt, pw, reset, sampleTime) {
+   mem rate; 
+   if(change(cv))
+      rate = cv * sampleTime;
+   mem phase = phase + rate;
+   phase = if phase > 2.0 then phase - 2.0 else phase;
+   val breset = reset > 0.0;
+   if(edge(breset))
+      phase = 0.0;
+   val tmp = phase - 1.0;
+   val o =
+      if shape < 1.0 then 
+         lerp((sin(phase*3.141592653589793)),(abs(tmp) * 2.0 - 1.0),shape % 1.0)*amt
+      else if shape < 2.0 then
+         lerp((abs(tmp) * 2.0 - 1.0), tmp, shape % 1.0)*amt
+      else if shape < 3.0 then 
+         lerp(tmp, (if tmp > 0.0 then 1.0 else -1.0), shape % 1.0)*amt
+      else
+         (if tmp > pw then 1.0 else -1.0)*amt;
+   return soft(o);
+}
+
+fun cross_detect(a:real, b:real)
+{
+    val diff = a - b;
+    val sign = if diff > 0.0 then 1.0 else 0.0;
+    val trig = if change(sign) then 1.0 else 0.0;
+    return trig;
+}
+fun cross_detect3(a:real, b:real, c:real)
+{
+    val diff12 = a - b;
+    val diff13 = a - c;
+    val diff23 = b - c;
+    val sign12 = if diff12 > 0.0 then 1.0 else 0.0;
+    val sign13 = if diff13 > 0.0 then 1.0 else 0.0;
+    val sign23 = if diff23 > 0.0 then 1.0 else 0.0;
+    val trig12 = if change(sign12) then 1.0 else 0.0;
+    val trig13 = if change(sign13) then 1.0 else 0.0;
+    val trig23 = if change(sign23) then 1.0 else 0.0;
+    val ret = if (trig12 + trig13 + trig23) > 2.5 then 1.0 else 0.0; 
+    return ret;
+}
+
+fun process(sampleTime:real){
+   mem sync, freq, rate1, rate2, rate3, amt1, amt2, amt3, shape1, shape2, shape3, pw1, pw2, pw3;
+   val lfo1 = lfo_interp(rate1*freq, shape1, amt1, pw1, sync,sampleTime) ;
+   val lfo2 = lfo_interp(rate2*freq, shape2, amt2, pw2, sync,sampleTime) ;
+   val lfo3 = lfo_interp(rate3*freq, shape3, amt3, pw3, sync,sampleTime) ;
+   val tr12 = cross_detect(lfo1, lfo2);
+   val tr13 = cross_detect(lfo1, lfo3);
+   val tr23 = cross_detect(lfo2, lfo3);
+   val tr123 = cross_detect3(lfo1, lfo2, lfo3);
+   val diff12 = (lfo1 - lfo2) / (amt1 + amt2 + 0.01 );
+   val diff13 = (lfo1 - lfo3) / (amt1 + amt3 + 0.01 );
+   val diff23 = (lfo2 - lfo3) / (amt2 + amt3 + 0.01 );
+   val diff123 = (lfo1 - lfo2 - lfo3) / (amt1 + amt2 + amt3 + 0.01 ) ;
+   return tr12, tr13, tr23, tr123, lfo1, lfo2, lfo3, diff12, diff13, diff23, diff123 ; 
+}
+and setFreq(knob, input){
+   freq = knob + input;
+}
+and setSync(value){
+   sync = value;
+}
+and setRate1(knob, input, phaseKnob){
+   rate1 = knob + input + phaseKnob;
+}
+and setRate2(knob, input, phaseKnob){
+   rate2 = knob + input + phaseKnob;
+}
+and setRate3(knob, input, phaseKnob){
+   rate3 = knob + input + phaseKnob;
+}
+and setAmt1(knob, input){
+   amt1 = knob + input;
+}
+and setAmt2(knob, input){
+   amt2 = knob + input;
+}
+and setAmt3(knob, input){
+   amt3 = knob + input;
+}
+and setShape1(knob, input){
+   shape1 = knob + input;
+}
+and setShape2(knob, input){
+   shape2 = knob + input;
+}
+and setShape3(knob, input){
+   shape3 = knob + input;
+}
+and setPw1(knob){
+   pw1 = knob * 2. - 1.;
+}
+and setPw2(knob){
+   pw2 = knob * 2. - 1.;
+}
+and setPw3(knob){
+   pw3 = knob * 2. - 1.;
+}
+
+
+// Called on initialization to define initial values
+and default(){
+   mem freqK = 1.0;
+   mem sync = 0.0;
+   mem rate1 = 1.0;
+   mem rate2 = 1.0;
+   mem rate3 = 1.0;
+   mem amt1 = 1.0;
+   mem amt2 = 1.0;
+   mem amt3 = 1.0;
+   mem shape1 = 0.0;
+   mem shape2 = 1.0;
+   mem shape3 = 1.0;
+   mem phase1 = 0.0;
+   mem phase2 = 0.0;
+   mem phase3 = 0.0;
+   mem pw1 = 0.5;
+   mem pw2 = 0.5;
+   mem pw3 = 0.5;
+}
