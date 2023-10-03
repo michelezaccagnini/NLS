@@ -141,10 +141,10 @@ struct CrossSeq3 : Module {
 		float diff13 = CrossSeq3_process_ret_8(processor);
 		float diff23 = CrossSeq3_process_ret_9(processor);
 		float diff123 = CrossSeq3_process_ret_10(processor);
-		outputs[TRIG12_OUTPUT].setVoltage(5.f * trig12);
-		outputs[TRIG13_OUTPUT].setVoltage(5.f * trig13);
-		outputs[TRIG23_OUTPUT].setVoltage(5.f * trig23);
-		outputs[TRIG123_OUTPUT].setVoltage(5.f * trig123);
+		outputs[TRIG12_OUTPUT].setVoltage (10.f * trig12);
+		outputs[TRIG13_OUTPUT].setVoltage (10.f * trig13);
+		outputs[TRIG23_OUTPUT].setVoltage (10.f * trig23);
+		outputs[TRIG123_OUTPUT].setVoltage(10.f * trig123);
 		outputs[LFO1_OUTPUT].setVoltage(5.f * lfo1);
 		outputs[LFO2_OUTPUT].setVoltage(5.f * lfo2);
 		outputs[LFO3_OUTPUT].setVoltage(5.f * lfo3);

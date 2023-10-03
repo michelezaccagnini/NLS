@@ -9,7 +9,7 @@
    id="svg26937"
    inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
    sodipodi:docname="TrigLogic.svg"
-   inkscape:export-filename="..\Images\TrigLogic.jpg"
+   inkscape:export-filename="TrigLogic.svg"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -29,7 +29,7 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.829812"
-     inkscape:cx="158.75948"
+     inkscape:cx="159.30598"
      inkscape:cy="195.64851"
      inkscape:window-width="3440"
      inkscape:window-height="1369"
@@ -956,7 +956,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="fore"
-     style="display:inline">
+     style="display:none">
     <g
        id="g3432-8"
        transform="matrix(0.26458333,0,0,0.26458333,21.056328,83.18567)"
@@ -1000,7 +1000,7 @@
       </linearGradient>
       <polygon
          fill="url(#SVGID_00000002367597431271293400000003102766513344899738_)"
-         points="9.20481,3.13509 0.913,17.49694 9.20481,31.85878 25.78844,31.85878 34.08026,17.49694 25.78844,3.13509 "
+         points="0.913,17.49694 9.20481,31.85878 25.78844,31.85878 34.08026,17.49694 25.78844,3.13509 9.20481,3.13509 "
          id="polygon3360-4"
          style="fill:url(#linearGradient6443-2)" />
       <linearGradient
@@ -1223,7 +1223,7 @@
       </linearGradient>
       <polygon
          fill="url(#SVGID_00000002367597431271293400000003102766513344899738_)"
-         points="0.913,17.49694 9.20481,31.85878 25.78844,31.85878 34.08026,17.49694 25.78844,3.13509 9.20481,3.13509 "
+         points="9.20481,31.85878 25.78844,31.85878 34.08026,17.49694 25.78844,3.13509 9.20481,3.13509 0.913,17.49694 "
          id="polygon3360-23"
          style="fill:url(#linearGradient6443-3)" />
       <linearGradient
@@ -1446,7 +1446,7 @@
       </linearGradient>
       <polygon
          fill="url(#SVGID_00000002367597431271293400000003102766513344899738_)"
-         points="9.20481,3.13509 0.913,17.49694 9.20481,31.85878 25.78844,31.85878 34.08026,17.49694 25.78844,3.13509 "
+         points="0.913,17.49694 9.20481,31.85878 25.78844,31.85878 34.08026,17.49694 25.78844,3.13509 9.20481,3.13509 "
          id="polygon3360-2"
          style="fill:url(#linearGradient6443-7)" />
       <linearGradient
@@ -1669,7 +1669,7 @@
       </linearGradient>
       <polygon
          fill="url(#SVGID_00000002367597431271293400000003102766513344899738_)"
-         points="9.20481,3.13509 0.913,17.49694 9.20481,31.85878 25.78844,31.85878 34.08026,17.49694 25.78844,3.13509 "
+         points="0.913,17.49694 9.20481,31.85878 25.78844,31.85878 34.08026,17.49694 25.78844,3.13509 9.20481,3.13509 "
          id="polygon3360"
          style="fill:url(#linearGradient6443)" />
       <linearGradient
@@ -2212,7 +2212,7 @@
       </linearGradient>
       <polygon
          fill="url(#SVGID_00000002367597431271293400000003102766513344899738_)"
-         points="9.20481,3.13509 0.913,17.49694 9.20481,31.85878 25.78844,31.85878 34.08026,17.49694 25.78844,3.13509 "
+         points="0.913,17.49694 9.20481,31.85878 25.78844,31.85878 34.08026,17.49694 25.78844,3.13509 9.20481,3.13509 "
          id="polygon3360-4-9"
          style="fill:url(#linearGradient3476)" />
       <linearGradient

@@ -97,7 +97,7 @@ struct CrossSeq2 : Module {
 		float diff = CrossSeq2_process_ret_3(processor);
 		// Audio signals are typically +/-5V
 		// https://vcvrack.com/manual/VoltageStandards
-		outputs[TRIG_OUTPUT].setVoltage(5.f * trig);
+		outputs[TRIG_OUTPUT].setVoltage(10.f * trig);
 		outputs[LFO1_OUTPUT].setVoltage(5.f * lfo1);
 		outputs[LFO2_OUTPUT].setVoltage(5.f * lfo2);
 		outputs[DIFF_OUTPUT].setVoltage(5.f * diff);

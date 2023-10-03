@@ -4,38 +4,38 @@
   "version": "2.0.0",
   "license": "proprietary",
   "brand": "NLS",
-  "author": "",
-  "authorEmail": "",
-  "authorUrl": "",
-  "pluginUrl": "",
+  "author": "Michele Zaccagnini",
+  "authorEmail": "michelezaccagnini88@gmail.com",
+  "authorUrl": "linktr.ee/michelezac",
+  "pluginUrl": "https://github.com/michelezaccagnini/NLS/tree/main",
   "manualUrl": "",
-  "sourceUrl": "",
-  "donateUrl": "",
+  "sourceUrl": "https://github.com/michelezaccagnini/NLS/tree/main",
+  "donateUrl": "https://www.patreon.com/michelez",
   "changelogUrl": "",
   "modules": [
     {
       "slug": "CrossSeq2",
-      "name": "CrossSeq2",
-      "description": "",
-      "tags": []
+      "name": "XSeq2",
+      "description": "cross sequencer: detect intersections between LFOs to generate triggers",
+      "tags": ["Sequencer"]
     },
     {
       "slug": "TrigGate",
       "name": "TrigGate",
-      "description": "",
-      "tags": []
+      "description": "converts triggers to gates of variable length",
+      "tags": ["Gate", "Trigger"]
     },
     {
       "slug": "CrossSeq3",
-      "name": "CrossSeq3",
-      "description": "",
-      "tags": []
+      "name": "XSeq3",
+      "description": "cross sequencer: detect intersections between LFOs to generate triggers",
+      "tags": ["Sequencer"]
     },
     {
       "slug": "TrigLogic",
       "name": "TrigLogic",
-      "description": "",
-      "tags": []
+      "description": "let triggers through based on signal logic",
+      "tags": ["Logic", "Trigger"]
     }
   ]
 }

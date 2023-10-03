@@ -1,5 +1,4 @@
-# NonlinearSequencer_VCV
-VCV modules for NLS
+# NLS
 
 ## General description
 Nonlinear Sequncer is a collection of objects to generate triggers and CVs based on nonlinear functions, initially developed in Cycling74 Max8 and partially implemented in VCV.
@@ -33,8 +32,8 @@ Amount, shape and rate params are added to inputs and scaled by CV input knob
 
 ### XSeq2 - XSeq3: Outputs
 - triggers: LFO intersections
-- lfos
-- differences: running differences of LFOs
+- lfos (normalized: the amount parameter does not affect the output, only the intersections are affected)
+- differences: running differences of LFOs (normalized)
 
 ### TrigLogic : Inputs/Output
 

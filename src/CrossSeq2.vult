@@ -42,7 +42,7 @@ fun lfo_interp(cv, shape, amt, pw, reset, sampleTime) {
       else if shape < 2.0 then
          lerp((abs(tmp) * 2.0 - 1.0), tmp, shape % 1.0)*amt
       else if shape < 3.0 then 
-         lerp(tmp, (if tmp > 0.0 then 1.0 else -1.0), shape % 1.0)*amt
+         lerp(tmp, (if tmp > pw then 1.0 else -1.0), shape % 1.0)*amt
       else
          (if tmp > pw then 1.0 else -1.0)*amt;
    return soft(o);
@@ -64,7 +64,7 @@ fun process(sampleTime:real){
    //val env = ad(gate, 0.0, 0.3);
    val trig = gate;
    val diff = (lfo1 - lfo2)  / (amt1 + amt2);
-   return trig, lfo1, lfo2, diff ; 
+   return trig, lfo1 / amt1, lfo2 / amt2, diff ; 
 }
 and setFreq(knob, input){
    freq = knob + input;

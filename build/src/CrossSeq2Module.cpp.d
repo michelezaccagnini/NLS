@@ -114,7 +114,7 @@ build/src/CrossSeq2Module.cpp.o: src/CrossSeq2Module.cpp src/plugin.hpp \
  C:/Code/Rack-SDK/include/dsp/filter.hpp \
  C:/Code/Rack-SDK/include/dsp/digital.hpp \
  C:/Code/Rack-SDK/include/dsp/convert.hpp src/CrossSeq2.h src/vultin.h \
- src/CrossSeq2v.tables.h
+ src/CrossSeq2.tables.h
 src/plugin.hpp:
 C:/Code/Rack-SDK/include/rack.hpp:
 C:/Code/Rack-SDK/include/common.hpp:
@@ -240,4 +240,4 @@ C:/Code/Rack-SDK/include/dsp/digital.hpp:
 C:/Code/Rack-SDK/include/dsp/convert.hpp:
 src/CrossSeq2.h:
 src/vultin.h:
-src/CrossSeq2v.tables.h:
+src/CrossSeq2.tables.h:

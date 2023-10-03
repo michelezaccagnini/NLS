@@ -131,22 +131,7 @@ static_inline void CrossSeq3_cross_detect_init(CrossSeq3__ctx_type_5 &_output_){
 
 float CrossSeq3_cross_detect(CrossSeq3__ctx_type_5 &_ctx, float a, float b);
 
-typedef struct CrossSeq3__ctx_type_6 {
-   CrossSeq3__ctx_type_2 _inst3b9;
-   CrossSeq3__ctx_type_2 _inst2b9;
-   CrossSeq3__ctx_type_2 _inst1b9;
-} CrossSeq3__ctx_type_6;
-
-typedef CrossSeq3__ctx_type_6 CrossSeq3_cross_detect3_type;
-
-void CrossSeq3__ctx_type_6_init(CrossSeq3__ctx_type_6 &_output_);
-
-static_inline void CrossSeq3_cross_detect3_init(CrossSeq3__ctx_type_6 &_output_){
-   CrossSeq3__ctx_type_6_init(_output_);
-   return ;
-}
-
-float CrossSeq3_cross_detect3(CrossSeq3__ctx_type_6 &_ctx, float a, float b, float c);
+float CrossSeq3_cross_detect3(float a, float b, float c);
 
 typedef struct CrossSeq3__ctx_type_7 {
    float sync;
@@ -178,7 +163,6 @@ typedef struct CrossSeq3__ctx_type_7 {
    float amt3;
    float amt2;
    float amt1;
-   CrossSeq3__ctx_type_6 _inst7bf;
    CrossSeq3__ctx_type_5 _inst6c3;
    CrossSeq3__ctx_type_5 _inst5c3;
    CrossSeq3__ctx_type_5 _inst4c3;
