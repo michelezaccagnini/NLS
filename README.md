@@ -19,6 +19,7 @@ XSeq2 and XSeq3 are capable of producing multiple CVs aside from the triggers an
 
 ### XSeq2 - XSeq3: Inputs & Params
 ![XSeq2](https://github.com/michelezaccagnini/NLS/blob/main/Images/cross2New.jpg)
+
 ![XSeq3]
 (https://github.com/michelezaccagnini/NLS/blob/main/Images/cross3New.jpg)
 Amt, shape and rate params are added to inputs
@@ -37,8 +38,10 @@ Amt, shape and rate params are added to inputs
 - differences: running differences of LFOs
 
 ### TrigLogic : Inputs/Output
+
 ![TrigLogic]
 (https://github.com/michelezaccagnini/NLS/blob/main/Images/TrigLogic.jpg)
+
 - in : signal 1
 - in : signal 2
 - in : trigger
@@ -51,8 +54,10 @@ Amt, shape and rate params are added to inputs
 - and/or : logic pairing of the two tests
 
 ### TrigGate (pair)
+
 ![TrigGate]
 (https://github.com/michelezaccagnini/NLS/blob/main/Images/TrigGate.jpg)
+
 - in : trigger
 - knob : gate length (seconds)
 - out : gate
