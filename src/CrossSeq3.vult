@@ -85,47 +85,47 @@ fun process(sampleTime:real){
    val diff123 = (lfo1 - lfo2 - lfo3) / (amt1 + amt2 + amt3 + 0.01 ) ;
    return tr12, tr13, tr23, tr123, lfo1, lfo2, lfo3, diff12, diff13, diff23, diff123 ; 
 }
-and setFreq(knob, input){
+and setFreq(knob, input:real){
    freq = knob + input;
 }
 and setSync(value){
    sync = value;
 }
-and setRate1(knob, input, phaseKnob){
+and setRate1(knob, input:real, phaseKnob){
    rate1 = knob + input + phaseKnob;
 }
-and setRate2(knob, input, phaseKnob){
+and setRate2(knob, input:real, phaseKnob){
    rate2 = knob + input + phaseKnob;
 }
-and setRate3(knob, input, phaseKnob){
+and setRate3(knob, input:real, phaseKnob){
    rate3 = knob + input + phaseKnob;
 }
-and setAmt1(knob, input){
+and setAmt1(knob, input:real){
    amt1 = knob + input;
 }
-and setAmt2(knob, input){
+and setAmt2(knob, input:real){
    amt2 = knob + input;
 }
-and setAmt3(knob, input){
+and setAmt3(knob, input:real){
    amt3 = knob + input;
 }
-and setShape1(knob, input){
+and setShape1(knob, input:real){
    shape1 = knob + input;
 }
-and setShape2(knob, input){
+and setShape2(knob, input:real){
    shape2 = knob + input;
 }
-and setShape3(knob, input){
+and setShape3(knob, input:real){
    shape3 = knob + input;
 }
-and setPw1(knob){
-   pw1 = knob * 2. - 1.;
+and setPw1(knob:real){
+   pw1 = knob * 2.0 - 1.0;
 }
-and setPw2(knob){
-   pw2 = knob * 2. - 1.;
+and setPw2(knob:real){
+   pw2 = knob * 2.0 - 1.0;
 }
-and setPw3(knob){
-   pw3 = knob * 2. - 1.;
+and setPw3(knob:real){
+   pw3 = knob * 2.0 - 1.0;
 }
 
 

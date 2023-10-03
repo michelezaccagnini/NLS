@@ -8,14 +8,13 @@ fun sign(x){
     return ret;
 }
 
-fun logic(x1, x2, type1, type2, s1, s2, andOr, inv){
+fun logic(x1, x2, type1, type2, s1, s2, andOr){
     val res1,res2;
     res1 = if type1 then direction(x1) else sign(x1);
     res2 = if type2 then direction(x2) else sign(x2);
     res1 = if s1 then res1 else not(res1);
     res2 = if s2 then res2 else not(res2);
     val ret = if andOr then (res1 && res2) else (res1 || res2);
-    ret = if inv then not(ret) else ret;
     return ret; 
 }
 
@@ -28,9 +27,10 @@ fun process(trig, lfo1, lfo2){
     mem s2:bool;
     mem andOr:bool;
     mem inv:bool;
-    val l = logic(lfo1, lfo2, type1, type2, s1, s2, andOr, inv);
-    val ret = if l then trig else 0.0;
-    return  ret;
+    val l = logic(lfo1, lfo2, type1, type2, s1, s2, andOr);
+    val ret1 = if l then trig else 0.0;
+    val ret2 = if not(l) then trig else 0.0;
+    return  ret1, ret2;
 }
 and setType1(value){
     type1 = value > 0.0;

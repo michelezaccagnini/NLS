@@ -9,7 +9,7 @@ void init(Plugin* p) {
 
 	// Add modules here
 	 p->addModel(modelCrossSeq2);
-	 p->addModel(modelTrigEnv);
+	 p->addModel(modelTrigGate);
 	 p->addModel(modelCrossSeq3);
 	 p->addModel(modelTrigLogic);
 

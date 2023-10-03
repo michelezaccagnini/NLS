@@ -10,7 +10,7 @@ void TrigLogic__ctx_type_2_init(TrigLogic__ctx_type_2 &_output_){
    return ;
 }
 
-uint8_t TrigLogic_logic(TrigLogic__ctx_type_2 &_ctx, float x1, float x2, uint8_t type1, uint8_t type2, uint8_t s1, uint8_t s2, uint8_t andOr, uint8_t inv){
+uint8_t TrigLogic_logic(TrigLogic__ctx_type_2 &_ctx, float x1, float x2, uint8_t type1, uint8_t type2, uint8_t s1, uint8_t s2, uint8_t andOr){
    uint8_t res1;
    uint8_t res2;
    if(type1){
@@ -41,9 +41,6 @@ uint8_t TrigLogic_logic(TrigLogic__ctx_type_2 &_ctx, float x1, float x2, uint8_t
    {
       ret = (res1 || res2);
    }
-   if(inv){
-      ret = bool_not(ret);
-   }
    return ret;
 }
 
@@ -53,6 +50,8 @@ void TrigLogic__ctx_type_3_init(TrigLogic__ctx_type_3 &_output_){
    _ctx.type1 = false;
    _ctx.s2 = false;
    _ctx.s1 = false;
+   _ctx.process_ret_1 = 0.0f;
+   _ctx.process_ret_0 = 0.0f;
    _ctx.inv = false;
    _ctx.andOr = false;
    TrigLogic__ctx_type_2_init(_ctx._inst129);
@@ -60,18 +59,28 @@ void TrigLogic__ctx_type_3_init(TrigLogic__ctx_type_3 &_output_){
    return ;
 }
 
-float TrigLogic_process(TrigLogic__ctx_type_3 &_ctx, float trig, float lfo1, float lfo2){
+void TrigLogic_process(TrigLogic__ctx_type_3 &_ctx, float trig, float lfo1, float lfo2){
    uint8_t l;
-   l = TrigLogic_logic(_ctx._inst129,lfo1,lfo2,_ctx.type1,_ctx.type2,_ctx.s1,_ctx.s2,_ctx.andOr,_ctx.inv);
-   float ret;
+   l = TrigLogic_logic(_ctx._inst129,lfo1,lfo2,_ctx.type1,_ctx.type2,_ctx.s1,_ctx.s2,_ctx.andOr);
+   float ret1;
    if(l){
-      ret = trig;
+      ret1 = trig;
    }
    else
    {
-      ret = 0.0f;
+      ret1 = 0.0f;
    }
-   return ret;
+   float ret2;
+   if(bool_not(l)){
+      ret2 = trig;
+   }
+   else
+   {
+      ret2 = 0.0f;
+   }
+   _ctx.process_ret_0 = ret1;
+   _ctx.process_ret_1 = ret2;
+   return ;
 }
 
 void TrigLogic_default(TrigLogic__ctx_type_3 &_ctx){

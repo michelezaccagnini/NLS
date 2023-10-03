@@ -16,6 +16,12 @@ struct CrossSeq2 : Module {
 		PHASE2_PARAM,
 		PW1_PARAM,
 		PW2_PARAM,
+		CVR1_PARAM,
+		CVR2_PARAM,
+		CVAM1_PARAM,
+		CVAM2_PARAM,
+		CVSH1_PARAM,
+		CVSH2_PARAM,
 		PARAMS_LEN
 	};
 	enum InputId {
@@ -51,6 +57,13 @@ struct CrossSeq2 : Module {
 		configParam(PHASE2_PARAM, 0.f, 1.f, 0.f, "phase2");
 		configParam(PW1_PARAM, 0.f, 1.f, 0.5f, "pw1");
 		configParam(PW2_PARAM, 0.f, 1.f, 0.5f, "pw2");
+		configParam(CVR1_PARAM, -1.f, 1.f, 0.f, "cv rate1");
+		configParam(CVR2_PARAM, -1.f, 1.f, 0.f, "cv rate2");
+		configParam(CVAM1_PARAM, -1.f, 1.f, 0.f, "cv amount1");
+		configParam(CVAM2_PARAM, -1.f, 1.f, 0.f, "cv amount2");
+		configParam(CVSH1_PARAM, -1.f, 1.f, 0.f, "cv shape1");
+		configParam(CVSH2_PARAM, -1.f, 1.f, 0.f, "cv shape2");
+		
 		configInput(FREQ_INPUT, "freq input");
 		configInput(RATE1_INPUT, "rate1 input");
 		configInput(RATE2_INPUT, "rate2 input");
@@ -69,12 +82,12 @@ struct CrossSeq2 : Module {
 	void process(const ProcessArgs& args) override {
 		CrossSeq2_setFreq(processor, params[FREQ_PARAM].value, inputs[FREQ_INPUT].value);
 		CrossSeq2_setSync(processor, inputs[SYNC_INPUT].value);
-		CrossSeq2_setRate1(processor, params[RATE1_PARAM].value,   inputs[RATE1_INPUT].value, params[PHASE1_PARAM].value );
-		CrossSeq2_setRate2(processor, params[RATE2_PARAM].value,   inputs[RATE2_INPUT].value, params[PHASE2_PARAM].value);
-		CrossSeq2_setAmt1(processor, params[AMT1_PARAM].value,     inputs[AMT1_INPUT].value);
-		CrossSeq2_setAmt2(processor, params[AMT2_PARAM].value,     inputs[AMT2_INPUT].value);
-		CrossSeq2_setShape1(processor, params[SHAPE1_PARAM].value, inputs[SHAPE1_INPUT].value);
-		CrossSeq2_setShape2(processor, params[SHAPE2_PARAM].value, inputs[SHAPE2_INPUT].value);
+		CrossSeq2_setRate1(processor, params[RATE1_PARAM].value,   inputs[RATE1_INPUT].value * params[CVR1_PARAM].value, params[PHASE1_PARAM].value );
+		CrossSeq2_setRate2(processor, params[RATE2_PARAM].value,   inputs[RATE2_INPUT].value * params[CVR2_PARAM].value, params[PHASE2_PARAM].value);
+		CrossSeq2_setAmt1(processor, params[AMT1_PARAM].value,     inputs[AMT1_INPUT].value * params[CVAM1_PARAM].value);
+		CrossSeq2_setAmt2(processor, params[AMT2_PARAM].value,     inputs[AMT2_INPUT].value * params[CVAM2_PARAM].value);
+		CrossSeq2_setShape1(processor, params[SHAPE1_PARAM].value, inputs[SHAPE1_INPUT].value * params[CVSH1_PARAM].value);
+		CrossSeq2_setShape2(processor, params[SHAPE2_PARAM].value, inputs[SHAPE2_INPUT].value * params[CVSH2_PARAM].value);
 		CrossSeq2_setPw1(processor, params[PW1_PARAM].value);
 		CrossSeq2_setPw2(processor, params[PW2_PARAM].value);
 		CrossSeq2_process(processor,args.sampleTime);
@@ -102,30 +115,37 @@ struct CrossSeq2Widget : ModuleWidget {
 		addChild(createWidget<ScrewSilver>(Vec(RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 		addChild(createWidget<ScrewSilver>(Vec(box.size.x - 2 * RACK_GRID_WIDTH, RACK_GRID_HEIGHT - RACK_GRID_WIDTH)));
 
-		addParam(createParam<Rogan1PBlue> (Vec(181, 275), module, CrossSeq2::FREQ_PARAM));
-		addParam(createParam<Rogan1PBlue>  (Vec(50, 39), module, CrossSeq2::RATE1_PARAM));
-		addParam(createParam<Rogan1PBlue>  (Vec(145, 39), module, CrossSeq2::RATE2_PARAM));
-		addParam(createParam<Rogan1PGreen> (Vec(50, 80), module, CrossSeq2::AMT1_PARAM));
-		addParam(createParam<Rogan1PGreen> (Vec(145, 80), module, CrossSeq2::AMT2_PARAM));
-		addParam(createParam<Rogan1PRed>   (Vec(50, 121), module, CrossSeq2::SHAPE1_PARAM));
-		addParam(createParam<Rogan1PRed>   (Vec(145, 121), module, CrossSeq2::SHAPE2_PARAM));
-		addParam(createParam<Rogan1PWhite> (Vec(50, 162), module, CrossSeq2::PHASE1_PARAM));
-		addParam(createParam<Rogan1PWhite> (Vec(145, 162), module, CrossSeq2::PHASE2_PARAM));
-		addParam(createParam<Rogan1PWhite> (Vec(50, 203), module, CrossSeq2::PW1_PARAM));
-		addParam(createParam<Rogan1PWhite> (Vec(145, 203), module, CrossSeq2::PW2_PARAM));
+		addParam(createParam<RoundSmallBlackKnob> (Vec(194, 266), module, CrossSeq2::FREQ_PARAM));
+		addParam(createParam<RoundSmallBlackKnob>  (Vec(73, 46), module, CrossSeq2::RATE1_PARAM));
+		addParam(createParam<BefacoTinyKnob>  (Vec(6, 46), module, CrossSeq2::CVR1_PARAM));
+		addParam(createParam<RoundSmallBlackKnob>  (Vec(127, 46), module, CrossSeq2::RATE2_PARAM));
+		addParam(createParam<BefacoTinyKnob>  (Vec(193, 46), module, CrossSeq2::CVR2_PARAM));
+		addParam(createParam<RoundSmallBlackKnob> (Vec(73, 80), module, CrossSeq2::AMT1_PARAM));
+		addParam(createParam<BefacoTinyKnob> (Vec(6, 80), module, CrossSeq2::CVAM1_PARAM));
+		addParam(createParam<RoundSmallBlackKnob> (Vec(127, 80), module, CrossSeq2::AMT2_PARAM));
+		addParam(createParam<BefacoTinyKnob> (Vec(193, 80), module, CrossSeq2::CVAM2_PARAM));
+		addParam(createParam<RoundSmallBlackKnob>   (Vec(73, 121), module, CrossSeq2::SHAPE1_PARAM));
+		addParam(createParam<BefacoTinyKnob>   (Vec(6, 121), module, CrossSeq2::CVSH1_PARAM));
+		addParam(createParam<RoundSmallBlackKnob>   (Vec(127, 121), module, CrossSeq2::SHAPE2_PARAM));
+		addParam(createParam<BefacoTinyKnob>   (Vec(193, 121), module, CrossSeq2::CVSH2_PARAM));
+		addParam(createParam<RoundSmallBlackKnob> (Vec(73, 162), module, CrossSeq2::PHASE1_PARAM));
+		addParam(createParam<RoundSmallBlackKnob> (Vec(127, 162), module, CrossSeq2::PHASE2_PARAM));
+		addParam(createParam<RoundSmallBlackKnob> (Vec(73, 203), module, CrossSeq2::PW1_PARAM));
+		addParam(createParam<RoundSmallBlackKnob> (Vec(130, 203), module, CrossSeq2::PW2_PARAM));
 
-		addInput(createInput<CL1362Port>(Vec(181, 224), module, CrossSeq2::FREQ_INPUT));
-		addInput(createInput<CL1362Port>(Vec(9, 224), module, CrossSeq2::SYNC_INPUT));
-		addInput(createInput<CL1362Port>(Vec(9, 39), module, CrossSeq2::RATE1_INPUT));
-		addInput(createInput<CL1362Port>(Vec(181, 39) , module, CrossSeq2::RATE2_INPUT));
-		addInput(createInput<CL1362Port>(Vec(9, 80), module, CrossSeq2::AMT1_INPUT));
-		addInput(createInput<CL1362Port>(Vec(181, 80), module, CrossSeq2::AMT2_INPUT));
-		addInput(createInput<CL1362Port>(Vec(9, 121), module, CrossSeq2::SHAPE1_INPUT));
-		addInput(createInput<CL1362Port>(Vec(181, 121), module, CrossSeq2::SHAPE2_INPUT));
-		addOutput(createOutput<CL1362Port>(Vec(11,  329), module, CrossSeq2::TRIG_OUTPUT));
-		addOutput(createOutput<CL1362Port>(Vec(66,   329), module, CrossSeq2::LFO1_OUTPUT));
-		addOutput(createOutput<CL1362Port>(Vec(121,   329), module, CrossSeq2::LFO2_OUTPUT));
-		addOutput(createOutput<CL1362Port>(Vec(176,   329), module, CrossSeq2::DIFF_OUTPUT));
+		addInput(createInput<CL1362Port>(Vec(156, 262), module, CrossSeq2::FREQ_INPUT));
+		addInput(createInput<CL1362Port>(Vec(36, 262), module, CrossSeq2::SYNC_INPUT));
+		addInput(createInput<CL1362Port>(Vec(36,  39) , module, CrossSeq2::RATE1_INPUT));
+		addInput(createInput<CL1362Port>(Vec(154, 39) , module, CrossSeq2::RATE2_INPUT));
+		addInput(createInput<CL1362Port>(Vec(36,  76), module, CrossSeq2::AMT1_INPUT));
+		addInput(createInput<CL1362Port>(Vec(154, 76), module, CrossSeq2::AMT2_INPUT));
+		addInput(createInput<CL1362Port>(Vec(36,  117), module, CrossSeq2::SHAPE1_INPUT));
+		addInput(createInput<CL1362Port>(Vec(154, 117), module, CrossSeq2::SHAPE2_INPUT));
+		
+		addOutput(createOutput<CL1362Port>(Vec(23,    325), module, CrossSeq2::TRIG_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(72,    325), module, CrossSeq2::LFO1_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(120,   325), module, CrossSeq2::LFO2_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(169,   325), module, CrossSeq2::DIFF_OUTPUT));
 
 	}
 };

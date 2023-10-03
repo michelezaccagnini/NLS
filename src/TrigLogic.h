@@ -7,6 +7,11 @@
 #include "vultin.h"
 #include "TrigLogic.tables.h"
 
+typedef struct _tuple___real_real__ {
+   float field_0;
+   float field_1;
+} _tuple___real_real__;
+
 typedef struct TrigLogic__ctx_type_0 {
    float pre;
 } TrigLogic__ctx_type_0;
@@ -51,13 +56,15 @@ static_inline void TrigLogic_logic_init(TrigLogic__ctx_type_2 &_output_){
    return ;
 }
 
-uint8_t TrigLogic_logic(TrigLogic__ctx_type_2 &_ctx, float x1, float x2, uint8_t type1, uint8_t type2, uint8_t s1, uint8_t s2, uint8_t andOr, uint8_t inv);
+uint8_t TrigLogic_logic(TrigLogic__ctx_type_2 &_ctx, float x1, float x2, uint8_t type1, uint8_t type2, uint8_t s1, uint8_t s2, uint8_t andOr);
 
 typedef struct TrigLogic__ctx_type_3 {
    uint8_t type2;
    uint8_t type1;
    uint8_t s2;
    uint8_t s1;
+   float process_ret_1;
+   float process_ret_0;
    uint8_t inv;
    uint8_t andOr;
    TrigLogic__ctx_type_2 _inst129;
@@ -72,7 +79,29 @@ static_inline void TrigLogic_process_init(TrigLogic__ctx_type_3 &_output_){
    return ;
 }
 
-float TrigLogic_process(TrigLogic__ctx_type_3 &_ctx, float trig, float lfo1, float lfo2);
+void TrigLogic_process(TrigLogic__ctx_type_3 &_ctx, float trig, float lfo1, float lfo2);
+
+typedef TrigLogic__ctx_type_3 TrigLogic_process_ret_0_type;
+
+static_inline void TrigLogic_process_ret_0_init(TrigLogic__ctx_type_3 &_output_){
+   TrigLogic__ctx_type_3_init(_output_);
+   return ;
+}
+
+static_inline float TrigLogic_process_ret_0(TrigLogic__ctx_type_3 &_ctx){
+   return _ctx.process_ret_0;
+};
+
+typedef TrigLogic__ctx_type_3 TrigLogic_process_ret_1_type;
+
+static_inline void TrigLogic_process_ret_1_init(TrigLogic__ctx_type_3 &_output_){
+   TrigLogic__ctx_type_3_init(_output_);
+   return ;
+}
+
+static_inline float TrigLogic_process_ret_1(TrigLogic__ctx_type_3 &_ctx){
+   return _ctx.process_ret_1;
+};
 
 typedef TrigLogic__ctx_type_3 TrigLogic_setType1_type;
 

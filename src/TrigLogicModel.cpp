@@ -21,6 +21,7 @@ struct TrigLogic : Module {
 	};
 	enum OutputId {
 		TRIG_OUTPUT,
+		INVTRIG_OUTPUT,
 		OUTPUTS_LEN
 	};
 	TrigLogic_process_type processor;
@@ -36,7 +37,8 @@ struct TrigLogic : Module {
 		configInput(TRIG_INPUT, "trig");
 		configInput(LFO1_INPUT, "lfo1");
 		configInput(LFO2_INPUT, "lof2");
-		configOutput(TRIG_OUTPUT, "trig");
+		configOutput(TRIG_OUTPUT, "parsed trig");
+		configOutput(INVTRIG_OUTPUT, "inverted trig");
 
 	}
 	TrigLogic_process_init();
@@ -51,10 +53,13 @@ struct TrigLogic : Module {
         float trig = inputs[TRIG_INPUT].value;
         float lfo1 = inputs[LFO1_INPUT].value;
         float lfo2 = inputs[LFO2_INPUT].value;
-		float t = TrigLogic_process(processor,trig,lfo1,lfo2);
+		TrigLogic_process(processor,trig,lfo1,lfo2);
+		float tr = TrigLogic_process_ret_0(processor);
+		float invtr = TrigLogic_process_ret_1(processor);
 		// Audio signals are typically +/-5V
 		// https://vcvrack.com/manual/VoltageStandards
-		outputs[TRIG_OUTPUT].setVoltage(10.f * t);
+		outputs[TRIG_OUTPUT].setVoltage(10.f * tr);
+		outputs[INVTRIG_OUTPUT].setVoltage(10.f * invtr);
 		
 	}
 };
@@ -78,8 +83,9 @@ struct TrigLogicWidget : ModuleWidget {
 		addParam(createParamCentered<BefacoSwitch>(Vec(19, 155), module, TrigLogic::UP1_SWITCH));
 		addParam(createParamCentered<BefacoSwitch>(Vec(98, 155), module, TrigLogic::UP2_SWITCH));
 		addParam(createParamCentered<BefacoSwitch>(Vec(59, 195), module, TrigLogic::OP_SWITCH));
-		addParam(createParamCentered<BefacoSwitch>(Vec(23, 332), module, TrigLogic::INV_SWITCH));
+		//addParam(createParamCentered<BefacoSwitch>(Vec(23, 332), module, TrigLogic::INV_SWITCH));
 		addOutput(createOutput<CL1362Port>(Vec(80, 316), module, TrigLogic::TRIG_OUTPUT));
+		addOutput(createOutput<CL1362Port>(Vec(8, 316), module, TrigLogic::INVTRIG_OUTPUT));
 
 	}
 };

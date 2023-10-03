@@ -7,7 +7,7 @@ using namespace rack;
 // Declare the Plugin, defined in plugin.cpp
 extern Plugin* pluginInstance;
 extern Model* modelCrossSeq2;
-extern Model* modelTrigEnv;
+extern Model* modelTrigGate;
 extern Model* modelCrossSeq3;
 extern Model* modelTrigLogic;
 // Declare each Model, defined in each module source file

@@ -1,0 +1,54 @@
+fun edge(x:bool) : bool {
+   mem pre;
+   val ret = x && not(pre);
+   pre = x;
+   return ret;
+}
+
+
+fun trig2gate (trig: real, len: real, st:real) : real{
+    mem dur : real;
+    mem state;
+    val bgate = trig > 0.0;
+    if(state == 0){
+        if(edge(bgate)){
+            state = 1;
+            dur = dur + st;
+        }
+    }
+    if(state == 1){
+        if(dur < len   ){
+            dur = dur + st;
+        }
+        if(edge(bgate)){
+            dur  = 0.0;
+        }
+        if( dur > len  ) {
+            state = 0;
+            dur = 0.0;
+        }
+            
+    }
+    return if state == 1 then 1.0 else 0.0;
+}
+
+fun process(trig1:real,trig2:real, st){
+    mem gateLen1;
+    mem gateLen2;
+    val gate1 = trig2gate(trig1, gateLen1, st); 
+    val gate2 = trig2gate(trig2, gateLen2, st); 
+    return gate1, gate2; 
+}
+and setGateLen1(value:real){
+    gateLen1 = value;
+}
+and setGateLen2(value:real){
+    gateLen2 = value;
+}
+
+
+// Called on initialization to define initial values
+and default(){
+   mem gateLen1 = 0.2;
+   mem gateLen2 = 0.2;
+}
