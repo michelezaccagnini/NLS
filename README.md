@@ -21,7 +21,8 @@ XSeq2 and XSeq3 are capable of producing multiple CVs aside from the triggers an
 ![XSeq2](https://github.com/michelezaccagnini/NLS/blob/main/Images/cross2New.jpg)
 
 ![XSeq3](https://github.com/michelezaccagnini/NLS/blob/main/Images/cross3New.jpg)
-Amt, shape and rate params are added to inputs
+
+Amount, shape and rate params are added to inputs and scaled by CV input knob
 2x:
 - sync: LFOs phase reset
 - frequency: overall frequency of LFOs
