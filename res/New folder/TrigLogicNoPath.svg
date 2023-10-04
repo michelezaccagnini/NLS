@@ -28,9 +28,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="1.829812"
-     inkscape:cx="193.18925"
-     inkscape:cy="195.64851"
+     inkscape:zoom="1.2938725"
+     inkscape:cx="158.82554"
+     inkscape:cy="196.30992"
      inkscape:window-width="3440"
      inkscape:window-height="1369"
      inkscape:window-x="-8"
@@ -790,15 +790,10 @@
        y="39.760151"
        id="text4099"><tspan
          sodipodi:role="line"
-         id="tspan4097"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88056px;font-family:'Franklin Gothic Demi';-inkscape-font-specification:'Franklin Gothic Demi';text-align:center;text-anchor:middle;stroke-width:0.264583"
          x="15.115941"
-         y="39.760151">up</tspan><tspan
-         sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88056px;font-family:'Franklin Gothic Demi';-inkscape-font-specification:'Franklin Gothic Demi';text-align:center;text-anchor:middle;stroke-width:0.264583"
-         x="15.115941"
-         y="44.610851"
-         id="tspan9392">down</tspan></text>
+         y="39.760151"
+         id="tspan9392">- / 0 / +</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.88056px;font-family:'Franklin Gothic Demi';-inkscape-font-specification:'Franklin Gothic Demi';text-align:center;text-anchor:middle;opacity:0.58;fill:#800000;stroke-width:0.264583"

@@ -58,4 +58,3 @@ Amount, shape and rate params are added to inputs and scaled by CV input knob
 - knob : gate length (seconds)
 - out : gate
 
-

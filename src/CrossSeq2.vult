@@ -66,41 +66,41 @@ fun process(sampleTime:real){
    val diff = (lfo1 - lfo2)  / (amt1 + amt2);
    return trig, lfo1 / amt1, lfo2 / amt2, diff ; 
 }
-and setFreq(knob, input){
+and setFreq(knob:real, input:real){
    freq = knob + input;
 }
-and setSync(value){
+and setSync(value:real){
    sync = value;
 }
-and setRate1(knob, input, phaseKnob){
+and setRate1(knob:real, input:real, phaseKnob:real){
    rate1 = knob + input + phaseKnob;
 }
-and setRate2(knob, input, phaseKnob){
+and setRate2(knob:real, input:real, phaseKnob:real){
    rate2 = knob + input + phaseKnob;
 }
-and setAmt1(knob, input){
+and setAmt1(knob:real, input:real){
    amt1 = knob + input;
 }
-and setAmt2(knob, input){
+and setAmt2(knob:real, input:real){
    amt2 = knob + input;
 }
-and setShape1(knob, input){
+and setShape1(knob:real, input:real){
    shape1 = knob + input;
 }
-and setShape2(knob, input){
+and setShape2(knob:real, input:real){
    shape2 = knob + input;
 }
-and setPw1(knob){
+and setPw1(knob:real){
    pw1 = knob * 2. - 1.;
 }
-and setPw2(knob){
+and setPw2(knob:real){
    pw2 = knob * 2. - 1.;
 }
 
 
 // Called on initialization to define initial values
 and default(){
-   mem freqK = 1.0;
+   mem freq = 1.0;
    mem sync = 0.0;
    mem rate1 = 1.0;
    mem rate2 = 1.0;

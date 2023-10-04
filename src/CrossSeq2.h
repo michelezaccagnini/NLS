@@ -138,7 +138,6 @@ typedef struct CrossSeq2__ctx_type_6 {
    float process_ret_0;
    float phase2;
    float phase1;
-   float freqK;
    float freq;
    float amt2;
    float amt1;

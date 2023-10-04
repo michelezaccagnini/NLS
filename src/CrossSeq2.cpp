@@ -112,7 +112,6 @@ void CrossSeq2__ctx_type_6_init(CrossSeq2__ctx_type_6 &_output_){
    _ctx.process_ret_0 = 0.0f;
    _ctx.phase2 = 0.0f;
    _ctx.phase1 = 0.0f;
-   _ctx.freqK = 0.0f;
    _ctx.freq = 0.0f;
    _ctx.amt2 = 0.0f;
    _ctx.amt1 = 0.0f;
@@ -142,7 +141,7 @@ void CrossSeq2_process(CrossSeq2__ctx_type_6 &_ctx, float sampleTime){
 }
 
 void CrossSeq2_default(CrossSeq2__ctx_type_6 &_ctx){
-   _ctx.freqK = 1.f;
+   _ctx.freq = 1.f;
    _ctx.sync = 0.0f;
    _ctx.rate1 = 1.f;
    _ctx.rate2 = 1.f;
