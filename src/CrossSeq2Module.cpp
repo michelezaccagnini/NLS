@@ -70,14 +70,14 @@ struct CrossSeq2 : Module {
 		configInput(SHAPE1_INPUT, "shape1 input");
 		configInput(SHAPE2_INPUT, "shape2 input");
 		configInput(AMT1_INPUT, "amt1 input");
-		configInput(AMT2_INPUT, "amtt2 input");
+		configInput(AMT2_INPUT, "amt2 input");
 		configInput(SYNC_INPUT, "sync input");
 		configOutput(TRIG_OUTPUT, "trig");
 		configOutput(LFO1_OUTPUT, "lfo1");
 		configOutput(LFO2_OUTPUT, "lfo2");
 		configOutput(DIFF_OUTPUT, "diff");
 	}
-	CrossSeq2_process_init();
+	//CrossSeq2_process_init();
 
 	void process(const ProcessArgs& args) override {
 		CrossSeq2_setFreq(processor, params[FREQ_PARAM].value, inputs[FREQ_INPUT].value);
