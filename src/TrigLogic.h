@@ -33,6 +33,7 @@ static_inline void TrigLogic_direction_init(TrigLogic__ctx_type_0 &_output_){
 static_inline uint8_t TrigLogic_direction(TrigLogic__ctx_type_0 &_ctx, float x){
    uint8_t ret;
    ret = ((x + (- _ctx.pre)) > 0.0f);
+   _ctx.pre = x;
    return ret;
 }
 

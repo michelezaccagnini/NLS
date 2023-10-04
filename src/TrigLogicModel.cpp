@@ -10,7 +10,6 @@ struct TrigLogic : Module {
 		UP1_SWITCH,
 		UP2_SWITCH,
 		OP_SWITCH,
-		INV_SWITCH,
 		PARAMS_LEN
 	};
 	enum InputId {
@@ -30,10 +29,9 @@ struct TrigLogic : Module {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN);
 		configSwitch(TYPE1_SWITCH, 0.0f, 1.0f, 1.0f, "dir/sign1", {"dir", "sign"});
 		configSwitch(TYPE2_SWITCH, 0.0f, 1.0f, 1.0f, "dir/sign2", {"dir", "sign"});
-		configSwitch(UP1_SWITCH, 0.0f, 1.0f, 1.0f, "up/down1", {"up", "down"});
-		configSwitch(UP2_SWITCH, 0.0f, 1.0f, 1.0f, "up/down2", {"up", "down"});
-		configSwitch(OP_SWITCH, 0.0f, 1.0f, 1.0f, "and/or", {"and", "or"});
-		configSwitch(INV_SWITCH, 0.0f, 1.0f, 1.0f, "invert", {"not_invert", "invert"});
+		configSwitch(UP1_SWITCH, 0.0f, 1.0f, 1.0f, "up/down1", {"down","up"});
+		configSwitch(UP2_SWITCH, 0.0f, 1.0f, 1.0f, "up/down2", {"down","up"});
+		configSwitch(OP_SWITCH, 0.0f, 1.0f, 0.0f, "and/or", {"or", "and"});
 		configInput(TRIG_INPUT, "trig");
 		configInput(LFO1_INPUT, "lfo1");
 		configInput(LFO2_INPUT, "lof2");
@@ -45,11 +43,10 @@ struct TrigLogic : Module {
 
 	void process(const ProcessArgs& args) override {
 		TrigLogic_setType1(processor, params[TYPE1_SWITCH].value);
-		TrigLogic_setType1(processor, params[TYPE2_SWITCH].value);
+		TrigLogic_setType2(processor, params[TYPE2_SWITCH].value);
 		TrigLogic_setS1(processor, params[UP1_SWITCH].value);
 		TrigLogic_setS2(processor, params[UP2_SWITCH].value);
 		TrigLogic_setAndOr(processor, params[OP_SWITCH].value);
-		TrigLogic_setInv(processor, params[INV_SWITCH].value);
         float trig = inputs[TRIG_INPUT].value;
         float lfo1 = inputs[LFO1_INPUT].value;
         float lfo2 = inputs[LFO2_INPUT].value;
