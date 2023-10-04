@@ -13,7 +13,7 @@ Both modules rely on a master frequency (knob and input) of with relative LFOs r
 
 ## CONCEPT
 The concept of NLS is borne of the idea of harnessing the generating variables of a sequencer in real time and mapping them at will, integrating rhythmic and sound generation at their core.
-XSeq2 and XSeq3 are capable of producing multiple CVs aside from the triggers and each of these CVs will be fucntionally connected with, and organic to, the genartion of patterns. In particular, the difference CV is a sort of predictive envelope that inevitably reaches 0 when the trigger happens.
+XSeq2 and XSeq3 are capable of producing multiple CVs aside from the triggers and each of these CVs will be functionally connected with, and organic to, the genartion of patterns. In particular, the difference CV is a sort of predictive envelope that inevitably reaches 0 when the trigger happens.
 
 
 ### XSeq2 - XSeq3: Inputs & Params
