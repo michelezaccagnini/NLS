@@ -2,11 +2,11 @@
 
 ## General description
 Nonlinear Sequncer is a collection of objects to generate triggers and CVs based on nonlinear functions, initially developed in Cycling74 Max8 and partially implemented in VCV.
-In the current VCV version two main modules are present: CrossSeq2, CrossSeq3, TrigGate and TrigLogic. 
+In the current VCV version two main modules are present: XSeq2, XSeq3, TrigGate and TrigLogic. 
 - XSeq2 :  generates triggers at the intersection of two LFOs of variable shape, amplitude, rate, phase and duty cycle (rectangular shapes)
 In XSeq2 only one set of triggers is output as well as the LFO curves and the difference between the curves (which will be 0 when a trigger is generated).
-- XSeq3 is an expanded version of XSeq2 that detects intersection of 3 LFOs producing 4 sets of triggers (1-2, 1-3, 2-3, 1-2-3), 4 differences and 3 LFOs.
-In both modules there is a master frequency knob and input.
+- XSeq3 is an expanded version of XSeq2 that detects intersections of 3 LFOs producing 4 sets of triggers (1-2, 1-3, 2-3, 1-2-3), 4 differences and 3 LFOs.
+Both modules rely on a master frequency (knob and input) of with relative LFOs rates.
 - TrigGate: Turns triggers into gate of variable lengths.
 - TrigLogic: parses triggers based on two signals (usually LFOs) letting through triggers according to logic tests on the signals
 
