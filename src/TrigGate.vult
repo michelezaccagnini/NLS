@@ -32,7 +32,7 @@ fun trig2gate (trig: real, len: real, st:real) : real{
     return if state == 1 then 1.0 else 0.0;
 }
 
-fun process(trig1:real,trig2:real, st){
+fun process(trig1:real,trig2:real, st:real){
     mem gateLen1;
     mem gateLen2;
     val gate1 = trig2gate(trig1, gateLen1, st); 
