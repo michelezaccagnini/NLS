@@ -30,18 +30,9 @@ static_inline void TrigLogic_direction_init(TrigLogic__ctx_type_0 &_output_){
    return ;
 }
 
-static_inline uint8_t TrigLogic_direction(TrigLogic__ctx_type_0 &_ctx, float x){
-   uint8_t ret;
-   ret = ((x + (- _ctx.pre)) > 0.0f);
-   _ctx.pre = x;
-   return ret;
-}
+int TrigLogic_direction(TrigLogic__ctx_type_0 &_ctx, float x);
 
-static_inline uint8_t TrigLogic_sign(float x){
-   uint8_t ret;
-   ret = (x > 0.0f);
-   return ret;
-}
+int TrigLogic_sign(float x);
 
 typedef struct TrigLogic__ctx_type_2 {
    TrigLogic__ctx_type_0 _inst2b9;
@@ -57,13 +48,13 @@ static_inline void TrigLogic_logic_init(TrigLogic__ctx_type_2 &_output_){
    return ;
 }
 
-uint8_t TrigLogic_logic(TrigLogic__ctx_type_2 &_ctx, float x1, float x2, uint8_t type1, uint8_t type2, uint8_t s1, uint8_t s2, uint8_t andOr);
+uint8_t TrigLogic_logic(TrigLogic__ctx_type_2 &_ctx, float x1, float x2, uint8_t type1, uint8_t type2, int s1, int s2, uint8_t andOr);
 
 typedef struct TrigLogic__ctx_type_3 {
    uint8_t type2;
    uint8_t type1;
-   uint8_t s2;
-   uint8_t s1;
+   int s2;
+   int s1;
    float process_ret_1;
    float process_ret_0;
    uint8_t inv;
@@ -133,8 +124,8 @@ static_inline void TrigLogic_setS1_init(TrigLogic__ctx_type_3 &_output_){
    return ;
 }
 
-static_inline void TrigLogic_setS1(TrigLogic__ctx_type_3 &_ctx, float value){
-   _ctx.s1 = (value > 0.0f);
+static_inline void TrigLogic_setS1(TrigLogic__ctx_type_3 &_ctx, int value){
+   _ctx.s1 = value;
 };
 
 typedef TrigLogic__ctx_type_3 TrigLogic_setS2_type;
@@ -144,8 +135,8 @@ static_inline void TrigLogic_setS2_init(TrigLogic__ctx_type_3 &_output_){
    return ;
 }
 
-static_inline void TrigLogic_setS2(TrigLogic__ctx_type_3 &_ctx, float value){
-   _ctx.s2 = (value > 0.0f);
+static_inline void TrigLogic_setS2(TrigLogic__ctx_type_3 &_ctx, int value){
+   _ctx.s2 = value;
 };
 
 typedef TrigLogic__ctx_type_3 TrigLogic_setAndOr_type;

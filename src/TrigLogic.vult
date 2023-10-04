@@ -1,20 +1,24 @@
-fun direction(x){
+fun direction(x):int{
     mem pre;
-    val ret = x - pre > 0.0;
+    val dir = x - pre;
+    val ret = if dir > 0.0 then 1 else if dir < 0.0 then -1 else 0;
     pre = x;
     return ret;
 }
-fun sign(x){
-    val ret = x > 0.0;
+fun sign(x):int{
+    val ret = if x > 0.0 then 1 else if x < 0.0 then -1 else 0;
     return ret;
 }
 
-fun logic(x1, x2, type1, type2, s1, s2, andOr){
-    val res1,res2;
-    res1 = if type1 then direction(x1) else sign(x1);
-    res2 = if type2 then direction(x2) else sign(x2);
-    res1 = if s1 then res1 else not(res1);
-    res2 = if s2 then res2 else not(res2);
+fun logic(x1, x2, type1, type2, s1, s2, andOr):bool{
+    val res1:bool;
+    val res2:bool; 
+    val tmp1:int;
+    val tmp2:int;
+    tmp1 = if type1 then direction(x1) else sign(x1);
+    tmp2 = if type2 then direction(x2) else sign(x2);
+    res1 = s1==tmp1;
+    res2 = s2==tmp2;
     val ret = if andOr then (res1 && res2) else (res1 || res2);
     return ret; 
 }
@@ -24,8 +28,8 @@ fun logic(x1, x2, type1, type2, s1, s2, andOr){
 fun process(trig, lfo1, lfo2){
     mem type1:bool;
     mem type2:bool;
-    mem s1:bool;
-    mem s2:bool;
+    mem s1:int;
+    mem s2:int;
     mem andOr:bool;
     mem inv:bool;
     val l = logic(lfo1, lfo2, type1, type2, s1, s2, andOr);
@@ -41,11 +45,11 @@ and setType1(value){
 and setType2(value){
     type2 = value > 0.0;
 }
-and setS1(value){
-    s1 = value > 0.0;
+and setS1(value:int){
+    s1 = value;
 }
-and setS2(value){
-    s2 = value > 0.0;
+and setS2(value:int){
+    s2 = value;
 }
 and setAndOr(value){
     andOr = value > 0.0;
@@ -56,8 +60,8 @@ and setInv(value){
 and default(){
     mem type1 = true;
     mem type2 = true;
-    mem s1 = true;
-    mem s2 = true;
+    mem s1 = 1;
+    mem s2 = 1;
     mem andOr = true;
     mem inv = false;
 }

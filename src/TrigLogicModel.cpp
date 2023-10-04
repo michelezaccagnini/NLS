@@ -7,8 +7,8 @@ struct TrigLogic : Module {
 	enum ParamId {
 		TYPE1_SWITCH,
 		TYPE2_SWITCH,
-		UP1_SWITCH,
-		UP2_SWITCH,
+		SIGN1_PARAM,
+		SIGN2_PARAM,
 		OP_SWITCH,
 		PARAMS_LEN
 	};
@@ -27,10 +27,12 @@ struct TrigLogic : Module {
 
 	TrigLogic() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN);
-		configSwitch(TYPE1_SWITCH, 0.0f, 1.0f, 1.0f, "dir/sign1", {"dir", "sign"});
-		configSwitch(TYPE2_SWITCH, 0.0f, 1.0f, 1.0f, "dir/sign2", {"dir", "sign"});
-		configSwitch(UP1_SWITCH, 0.0f, 1.0f, 1.0f, "up/down1", {"down","up"});
-		configSwitch(UP2_SWITCH, 0.0f, 1.0f, 1.0f, "up/down2", {"down","up"});
+		configSwitch(TYPE1_SWITCH, 0.0f, 1.0f, 1.0f, "dir/sign1", { "sign", "dir",});
+		configSwitch(TYPE2_SWITCH, 0.0f, 1.0f, 1.0f, "dir/sign2", {"sign","dir"});
+		configParam(SIGN1_PARAM, -1, 1, 0, "up/zero/down");
+		paramQuantities[SIGN1_PARAM]->snapEnabled = true;
+		configParam(SIGN2_PARAM, -1, 1, 0, "up/zero/down");
+		paramQuantities[SIGN2_PARAM]->snapEnabled = true;
 		configSwitch(OP_SWITCH, 0.0f, 1.0f, 0.0f, "and/or", {"or", "and"});
 		configInput(TRIG_INPUT, "trig");
 		configInput(LFO1_INPUT, "lfo1");
@@ -44,8 +46,8 @@ struct TrigLogic : Module {
 	void process(const ProcessArgs& args) override {
 		TrigLogic_setType1(processor, params[TYPE1_SWITCH].value);
 		TrigLogic_setType2(processor, params[TYPE2_SWITCH].value);
-		TrigLogic_setS1(processor, params[UP1_SWITCH].value);
-		TrigLogic_setS2(processor, params[UP2_SWITCH].value);
+		TrigLogic_setS1(processor, params[SIGN1_PARAM].value);
+		TrigLogic_setS2(processor, params[SIGN2_PARAM].value);
 		TrigLogic_setAndOr(processor, params[OP_SWITCH].value);
         float trig = inputs[TRIG_INPUT].value;
         float lfo1 = inputs[LFO1_INPUT].value;
@@ -77,8 +79,8 @@ struct TrigLogicWidget : ModuleWidget {
 		addInput(createInput<CL1362Port>(Vec(77, 54), module, TrigLogic::LFO2_INPUT));
 		addParam(createParamCentered<BefacoSwitch>(Vec(19, 112), module, TrigLogic::TYPE1_SWITCH));
 		addParam(createParamCentered<BefacoSwitch>(Vec(98, 112), module, TrigLogic::TYPE2_SWITCH));
-		addParam(createParamCentered<BefacoSwitch>(Vec(19, 155), module, TrigLogic::UP1_SWITCH));
-		addParam(createParamCentered<BefacoSwitch>(Vec(98, 155), module, TrigLogic::UP2_SWITCH));
+		addParam(createParamCentered<BefacoTinyKnob>(Vec(19, 155), module, TrigLogic::SIGN1_PARAM));
+		addParam(createParamCentered<BefacoTinyKnob>(Vec(98, 155), module, TrigLogic::SIGN2_PARAM));
 		addParam(createParamCentered<BefacoSwitch>(Vec(59, 195), module, TrigLogic::OP_SWITCH));
 		//addParam(createParamCentered<BefacoSwitch>(Vec(23, 332), module, TrigLogic::INV_SWITCH));
 		addOutput(createOutput<CL1362Port>(Vec(80, 316), module, TrigLogic::TRIG_OUTPUT));
