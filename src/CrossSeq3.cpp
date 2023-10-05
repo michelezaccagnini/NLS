@@ -26,56 +26,63 @@ float CrossSeq3_soft(CrossSeq3__ctx_type_0 &_ctx, float x1){
    return o;
 }
 
-void CrossSeq3__ctx_type_4_init(CrossSeq3__ctx_type_4 &_output_){
-   CrossSeq3__ctx_type_4 _ctx;
+void CrossSeq3__ctx_type_5_init(CrossSeq3__ctx_type_5 &_output_){
+   CrossSeq3__ctx_type_5 _ctx;
    _ctx.rate = 0.0f;
    _ctx.phase = 0.0f;
-   CrossSeq3__ctx_type_0_init(_ctx._inst523);
-   CrossSeq3__ctx_type_1_init(_ctx._inst378);
+   _ctx.o = 0.0f;
+   CrossSeq3__ctx_type_0_init(_ctx._inst823);
+   CrossSeq3__ctx_type_1_init(_ctx._inst578);
+   CrossSeq3__ctx_type_3_init(_ctx._inst3b5);
    CrossSeq3__ctx_type_2_init(_ctx._inst1b9);
    _output_ = _ctx;
    return ;
 }
 
-float CrossSeq3_lfo_interp(CrossSeq3__ctx_type_4 &_ctx, float cv, float shape, float amt, float pw, float reset, float sampleTime){
+float CrossSeq3_lfo_interp(CrossSeq3__ctx_type_5 &_ctx, float cv, float shape, float amt, float pw, float reset, float sampleTime){
    if(CrossSeq3_change(_ctx._inst1b9,cv)){
       _ctx.rate = (cv * sampleTime);
    }
-   _ctx.phase = (_ctx.phase + _ctx.rate);
+   uint8_t update;
+   update = CrossSeq3_each(_ctx._inst3b5,8);
+   if(update){
+      _ctx.phase = (_ctx.phase + _ctx.rate);
+   }
    if(_ctx.phase > 2.f){
       _ctx.phase = (-2.f + _ctx.phase);
    }
    uint8_t breset;
    breset = (reset > 0.0f);
-   if(CrossSeq3_edge(_ctx._inst378,breset)){
+   if(CrossSeq3_edge(_ctx._inst578,breset)){
       _ctx.phase = 0.0f;
    }
    float tmp;
    tmp = (-1.f + _ctx.phase);
-   float o;
-   if(shape < 1.f){
-      o = (amt * CrossSeq3_lerp(sinf((3.14159265359f * _ctx.phase)),(-1.f + (2.f * fabsf(tmp))),fmodf(shape,1.f)));
-   }
-   else
-   {
-      if(shape < 2.f){
-         o = (amt * CrossSeq3_lerp((-1.f + (2.f * fabsf(tmp))),tmp,fmodf(shape,1.f)));
+   if(update){
+      if(shape < 1.f){
+         _ctx.o = (amt * CrossSeq3_lerp(sinf((3.14159265359f * _ctx.phase)),(-1.f + (2.f * fabsf(tmp))),fmodf(shape,1.f)));
       }
       else
       {
-         if(shape < 3.f){
-            o = (amt * CrossSeq3_lerp(tmp,((tmp > pw)?1.f:-1.f),fmodf(shape,1.f)));
+         if(shape < 2.f){
+            _ctx.o = (amt * CrossSeq3_lerp((-1.f + (2.f * fabsf(tmp))),tmp,fmodf(shape,1.f)));
          }
          else
          {
-            o = (amt * ((tmp > pw)?1.f:-1.f));
+            if(shape < 3.f){
+               _ctx.o = (amt * CrossSeq3_lerp(tmp,((tmp > pw)?1.f:-1.f),fmodf(shape,1.f)));
+            }
+            else
+            {
+               _ctx.o = (amt * ((tmp > pw)?1.f:-1.f));
+            }
          }
       }
    }
-   return CrossSeq3_soft(_ctx._inst523,o);
+   return CrossSeq3_soft(_ctx._inst823,_ctx.o);
 }
 
-float CrossSeq3_cross_detect(CrossSeq3__ctx_type_5 &_ctx, float a, float b){
+float CrossSeq3_cross_detect(CrossSeq3__ctx_type_6 &_ctx, float a, float b){
    float diff;
    diff = (a + (- b));
    float sign;
@@ -117,8 +124,8 @@ float CrossSeq3_cross_detect3(float a, float b, float c){
    return ret;
 }
 
-void CrossSeq3__ctx_type_7_init(CrossSeq3__ctx_type_7 &_output_){
-   CrossSeq3__ctx_type_7 _ctx;
+void CrossSeq3__ctx_type_8_init(CrossSeq3__ctx_type_8 &_output_){
+   CrossSeq3__ctx_type_8 _ctx;
    _ctx.sync = 0.0f;
    _ctx.shape3 = 0.0f;
    _ctx.shape2 = 0.0f;
@@ -148,17 +155,17 @@ void CrossSeq3__ctx_type_7_init(CrossSeq3__ctx_type_7 &_output_){
    _ctx.amt3 = 0.0f;
    _ctx.amt2 = 0.0f;
    _ctx.amt1 = 0.0f;
-   CrossSeq3__ctx_type_5_init(_ctx._inst6c3);
-   CrossSeq3__ctx_type_5_init(_ctx._inst5c3);
-   CrossSeq3__ctx_type_5_init(_ctx._inst4c3);
-   CrossSeq3__ctx_type_4_init(_ctx._inst32f);
-   CrossSeq3__ctx_type_4_init(_ctx._inst22f);
-   CrossSeq3__ctx_type_4_init(_ctx._inst12f);
+   CrossSeq3__ctx_type_6_init(_ctx._inst6c3);
+   CrossSeq3__ctx_type_6_init(_ctx._inst5c3);
+   CrossSeq3__ctx_type_6_init(_ctx._inst4c3);
+   CrossSeq3__ctx_type_5_init(_ctx._inst32f);
+   CrossSeq3__ctx_type_5_init(_ctx._inst22f);
+   CrossSeq3__ctx_type_5_init(_ctx._inst12f);
    _output_ = _ctx;
    return ;
 }
 
-void CrossSeq3_process(CrossSeq3__ctx_type_7 &_ctx, float sampleTime){
+void CrossSeq3_process(CrossSeq3__ctx_type_8 &_ctx, float sampleTime){
    float lfo1;
    lfo1 = CrossSeq3_lfo_interp(_ctx._inst12f,(_ctx.freq * _ctx.rate1),_ctx.shape1,_ctx.amt1,_ctx.pw1,_ctx.sync,sampleTime);
    float lfo2;
@@ -198,7 +205,7 @@ void CrossSeq3_process(CrossSeq3__ctx_type_7 &_ctx, float sampleTime){
    return ;
 }
 
-void CrossSeq3_default(CrossSeq3__ctx_type_7 &_ctx){
+void CrossSeq3_default(CrossSeq3__ctx_type_8 &_ctx){
    _ctx.freqK = 1.f;
    _ctx.sync = 0.0f;
    _ctx.rate1 = 1.f;

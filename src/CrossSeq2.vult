@@ -6,13 +6,6 @@ fun soft(x1) {
    return o;
 }
 
-fun edge(x:bool) : bool {
-   mem pre;
-   val ret = x && not(pre);
-   pre = x;
-   return ret;
-}
-
 fun change(x:real):bool {
     mem pre_x;
     val v:bool = pre_x <> x;
@@ -20,6 +13,20 @@ fun change(x:real):bool {
     return v;
 }
 
+fun edge(x:bool) : bool {
+   mem pre;
+   val ret = x && not(pre);
+   pre = x;
+   return ret;
+}
+
+// Returns true every 'n' calls
+fun each(n){
+   mem count;
+   val ret = (count == 0);
+   count = (count + 1) % n;
+   return ret;
+}
 
 fun lerp(a,b,i){
 
@@ -28,23 +35,28 @@ fun lerp(a,b,i){
 
 fun lfo_interp(cv, shape, amt, pw, reset, sampleTime) {
    mem rate; 
+   mem phase;
+   mem o;
    if(change(cv))
       rate = cv * sampleTime;
-   mem phase = phase + rate;
+   val update = each(8); 
+   if(update)
+      phase = phase + rate;
    phase = if phase > 2.0 then phase - 2.0 else phase;
    val breset = reset > 0.0;
    if(edge(breset))
       phase = 0.0;
    val tmp = phase - 1.0;
-   val o =
-      if shape < 1.0 then 
-         lerp((sin(phase*3.141592653589793)),(abs(tmp) * 2.0 - 1.0),shape % 1.0)*amt
-      else if shape < 2.0 then
-         lerp((abs(tmp) * 2.0 - 1.0), tmp, shape % 1.0)*amt
-      else if shape < 3.0 then 
-         lerp(tmp, (if tmp > pw then 1.0 else -1.0), shape % 1.0)*amt
-      else
-         (if tmp > pw then 1.0 else -1.0)*amt;
+   if(update)
+      o =
+         if shape < 1.0 then 
+            lerp((sin(phase*3.141592653589793)),(abs(tmp) * 2.0 - 1.0),shape % 1.0)*amt
+         else if shape < 2.0 then
+            lerp((abs(tmp) * 2.0 - 1.0), tmp, shape % 1.0)*amt
+         else if shape < 3.0 then 
+            lerp(tmp, (if tmp > pw then 1.0 else -1.0), shape % 1.0)*amt
+         else
+            (if tmp > pw then 1.0 else -1.0)*amt;
    return soft(o);
 }
 
@@ -99,7 +111,7 @@ and setPw2(knob:real){
 
 
 // Called on initialization to define initial values
-and default(){
+and default() @[init]{
    mem freq = 1.0;
    mem sync = 0.0;
    mem rate1 = 1.0;

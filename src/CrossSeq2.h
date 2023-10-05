@@ -32,99 +32,126 @@ static_inline void CrossSeq2_soft_init(CrossSeq2__ctx_type_0 &_output_){
 float CrossSeq2_soft(CrossSeq2__ctx_type_0 &_ctx, float x1);
 
 typedef struct CrossSeq2__ctx_type_1 {
-   uint8_t pre;
+   float pre_x;
 } CrossSeq2__ctx_type_1;
 
-typedef CrossSeq2__ctx_type_1 CrossSeq2_edge_type;
+typedef CrossSeq2__ctx_type_1 CrossSeq2_change_type;
 
 static_inline void CrossSeq2__ctx_type_1_init(CrossSeq2__ctx_type_1 &_output_){
    CrossSeq2__ctx_type_1 _ctx;
-   _ctx.pre = false;
-   _output_ = _ctx;
-   return ;
-}
-
-static_inline void CrossSeq2_edge_init(CrossSeq2__ctx_type_1 &_output_){
-   CrossSeq2__ctx_type_1_init(_output_);
-   return ;
-}
-
-static_inline uint8_t CrossSeq2_edge(CrossSeq2__ctx_type_1 &_ctx, uint8_t x){
-   uint8_t ret;
-   ret = (x && bool_not(_ctx.pre));
-   _ctx.pre = x;
-   return ret;
-}
-
-typedef struct CrossSeq2__ctx_type_2 {
-   float pre_x;
-} CrossSeq2__ctx_type_2;
-
-typedef CrossSeq2__ctx_type_2 CrossSeq2_change_type;
-
-static_inline void CrossSeq2__ctx_type_2_init(CrossSeq2__ctx_type_2 &_output_){
-   CrossSeq2__ctx_type_2 _ctx;
    _ctx.pre_x = 0.0f;
    _output_ = _ctx;
    return ;
 }
 
-static_inline void CrossSeq2_change_init(CrossSeq2__ctx_type_2 &_output_){
-   CrossSeq2__ctx_type_2_init(_output_);
+static_inline void CrossSeq2_change_init(CrossSeq2__ctx_type_1 &_output_){
+   CrossSeq2__ctx_type_1_init(_output_);
    return ;
 }
 
-static_inline uint8_t CrossSeq2_change(CrossSeq2__ctx_type_2 &_ctx, float x){
+static_inline uint8_t CrossSeq2_change(CrossSeq2__ctx_type_1 &_ctx, float x){
    uint8_t v;
    v = (_ctx.pre_x != x);
    _ctx.pre_x = x;
    return v;
 }
 
-static_inline float CrossSeq2_lerp(float a, float b, float i){
-   return ((a * (1.f + (- i))) + (b * i));
-};
+typedef struct CrossSeq2__ctx_type_2 {
+   uint8_t pre;
+} CrossSeq2__ctx_type_2;
 
-typedef struct CrossSeq2__ctx_type_4 {
-   float rate;
-   float phase;
-   CrossSeq2__ctx_type_0 _inst59;
-   CrossSeq2__ctx_type_1 _inst35d;
-   CrossSeq2__ctx_type_2 _inst193;
-} CrossSeq2__ctx_type_4;
+typedef CrossSeq2__ctx_type_2 CrossSeq2_edge_type;
 
-typedef CrossSeq2__ctx_type_4 CrossSeq2_lfo_interp_type;
-
-void CrossSeq2__ctx_type_4_init(CrossSeq2__ctx_type_4 &_output_);
-
-static_inline void CrossSeq2_lfo_interp_init(CrossSeq2__ctx_type_4 &_output_){
-   CrossSeq2__ctx_type_4_init(_output_);
-   return ;
-}
-
-float CrossSeq2_lfo_interp(CrossSeq2__ctx_type_4 &_ctx, float cv, float shape, float amt, float pw, float reset, float sampleTime);
-
-typedef struct CrossSeq2__ctx_type_5 {
-   CrossSeq2__ctx_type_2 _inst193;
-} CrossSeq2__ctx_type_5;
-
-typedef CrossSeq2__ctx_type_5 CrossSeq2_cross_detect_type;
-
-static_inline void CrossSeq2__ctx_type_5_init(CrossSeq2__ctx_type_5 &_output_){
-   CrossSeq2__ctx_type_5 _ctx;
-   CrossSeq2__ctx_type_2_init(_ctx._inst193);
+static_inline void CrossSeq2__ctx_type_2_init(CrossSeq2__ctx_type_2 &_output_){
+   CrossSeq2__ctx_type_2 _ctx;
+   _ctx.pre = false;
    _output_ = _ctx;
    return ;
 }
 
-static_inline void CrossSeq2_cross_detect_init(CrossSeq2__ctx_type_5 &_output_){
+static_inline void CrossSeq2_edge_init(CrossSeq2__ctx_type_2 &_output_){
+   CrossSeq2__ctx_type_2_init(_output_);
+   return ;
+}
+
+static_inline uint8_t CrossSeq2_edge(CrossSeq2__ctx_type_2 &_ctx, uint8_t x){
+   uint8_t ret;
+   ret = (x && bool_not(_ctx.pre));
+   _ctx.pre = x;
+   return ret;
+}
+
+typedef struct CrossSeq2__ctx_type_3 {
+   int count;
+} CrossSeq2__ctx_type_3;
+
+typedef CrossSeq2__ctx_type_3 CrossSeq2_each_type;
+
+static_inline void CrossSeq2__ctx_type_3_init(CrossSeq2__ctx_type_3 &_output_){
+   CrossSeq2__ctx_type_3 _ctx;
+   _ctx.count = 0;
+   _output_ = _ctx;
+   return ;
+}
+
+static_inline void CrossSeq2_each_init(CrossSeq2__ctx_type_3 &_output_){
+   CrossSeq2__ctx_type_3_init(_output_);
+   return ;
+}
+
+static_inline uint8_t CrossSeq2_each(CrossSeq2__ctx_type_3 &_ctx, int n){
+   uint8_t ret;
+   ret = (_ctx.count == 0);
+   _ctx.count = ((1 + _ctx.count) % n);
+   return ret;
+}
+
+static_inline float CrossSeq2_lerp(float a, float b, float i){
+   return ((a * (1.f + (- i))) + (b * i));
+};
+
+typedef struct CrossSeq2__ctx_type_5 {
+   float rate;
+   float phase;
+   float o;
+   CrossSeq2__ctx_type_0 _inst89;
+   CrossSeq2__ctx_type_2 _inst55d;
+   CrossSeq2__ctx_type_3 _inst37b;
+   CrossSeq2__ctx_type_1 _inst193;
+} CrossSeq2__ctx_type_5;
+
+typedef CrossSeq2__ctx_type_5 CrossSeq2_lfo_interp_type;
+
+void CrossSeq2__ctx_type_5_init(CrossSeq2__ctx_type_5 &_output_);
+
+static_inline void CrossSeq2_lfo_interp_init(CrossSeq2__ctx_type_5 &_output_){
    CrossSeq2__ctx_type_5_init(_output_);
    return ;
 }
 
-float CrossSeq2_cross_detect(CrossSeq2__ctx_type_5 &_ctx, float a, float b);
+float CrossSeq2_lfo_interp(CrossSeq2__ctx_type_5 &_ctx, float cv, float shape, float amt, float pw, float reset, float sampleTime);
 
 typedef struct CrossSeq2__ctx_type_6 {
+   CrossSeq2__ctx_type_1 _inst193;
+} CrossSeq2__ctx_type_6;
+
+typedef CrossSeq2__ctx_type_6 CrossSeq2_cross_detect_type;
+
+static_inline void CrossSeq2__ctx_type_6_init(CrossSeq2__ctx_type_6 &_output_){
+   CrossSeq2__ctx_type_6 _ctx;
+   CrossSeq2__ctx_type_1_init(_ctx._inst193);
+   _output_ = _ctx;
+   return ;
+}
+
+static_inline void CrossSeq2_cross_detect_init(CrossSeq2__ctx_type_6 &_output_){
+   CrossSeq2__ctx_type_6_init(_output_);
+   return ;
+}
+
+float CrossSeq2_cross_detect(CrossSeq2__ctx_type_6 &_ctx, float a, float b);
+
+typedef struct CrossSeq2__ctx_type_7 {
    float sync;
    float shape2;
    float shape1;
@@ -141,184 +168,184 @@ typedef struct CrossSeq2__ctx_type_6 {
    float freq;
    float amt2;
    float amt1;
-   CrossSeq2__ctx_type_5 _inst36b;
-   CrossSeq2__ctx_type_4 _inst27f;
-   CrossSeq2__ctx_type_4 _inst17f;
-} CrossSeq2__ctx_type_6;
+   CrossSeq2__ctx_type_6 _inst36b;
+   CrossSeq2__ctx_type_5 _inst27f;
+   CrossSeq2__ctx_type_5 _inst17f;
+} CrossSeq2__ctx_type_7;
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_process_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_process_type;
 
-void CrossSeq2__ctx_type_6_init(CrossSeq2__ctx_type_6 &_output_);
+void CrossSeq2__ctx_type_7_init(CrossSeq2__ctx_type_7 &_output_);
 
-static_inline void CrossSeq2_process_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_process_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-void CrossSeq2_process(CrossSeq2__ctx_type_6 &_ctx, float sampleTime);
+void CrossSeq2_process(CrossSeq2__ctx_type_7 &_ctx, float sampleTime);
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_process_ret_0_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_process_ret_0_type;
 
-static_inline void CrossSeq2_process_ret_0_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_process_ret_0_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline float CrossSeq2_process_ret_0(CrossSeq2__ctx_type_6 &_ctx){
+static_inline float CrossSeq2_process_ret_0(CrossSeq2__ctx_type_7 &_ctx){
    return _ctx.process_ret_0;
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_process_ret_1_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_process_ret_1_type;
 
-static_inline void CrossSeq2_process_ret_1_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_process_ret_1_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline float CrossSeq2_process_ret_1(CrossSeq2__ctx_type_6 &_ctx){
+static_inline float CrossSeq2_process_ret_1(CrossSeq2__ctx_type_7 &_ctx){
    return _ctx.process_ret_1;
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_process_ret_2_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_process_ret_2_type;
 
-static_inline void CrossSeq2_process_ret_2_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_process_ret_2_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline float CrossSeq2_process_ret_2(CrossSeq2__ctx_type_6 &_ctx){
+static_inline float CrossSeq2_process_ret_2(CrossSeq2__ctx_type_7 &_ctx){
    return _ctx.process_ret_2;
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_process_ret_3_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_process_ret_3_type;
 
-static_inline void CrossSeq2_process_ret_3_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_process_ret_3_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline float CrossSeq2_process_ret_3(CrossSeq2__ctx_type_6 &_ctx){
+static_inline float CrossSeq2_process_ret_3(CrossSeq2__ctx_type_7 &_ctx){
    return _ctx.process_ret_3;
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_setFreq_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_setFreq_type;
 
-static_inline void CrossSeq2_setFreq_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_setFreq_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline void CrossSeq2_setFreq(CrossSeq2__ctx_type_6 &_ctx, float knob, float input){
+static_inline void CrossSeq2_setFreq(CrossSeq2__ctx_type_7 &_ctx, float knob, float input){
    _ctx.freq = (input + knob);
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_setSync_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_setSync_type;
 
-static_inline void CrossSeq2_setSync_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_setSync_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline void CrossSeq2_setSync(CrossSeq2__ctx_type_6 &_ctx, float value){
+static_inline void CrossSeq2_setSync(CrossSeq2__ctx_type_7 &_ctx, float value){
    _ctx.sync = value;
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_setRate1_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_setRate1_type;
 
-static_inline void CrossSeq2_setRate1_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_setRate1_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline void CrossSeq2_setRate1(CrossSeq2__ctx_type_6 &_ctx, float knob, float input, float phaseKnob){
+static_inline void CrossSeq2_setRate1(CrossSeq2__ctx_type_7 &_ctx, float knob, float input, float phaseKnob){
    _ctx.rate1 = (input + knob + phaseKnob);
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_setRate2_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_setRate2_type;
 
-static_inline void CrossSeq2_setRate2_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_setRate2_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline void CrossSeq2_setRate2(CrossSeq2__ctx_type_6 &_ctx, float knob, float input, float phaseKnob){
+static_inline void CrossSeq2_setRate2(CrossSeq2__ctx_type_7 &_ctx, float knob, float input, float phaseKnob){
    _ctx.rate2 = (input + knob + phaseKnob);
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_setAmt1_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_setAmt1_type;
 
-static_inline void CrossSeq2_setAmt1_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_setAmt1_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline void CrossSeq2_setAmt1(CrossSeq2__ctx_type_6 &_ctx, float knob, float input){
+static_inline void CrossSeq2_setAmt1(CrossSeq2__ctx_type_7 &_ctx, float knob, float input){
    _ctx.amt1 = (input + knob);
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_setAmt2_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_setAmt2_type;
 
-static_inline void CrossSeq2_setAmt2_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_setAmt2_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline void CrossSeq2_setAmt2(CrossSeq2__ctx_type_6 &_ctx, float knob, float input){
+static_inline void CrossSeq2_setAmt2(CrossSeq2__ctx_type_7 &_ctx, float knob, float input){
    _ctx.amt2 = (input + knob);
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_setShape1_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_setShape1_type;
 
-static_inline void CrossSeq2_setShape1_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_setShape1_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline void CrossSeq2_setShape1(CrossSeq2__ctx_type_6 &_ctx, float knob, float input){
+static_inline void CrossSeq2_setShape1(CrossSeq2__ctx_type_7 &_ctx, float knob, float input){
    _ctx.shape1 = (input + knob);
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_setShape2_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_setShape2_type;
 
-static_inline void CrossSeq2_setShape2_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_setShape2_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline void CrossSeq2_setShape2(CrossSeq2__ctx_type_6 &_ctx, float knob, float input){
+static_inline void CrossSeq2_setShape2(CrossSeq2__ctx_type_7 &_ctx, float knob, float input){
    _ctx.shape2 = (input + knob);
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_setPw1_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_setPw1_type;
 
-static_inline void CrossSeq2_setPw1_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_setPw1_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline void CrossSeq2_setPw1(CrossSeq2__ctx_type_6 &_ctx, float knob){
+static_inline void CrossSeq2_setPw1(CrossSeq2__ctx_type_7 &_ctx, float knob){
    _ctx.pw1 = (-1.f + (2.f * knob));
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_setPw2_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_setPw2_type;
 
-static_inline void CrossSeq2_setPw2_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_setPw2_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-static_inline void CrossSeq2_setPw2(CrossSeq2__ctx_type_6 &_ctx, float knob){
+static_inline void CrossSeq2_setPw2(CrossSeq2__ctx_type_7 &_ctx, float knob){
    _ctx.pw2 = (-1.f + (2.f * knob));
 };
 
-typedef CrossSeq2__ctx_type_6 CrossSeq2_default_type;
+typedef CrossSeq2__ctx_type_7 CrossSeq2_default_type;
 
-static_inline void CrossSeq2_default_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6_init(_output_);
+static_inline void CrossSeq2_default_init(CrossSeq2__ctx_type_7 &_output_){
+   CrossSeq2__ctx_type_7_init(_output_);
    return ;
 }
 
-void CrossSeq2_default(CrossSeq2__ctx_type_6 &_ctx);
+void CrossSeq2_default(CrossSeq2__ctx_type_7 &_ctx);
 
 
 
