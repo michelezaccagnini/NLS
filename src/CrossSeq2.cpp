@@ -41,7 +41,7 @@ void CrossSeq2__ctx_type_5_init(CrossSeq2__ctx_type_5 &_output_){
 
 float CrossSeq2_lfo_interp(CrossSeq2__ctx_type_5 &_ctx, float cv, float shape, float amt, float pw, float reset, float sampleTime){
    if(CrossSeq2_change(_ctx._inst193,cv)){
-      _ctx.rate = (cv * sampleTime);
+      _ctx.rate = (8.f * cv * sampleTime);
    }
    uint8_t update;
    update = CrossSeq2_each(_ctx._inst37b,8);
