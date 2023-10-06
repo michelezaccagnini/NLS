@@ -1,6 +1,6 @@
 # NLS
 
-## General description
+## General descriptions
 Nonlinear Sequncer is a collection of objects to generate triggers and CVs based on nonlinear functions, initially developed in Cycling74 Max8 and partially implemented in VCV.
 In the current VCV version two main modules are present: XSeq2, XSeq3, TrigGate and TrigLogic. 
 - XSeq2 :  generates triggers at the intersection of two LFOs of variable shape, amplitude, rate, phase and duty cycle (rectangular shapes)
