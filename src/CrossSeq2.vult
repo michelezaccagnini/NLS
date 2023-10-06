@@ -38,7 +38,7 @@ fun lfo_interp(cv, shape, amt, pw, reset, sampleTime) {
    mem phase;
    mem o;
    if(change(cv))
-      rate = cv * sampleTime * 16.0;
+      rate = cv * sampleTime * 8.0;
    val update = each(8); 
    if(update)
       phase = phase + rate;
