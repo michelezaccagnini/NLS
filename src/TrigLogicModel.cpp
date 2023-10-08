@@ -41,7 +41,7 @@ struct TrigLogic : Module {
 		configOutput(INVTRIG_OUTPUT, "inverted trig");
 
 	}
-	TrigLogic_process_init();
+	void TrigLogic_process_init();
 
 	void process(const ProcessArgs& args) override {
 		TrigLogic_setType1(processor, params[TYPE1_SWITCH].value);

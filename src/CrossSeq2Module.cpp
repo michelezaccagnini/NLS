@@ -77,7 +77,7 @@ struct CrossSeq2 : Module {
 		configOutput(LFO2_OUTPUT, "lfo2");
 		configOutput(DIFF_OUTPUT, "diff");
 	}
-	CrossSeq2_process_init();
+	void CrossSeq2_process_init();
 
 	void process(const ProcessArgs& args) override {
 		CrossSeq2_setFreq(processor, params[FREQ_PARAM].value, inputs[FREQ_INPUT].value);

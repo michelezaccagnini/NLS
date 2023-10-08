@@ -28,7 +28,7 @@ struct TrigGate : Module {
         configInput(TRIG1_INPUT, "trigger1 input");
         configInput(TRIG2_INPUT, "trigger2 input");
 	}
-	TrigGate_process_init();
+	void TrigGate_process_init();
 
 	void process(const ProcessArgs& args) override {
 		TrigGate_setGateLen1(processor, params[LEN1_PARAM].value);

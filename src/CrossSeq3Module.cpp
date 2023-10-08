@@ -112,7 +112,7 @@ struct CrossSeq3 : Module {
 		configOutput(DIFF23_OUTPUT, "diff23");
 		configOutput(DIFF123_OUTPUT, "diff123");
 	}
-	CrossSeq3_process_init();
+	void CrossSeq3_process_init();
 
 	void process(const ProcessArgs& args) override {
 		CrossSeq3_setFreq(processor, params[FREQ_PARAM].value, inputs[FREQ_INPUT].value);
