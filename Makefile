@@ -10,7 +10,6 @@ CXXFLAGS +=
 # Static libraries are fine, but they should be added to this plugin's build system.
 LDFLAGS +=
 
-SLUG = NLS
 # Add .cpp files to the build
 SOURCES += $(wildcard src/*.cpp)
 
