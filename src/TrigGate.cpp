@@ -18,7 +18,6 @@ float TrigGate_trig2gate(TrigGate__ctx_type_1 &_ctx, float trig, float len, floa
    if(_ctx.state == 0){
       if(TrigGate_edge(_ctx._inst291,bgate)){
          _ctx.state = 1;
-         _ctx.dur = (_ctx.dur + st);
       }
    }
    if(_ctx.state == 1){
@@ -46,12 +45,15 @@ float TrigGate_trig2gate(TrigGate__ctx_type_1 &_ctx, float trig, float len, floa
 
 void TrigGate__ctx_type_2_init(TrigGate__ctx_type_2 &_output_){
    TrigGate__ctx_type_2 _ctx;
+   _ctx.state = 0;
    _ctx.process_ret_1 = 0.0f;
    _ctx.process_ret_0 = 0.0f;
    _ctx.gateLen2 = 0.0f;
    _ctx.gateLen1 = 0.0f;
+   _ctx.dur = 0.0f;
    TrigGate__ctx_type_1_init(_ctx._inst2da);
    TrigGate__ctx_type_1_init(_ctx._inst1da);
+   TrigGate_default(_ctx);
    _output_ = _ctx;
    return ;
 }

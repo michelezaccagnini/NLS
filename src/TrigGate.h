@@ -56,10 +56,12 @@ static_inline void TrigGate_trig2gate_init(TrigGate__ctx_type_1 &_output_){
 float TrigGate_trig2gate(TrigGate__ctx_type_1 &_ctx, float trig, float len, float st);
 
 typedef struct TrigGate__ctx_type_2 {
+   int state;
    float process_ret_1;
    float process_ret_0;
    float gateLen2;
    float gateLen1;
+   float dur;
    TrigGate__ctx_type_1 _inst2da;
    TrigGate__ctx_type_1 _inst1da;
 } TrigGate__ctx_type_2;
@@ -129,6 +131,8 @@ static_inline void TrigGate_default_init(TrigGate__ctx_type_2 &_output_){
 static_inline void TrigGate_default(TrigGate__ctx_type_2 &_ctx){
    _ctx.gateLen1 = 0.2f;
    _ctx.gateLen2 = 0.2f;
+   _ctx.dur = 0.0f;
+   _ctx.state = 0;
 }
 
 

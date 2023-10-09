@@ -82,7 +82,16 @@ float CrossSeq2_lfo_interp(CrossSeq2__ctx_type_5 &_ctx, float cv, float shape, f
    return CrossSeq2_soft(_ctx._inst89,_ctx.o);
 }
 
-float CrossSeq2_cross_detect(CrossSeq2__ctx_type_6 &_ctx, float a, float b){
+void CrossSeq2__ctx_type_6_init(CrossSeq2__ctx_type_6 &_output_){
+   CrossSeq2__ctx_type_6 _ctx;
+   _ctx.open = 0.0f;
+   CrossSeq2__ctx_type_1_init(_ctx._inst193);
+   _output_ = _ctx;
+   return ;
+}
+
+float CrossSeq2_cross_detect(CrossSeq2__ctx_type_6 &_ctx, float a, float b, float st){
+   _ctx.open = (_ctx.open + st);
    float diff;
    diff = (a + (- b));
    float sign;
@@ -93,15 +102,18 @@ float CrossSeq2_cross_detect(CrossSeq2__ctx_type_6 &_ctx, float a, float b){
    {
       sign = 0.0f;
    }
-   float trig;
    if(CrossSeq2_change(_ctx._inst193,sign)){
-      trig = 1.f;
+      _ctx.open = 0.0f;
+   }
+   float _if_4;
+   if(_ctx.open > 0.001f){
+      _if_4 = 0.0f;
    }
    else
    {
-      trig = 0.0f;
+      _if_4 = 1.f;
    }
-   return trig;
+   return _if_4;
 }
 
 void CrossSeq2__ctx_type_7_init(CrossSeq2__ctx_type_7 &_output_){
@@ -136,7 +148,7 @@ void CrossSeq2_process(CrossSeq2__ctx_type_7 &_ctx, float sampleTime){
    float lfo2;
    lfo2 = CrossSeq2_lfo_interp(_ctx._inst27f,(_ctx.freq * _ctx.rate2),_ctx.shape2,_ctx.amt2,_ctx.pw2,_ctx.sync,sampleTime);
    float gate;
-   gate = CrossSeq2_cross_detect(_ctx._inst36b,lfo1,lfo2);
+   gate = CrossSeq2_cross_detect(_ctx._inst36b,lfo1,lfo2,sampleTime);
    float trig;
    trig = gate;
    float diff;

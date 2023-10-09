@@ -132,24 +132,20 @@ static_inline void CrossSeq2_lfo_interp_init(CrossSeq2__ctx_type_5 &_output_){
 float CrossSeq2_lfo_interp(CrossSeq2__ctx_type_5 &_ctx, float cv, float shape, float amt, float pw, float reset, float sampleTime);
 
 typedef struct CrossSeq2__ctx_type_6 {
+   float open;
    CrossSeq2__ctx_type_1 _inst193;
 } CrossSeq2__ctx_type_6;
 
 typedef CrossSeq2__ctx_type_6 CrossSeq2_cross_detect_type;
 
-static_inline void CrossSeq2__ctx_type_6_init(CrossSeq2__ctx_type_6 &_output_){
-   CrossSeq2__ctx_type_6 _ctx;
-   CrossSeq2__ctx_type_1_init(_ctx._inst193);
-   _output_ = _ctx;
-   return ;
-}
+void CrossSeq2__ctx_type_6_init(CrossSeq2__ctx_type_6 &_output_);
 
 static_inline void CrossSeq2_cross_detect_init(CrossSeq2__ctx_type_6 &_output_){
    CrossSeq2__ctx_type_6_init(_output_);
    return ;
 }
 
-float CrossSeq2_cross_detect(CrossSeq2__ctx_type_6 &_ctx, float a, float b);
+float CrossSeq2_cross_detect(CrossSeq2__ctx_type_6 &_ctx, float a, float b, float st);
 
 typedef struct CrossSeq2__ctx_type_7 {
    float sync;

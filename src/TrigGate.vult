@@ -6,14 +6,13 @@ fun edge(x:bool) : bool {
 }
 
 
-fun trig2gate (trig: real, len: real, st:real) : real{
+fun trig2gate (trig: real, len: real, st:real){
     mem dur : real;
     mem state;
     val bgate = trig > 0.0;
     if(state == 0){
         if(edge(bgate)){
             state = 1;
-            dur = dur + st;
         }
     }
     if(state == 1){
@@ -48,7 +47,9 @@ and setGateLen2(value:real){
 
 
 // Called on initialization to define initial values
-and default(){
+and default()@[init]{
    mem gateLen1 = 0.2;
    mem gateLen2 = 0.2;
+   mem dur = 0.0;
+   mem state = 0;
 }
