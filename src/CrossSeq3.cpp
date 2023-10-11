@@ -39,7 +39,7 @@ void CrossSeq3__ctx_type_5_init(CrossSeq3__ctx_type_5 &_output_){
    return ;
 }
 
-float CrossSeq3_lfo_interp(CrossSeq3__ctx_type_5 &_ctx, float cv, float shape, float amt, float pw, float reset, float sampleTime){
+float CrossSeq3_lfo_interp(CrossSeq3__ctx_type_5 &_ctx, float cv, float shape, float amt, float pw, float reset, float phaseOff, float sampleTime){
    if(CrossSeq3_change(_ctx._inst1b9,cv)){
       _ctx.rate = (8.f * cv * sampleTime);
    }
@@ -48,8 +48,12 @@ float CrossSeq3_lfo_interp(CrossSeq3__ctx_type_5 &_ctx, float cv, float shape, f
    if(update){
       _ctx.phase = (_ctx.phase + _ctx.rate);
    }
-   if(_ctx.phase > 2.f){
-      _ctx.phase = (-2.f + _ctx.phase);
+   if((_ctx.phase + phaseOff) > 2.f){
+      _ctx.phase = (-2.f + _ctx.phase + phaseOff);
+   }
+   else
+   {
+      _ctx.phase = (_ctx.phase + phaseOff);
    }
    float offset_phase;
    if((0.5f + _ctx.phase) > 2.f){
@@ -174,6 +178,9 @@ void CrossSeq3__ctx_type_8_init(CrossSeq3__ctx_type_8 &_output_){
    _ctx.process_ret_0 = 0.0f;
    _ctx.pre_x = 0.0f;
    _ctx.pre = 0.0f;
+   _ctx.phaseOff3 = 0.0f;
+   _ctx.phaseOff2 = 0.0f;
+   _ctx.phaseOff1 = 0.0f;
    _ctx.phase3 = 0.0f;
    _ctx.phase2 = 0.0f;
    _ctx.phase1 = 0.0f;
@@ -196,11 +203,11 @@ void CrossSeq3__ctx_type_8_init(CrossSeq3__ctx_type_8 &_output_){
 
 void CrossSeq3_process(CrossSeq3__ctx_type_8 &_ctx, float sampleTime){
    float lfo1;
-   lfo1 = CrossSeq3_lfo_interp(_ctx._inst12f,(_ctx.freq * _ctx.rate1),_ctx.shape1,_ctx.amt1,_ctx.pw1,_ctx.sync,sampleTime);
+   lfo1 = CrossSeq3_lfo_interp(_ctx._inst12f,(_ctx.freq * _ctx.rate1),_ctx.shape1,_ctx.amt1,_ctx.pw1,_ctx.sync,_ctx.phaseOff1,sampleTime);
    float lfo2;
-   lfo2 = CrossSeq3_lfo_interp(_ctx._inst22f,(_ctx.freq * _ctx.rate2),_ctx.shape2,_ctx.amt2,_ctx.pw2,_ctx.sync,sampleTime);
+   lfo2 = CrossSeq3_lfo_interp(_ctx._inst22f,(_ctx.freq * _ctx.rate2),_ctx.shape2,_ctx.amt2,_ctx.pw2,_ctx.sync,_ctx.phaseOff2,sampleTime);
    float lfo3;
-   lfo3 = CrossSeq3_lfo_interp(_ctx._inst32f,(_ctx.freq * _ctx.rate3),_ctx.shape3,_ctx.amt3,_ctx.pw3,_ctx.sync,sampleTime);
+   lfo3 = CrossSeq3_lfo_interp(_ctx._inst32f,(_ctx.freq * _ctx.rate3),_ctx.shape3,_ctx.amt3,_ctx.pw3,_ctx.sync,_ctx.phaseOff3,sampleTime);
    float tr12;
    tr12 = CrossSeq3_cross_detect(_ctx._inst4c3,lfo1,lfo2,sampleTime);
    float tr13;

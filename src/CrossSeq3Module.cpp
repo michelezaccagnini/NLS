@@ -117,9 +117,9 @@ struct CrossSeq3 : Module {
 	void process(const ProcessArgs& args) override {
 		CrossSeq3_setFreq(processor, params[FREQ_PARAM].value, inputs[FREQ_INPUT].value);
 		CrossSeq3_setSync(processor, inputs[SYNC_INPUT].value);
-		CrossSeq3_setRate1(processor, params[RATE1_PARAM].value,   inputs[RATE1_INPUT].value * params[CVRT1_PARAM].value , params[PHASE1_PARAM].value );
-		CrossSeq3_setRate2(processor, params[RATE2_PARAM].value,   inputs[RATE2_INPUT].value * params[CVRT2_PARAM].value, params[PHASE2_PARAM].value);
-		CrossSeq3_setRate3(processor, params[RATE3_PARAM].value,   inputs[RATE3_INPUT].value * params[CVRT3_PARAM].value, params[PHASE3_PARAM].value);
+		CrossSeq3_setRate1(processor, params[RATE1_PARAM].value,   inputs[RATE1_INPUT].value * params[CVRT1_PARAM].value);
+		CrossSeq3_setRate2(processor, params[RATE2_PARAM].value,   inputs[RATE2_INPUT].value * params[CVRT2_PARAM].value);
+		CrossSeq3_setRate3(processor, params[RATE3_PARAM].value,   inputs[RATE3_INPUT].value * params[CVRT3_PARAM].value);
 		CrossSeq3_setAmt1(processor, params[AMT1_PARAM].value,     inputs[AMT1_INPUT].value *  params[CVAM1_PARAM].value);
 		CrossSeq3_setAmt2(processor, params[AMT2_PARAM].value,     inputs[AMT2_INPUT].value *  params[CVAM2_PARAM].value);
 		CrossSeq3_setAmt3(processor, params[AMT3_PARAM].value,     inputs[AMT3_INPUT].value *  params[CVAM3_PARAM].value);
@@ -129,6 +129,9 @@ struct CrossSeq3 : Module {
 		CrossSeq3_setPw1(processor, params[PW1_PARAM].value);
 		CrossSeq3_setPw2(processor, params[PW2_PARAM].value);
 		CrossSeq3_setPw3(processor, params[PW3_PARAM].value);
+		CrossSeq3_setPhase1(processor, params[PHASE1_PARAM].value);
+		CrossSeq3_setPhase2(processor, params[PHASE2_PARAM].value);
+		CrossSeq3_setPhase3(processor, params[PHASE3_PARAM].value);
 		CrossSeq3_process(processor,args.sampleTime);
 		float trig12 = CrossSeq3_process_ret_0(processor);
 		float trig13 = CrossSeq3_process_ret_1(processor);
