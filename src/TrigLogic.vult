@@ -64,4 +64,5 @@ and default(){
     mem s2 = 1;
     mem andOr = true;
     mem inv = false;
+    mem pre = 0.0;
 }

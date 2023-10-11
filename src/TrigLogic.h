@@ -57,6 +57,7 @@ typedef struct TrigLogic__ctx_type_3 {
    int s1;
    float process_ret_1;
    float process_ret_0;
+   float pre;
    uint8_t inv;
    uint8_t andOr;
    TrigLogic__ctx_type_2 _inst129;

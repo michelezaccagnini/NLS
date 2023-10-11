@@ -148,20 +148,28 @@ static_inline void CrossSeq2_cross_detect_init(CrossSeq2__ctx_type_6 &_output_){
 float CrossSeq2_cross_detect(CrossSeq2__ctx_type_6 &_ctx, float a, float b, float st);
 
 typedef struct CrossSeq2__ctx_type_7 {
+   float x4;
+   float x3;
+   float x2;
    float sync;
    float shape2;
    float shape1;
    float rate2;
    float rate1;
+   float rate;
    float pw2;
    float pw1;
    float process_ret_3;
    float process_ret_2;
    float process_ret_1;
    float process_ret_0;
+   float pre_x;
+   float pre;
    float phase2;
    float phase1;
+   float phase;
    float freq;
+   float count;
    float amt2;
    float amt1;
    CrossSeq2__ctx_type_6 _inst36b;

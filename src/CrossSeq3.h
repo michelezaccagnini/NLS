@@ -157,6 +157,9 @@ float CrossSeq3_cross_detect(CrossSeq3__ctx_type_6 &_ctx, float a, float b, floa
 float CrossSeq3_cross_detect3(float a, float b, float c);
 
 typedef struct CrossSeq3__ctx_type_8 {
+   float x4;
+   float x3;
+   float x2;
    float sync;
    float shape3;
    float shape2;
@@ -164,6 +167,7 @@ typedef struct CrossSeq3__ctx_type_8 {
    float rate3;
    float rate2;
    float rate1;
+   float rate;
    float pw3;
    float pw2;
    float pw1;
@@ -178,11 +182,15 @@ typedef struct CrossSeq3__ctx_type_8 {
    float process_ret_10;
    float process_ret_1;
    float process_ret_0;
+   float pre_x;
+   float pre;
    float phase3;
    float phase2;
    float phase1;
+   float phase;
    float freqK;
    float freq;
+   float count;
    float amt3;
    float amt2;
    float amt1;
