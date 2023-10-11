@@ -38,25 +38,29 @@ fun lfo_interp(cv, shape, amt, pw, reset, phaseOff, sampleTime) {
    mem rate; 
    mem phase;
    mem o;
+   mem phOff;
+   if(change(phaseOff))
+      phOff = phaseOff;
    if(change(cv))
       rate = cv * sampleTime * 8.0;
    val update = each(8); 
    if(update)
       phase = phase + rate;
-   phase = if (phase + phaseOff) > 2.0 then (phase + phaseOff) - 2.0 else phase + phaseOff;
+   phase = if phase > 2.0 then phase  - 2.0 else phase;
+   val ph = if (phase + phOff) > 2.0 then (phase + phOff) - 2.0 else phase + phOff;
    //for smooth interpolation between sine and tri I need to offset the phase of the
    //tri
    val offset_phase = if phase + 0.5 > 2.0 then (phase + 0.5) - 2.0 else phase + 0.5;
    val breset = reset > 0.0;
    if(edge(breset))
       phase = 0.0;
-   val saw = phase - 1.0;
+   val saw = ph - 1.0;
    offset_phase = offset_phase - 1.0;
    //(abs(offset_phase - 1.5) * 2.0 - 1.0)*-1.0
    if(update)
       o =
          if shape < 1.0 then 
-            lerp((sin(phase*3.141592653589793)), (abs(offset_phase) * 2.0 - 1.0)*-1.0, shape % 1.0)*amt
+            lerp((sin(ph*3.141592653589793)), (abs(offset_phase) * 2.0 - 1.0)*-1.0, shape % 1.0)*amt
          else if shape < 2.0 then
             lerp((abs(offset_phase) * 2.0 - 1.0)*-1.0, saw, shape % 1.0)*amt
          else if shape < 3.0 then 
