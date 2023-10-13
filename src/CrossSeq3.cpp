@@ -194,6 +194,7 @@ void CrossSeq3__ctx_type_8_init(CrossSeq3__ctx_type_8 &_output_){
    CrossSeq3__ctx_type_5_init(_ctx._inst32f);
    CrossSeq3__ctx_type_5_init(_ctx._inst22f);
    CrossSeq3__ctx_type_5_init(_ctx._inst12f);
+   CrossSeq3_default(_ctx);
    _output_ = _ctx;
    return ;
 }

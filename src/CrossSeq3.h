@@ -335,7 +335,7 @@ static_inline void CrossSeq3_setFreq_init(CrossSeq3__ctx_type_8 &_output_){
 }
 
 static_inline void CrossSeq3_setFreq(CrossSeq3__ctx_type_8 &_ctx, float knob, float input){
-   _ctx.freq = float_clip((input + knob),0.0f,1.f);
+   _ctx.freq = (input + knob);
 };
 
 typedef CrossSeq3__ctx_type_8 CrossSeq3_setSync_type;
@@ -357,7 +357,7 @@ static_inline void CrossSeq3_setRate1_init(CrossSeq3__ctx_type_8 &_output_){
 }
 
 static_inline void CrossSeq3_setRate1(CrossSeq3__ctx_type_8 &_ctx, float knob, float input){
-   _ctx.rate1 = float_clip((input + knob),0.0f,1.f);
+   _ctx.rate1 = (input + knob);
 };
 
 typedef CrossSeq3__ctx_type_8 CrossSeq3_setRate2_type;
@@ -368,7 +368,7 @@ static_inline void CrossSeq3_setRate2_init(CrossSeq3__ctx_type_8 &_output_){
 }
 
 static_inline void CrossSeq3_setRate2(CrossSeq3__ctx_type_8 &_ctx, float knob, float input){
-   _ctx.rate2 = float_clip((input + knob),0.0f,1.f);
+   _ctx.rate2 = (input + knob);
 };
 
 typedef CrossSeq3__ctx_type_8 CrossSeq3_setRate3_type;
@@ -379,7 +379,7 @@ static_inline void CrossSeq3_setRate3_init(CrossSeq3__ctx_type_8 &_output_){
 }
 
 static_inline void CrossSeq3_setRate3(CrossSeq3__ctx_type_8 &_ctx, float knob, float input){
-   _ctx.rate3 = float_clip((input + knob),0.0f,1.f);
+   _ctx.rate3 = (input + knob);
 };
 
 typedef CrossSeq3__ctx_type_8 CrossSeq3_setPhase1_type;
@@ -456,7 +456,7 @@ static_inline void CrossSeq3_setShape1_init(CrossSeq3__ctx_type_8 &_output_){
 }
 
 static_inline void CrossSeq3_setShape1(CrossSeq3__ctx_type_8 &_ctx, float knob, float input){
-   _ctx.shape1 = float_clip((input + knob),0.0f,1.f);
+   _ctx.shape1 = (input + knob);
 };
 
 typedef CrossSeq3__ctx_type_8 CrossSeq3_setShape2_type;
@@ -467,7 +467,7 @@ static_inline void CrossSeq3_setShape2_init(CrossSeq3__ctx_type_8 &_output_){
 }
 
 static_inline void CrossSeq3_setShape2(CrossSeq3__ctx_type_8 &_ctx, float knob, float input){
-   _ctx.shape2 = float_clip((input + knob),0.0f,1.f);
+   _ctx.shape2 = (input + knob);
 };
 
 typedef CrossSeq3__ctx_type_8 CrossSeq3_setShape3_type;
@@ -478,7 +478,7 @@ static_inline void CrossSeq3_setShape3_init(CrossSeq3__ctx_type_8 &_output_){
 }
 
 static_inline void CrossSeq3_setShape3(CrossSeq3__ctx_type_8 &_ctx, float knob, float input){
-   _ctx.shape3 = float_clip((input + knob),0.0f,1.f);
+   _ctx.shape3 = (input + knob);
 };
 
 typedef CrossSeq3__ctx_type_8 CrossSeq3_setPw1_type;

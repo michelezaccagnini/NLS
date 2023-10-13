@@ -92,16 +92,16 @@ fun process(sampleTime:real){
    return trig, lfo1 / amt1, lfo2 / amt2, diff ; 
 }
 and setFreq(knob:real, input:real){
-   freq = clip(knob + input, 0.0, 1.0);
+   freq = knob + input;
 }
 and setSync(value:real){
    sync = value;
 }
 and setRate1(knob:real, input:real){
-   rate1 = clip(knob + input, 0.0, 1.0);
+   rate1 = knob + input;
 }
 and setRate2(knob:real, input:real){
-   rate2 = clip(knob + input, 0.0, 1.0);
+   rate2 = knob + input;
 }
 and setPhase1(phaseKnob:real){
    phaseOff1 = phaseKnob;
@@ -117,10 +117,10 @@ and setAmt2(knob:real, input:real){
    amt2 = clip(knob + input, 0.0, 1.0);
 }
 and setShape1(knob:real, input:real){
-   shape1 = clip(knob + input, 0.0, 1.0);
+   shape1 = knob + input;
 }
 and setShape2(knob:real, input:real){
-   shape2 = clip(knob + input, 0.0, 1.0);
+   shape2 = knob + input;
 }
 and setPw1(knob:real){
    pw1 = knob * 2. - 1.;

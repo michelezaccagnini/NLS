@@ -110,19 +110,19 @@ fun process(sampleTime:real){
    return tr12, tr13, tr23, tr123, lfo1, lfo2, lfo3, diff12, diff13, diff23, diff123 ; 
 }
 and setFreq(knob, input:real){
-   freq = clip(knob + input, 0.0, 1.0);
+   freq = knob + input;
 }
 and setSync(value){
    sync = value;
 }
 and setRate1(knob, input:real){
-   rate1 = clip(knob + input, 0.0, 1.0);
+   rate1 = knob + input;
 }
 and setRate2(knob, input:real){
-   rate2 = clip(knob + input, 0.0, 1.0);
+   rate2 = knob + input;
 }
 and setRate3(knob, input:real){
-   rate3 = clip(knob + input, 0.0, 1.0);
+   rate3 = knob + input;
 }
 and setPhase1(phaseKnob:real){
    phaseOff1 = phaseKnob;
@@ -143,13 +143,13 @@ and setAmt3(knob, input:real){
    amt3 = clip(knob + input, 0.0, 1.0);
 }
 and setShape1(knob, input:real){
-   shape1 = clip(knob + input, 0.0, 1.0);
+   shape1 = knob + input;
 }
 and setShape2(knob, input:real){
-   shape2 = clip(knob + input, 0.0, 1.0);
+   shape2 = knob + input;
 }
 and setShape3(knob, input:real){
-   shape3 = clip(knob + input, 0.0, 1.0);
+   shape3 = knob + input;
 }
 and setPw1(knob:real){
    pw1 = knob * 2.0 - 1.0;
@@ -163,7 +163,7 @@ and setPw3(knob:real){
 
 
 // Called on initialization to define initial values
-and default(){
+and default()@[init]{
    freq = 1.0;
    sync = 0.0;
    rate1 = 1.0;

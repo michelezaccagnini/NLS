@@ -234,7 +234,7 @@ static_inline void CrossSeq2_setFreq_init(CrossSeq2__ctx_type_7 &_output_){
 }
 
 static_inline void CrossSeq2_setFreq(CrossSeq2__ctx_type_7 &_ctx, float knob, float input){
-   _ctx.freq = float_clip((input + knob),0.0f,1.f);
+   _ctx.freq = (input + knob);
 };
 
 typedef CrossSeq2__ctx_type_7 CrossSeq2_setSync_type;
@@ -256,7 +256,7 @@ static_inline void CrossSeq2_setRate1_init(CrossSeq2__ctx_type_7 &_output_){
 }
 
 static_inline void CrossSeq2_setRate1(CrossSeq2__ctx_type_7 &_ctx, float knob, float input){
-   _ctx.rate1 = float_clip((input + knob),0.0f,1.f);
+   _ctx.rate1 = (input + knob);
 };
 
 typedef CrossSeq2__ctx_type_7 CrossSeq2_setRate2_type;
@@ -267,7 +267,7 @@ static_inline void CrossSeq2_setRate2_init(CrossSeq2__ctx_type_7 &_output_){
 }
 
 static_inline void CrossSeq2_setRate2(CrossSeq2__ctx_type_7 &_ctx, float knob, float input){
-   _ctx.rate2 = float_clip((input + knob),0.0f,1.f);
+   _ctx.rate2 = (input + knob);
 };
 
 typedef CrossSeq2__ctx_type_7 CrossSeq2_setPhase1_type;
@@ -322,7 +322,7 @@ static_inline void CrossSeq2_setShape1_init(CrossSeq2__ctx_type_7 &_output_){
 }
 
 static_inline void CrossSeq2_setShape1(CrossSeq2__ctx_type_7 &_ctx, float knob, float input){
-   _ctx.shape1 = float_clip((input + knob),0.0f,1.f);
+   _ctx.shape1 = (input + knob);
 };
 
 typedef CrossSeq2__ctx_type_7 CrossSeq2_setShape2_type;
@@ -333,7 +333,7 @@ static_inline void CrossSeq2_setShape2_init(CrossSeq2__ctx_type_7 &_output_){
 }
 
 static_inline void CrossSeq2_setShape2(CrossSeq2__ctx_type_7 &_ctx, float knob, float input){
-   _ctx.shape2 = float_clip((input + knob),0.0f,1.f);
+   _ctx.shape2 = (input + knob);
 };
 
 typedef CrossSeq2__ctx_type_7 CrossSeq2_setPw1_type;
