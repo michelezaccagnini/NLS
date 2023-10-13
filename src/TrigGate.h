@@ -38,101 +38,135 @@ static_inline uint8_t TrigGate_edge(TrigGate__ctx_type_0 &_ctx, uint8_t x){
 }
 
 typedef struct TrigGate__ctx_type_1 {
-   int state;
-   float dur;
-   TrigGate__ctx_type_0 _inst691;
-   TrigGate__ctx_type_0 _inst291;
+   float pre_x;
 } TrigGate__ctx_type_1;
 
-typedef TrigGate__ctx_type_1 TrigGate_trig2gate_type;
+typedef TrigGate__ctx_type_1 TrigGate_change_type;
 
-void TrigGate__ctx_type_1_init(TrigGate__ctx_type_1 &_output_);
+static_inline void TrigGate__ctx_type_1_init(TrigGate__ctx_type_1 &_output_){
+   TrigGate__ctx_type_1 _ctx;
+   _ctx.pre_x = 0.0f;
+   _output_ = _ctx;
+   return ;
+}
 
-static_inline void TrigGate_trig2gate_init(TrigGate__ctx_type_1 &_output_){
+static_inline void TrigGate_change_init(TrigGate__ctx_type_1 &_output_){
    TrigGate__ctx_type_1_init(_output_);
    return ;
 }
 
-float TrigGate_trig2gate(TrigGate__ctx_type_1 &_ctx, float trig, float len, float st);
+static_inline uint8_t TrigGate_change(TrigGate__ctx_type_1 &_ctx, float x){
+   uint8_t v;
+   v = (_ctx.pre_x != x);
+   _ctx.pre_x = x;
+   return v;
+}
 
 typedef struct TrigGate__ctx_type_2 {
    int state;
+   float sampleTime;
+   float dur;
+   TrigGate__ctx_type_0 _inst891;
+   TrigGate__ctx_type_0 _inst491;
+   TrigGate__ctx_type_1 _inst1a;
+} TrigGate__ctx_type_2;
+
+typedef TrigGate__ctx_type_2 TrigGate_trig2gate_type;
+
+void TrigGate__ctx_type_2_init(TrigGate__ctx_type_2 &_output_);
+
+static_inline void TrigGate_trig2gate_init(TrigGate__ctx_type_2 &_output_){
+   TrigGate__ctx_type_2_init(_output_);
+   return ;
+}
+
+float TrigGate_trig2gate(TrigGate__ctx_type_2 &_ctx, float trig, float len, float st);
+
+typedef TrigGate__ctx_type_2 TrigGate_init_type;
+
+static_inline void TrigGate_init_init(TrigGate__ctx_type_2 &_output_){
+   TrigGate__ctx_type_2_init(_output_);
+   return ;
+}
+
+static_inline void TrigGate_init(TrigGate__ctx_type_2 &_ctx){
+   _ctx.sampleTime = 2.26757369615e-005f;
+};
+
+typedef struct TrigGate__ctx_type_3 {
    float process_ret_1;
    float process_ret_0;
    float gateLen2;
    float gateLen1;
-   float dur;
-   TrigGate__ctx_type_1 _inst2da;
-   TrigGate__ctx_type_1 _inst1da;
-} TrigGate__ctx_type_2;
+   TrigGate__ctx_type_2 _inst2da;
+   TrigGate__ctx_type_2 _inst1da;
+} TrigGate__ctx_type_3;
 
-typedef TrigGate__ctx_type_2 TrigGate_process_type;
+typedef TrigGate__ctx_type_3 TrigGate_process_type;
 
-void TrigGate__ctx_type_2_init(TrigGate__ctx_type_2 &_output_);
+void TrigGate__ctx_type_3_init(TrigGate__ctx_type_3 &_output_);
 
-static_inline void TrigGate_process_init(TrigGate__ctx_type_2 &_output_){
-   TrigGate__ctx_type_2_init(_output_);
+static_inline void TrigGate_process_init(TrigGate__ctx_type_3 &_output_){
+   TrigGate__ctx_type_3_init(_output_);
    return ;
 }
 
-void TrigGate_process(TrigGate__ctx_type_2 &_ctx, float trig1, float trig2, float st);
+void TrigGate_process(TrigGate__ctx_type_3 &_ctx, float trig1, float trig2, float st);
 
-typedef TrigGate__ctx_type_2 TrigGate_process_ret_0_type;
+typedef TrigGate__ctx_type_3 TrigGate_process_ret_0_type;
 
-static_inline void TrigGate_process_ret_0_init(TrigGate__ctx_type_2 &_output_){
-   TrigGate__ctx_type_2_init(_output_);
+static_inline void TrigGate_process_ret_0_init(TrigGate__ctx_type_3 &_output_){
+   TrigGate__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline float TrigGate_process_ret_0(TrigGate__ctx_type_2 &_ctx){
+static_inline float TrigGate_process_ret_0(TrigGate__ctx_type_3 &_ctx){
    return _ctx.process_ret_0;
 };
 
-typedef TrigGate__ctx_type_2 TrigGate_process_ret_1_type;
+typedef TrigGate__ctx_type_3 TrigGate_process_ret_1_type;
 
-static_inline void TrigGate_process_ret_1_init(TrigGate__ctx_type_2 &_output_){
-   TrigGate__ctx_type_2_init(_output_);
+static_inline void TrigGate_process_ret_1_init(TrigGate__ctx_type_3 &_output_){
+   TrigGate__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline float TrigGate_process_ret_1(TrigGate__ctx_type_2 &_ctx){
+static_inline float TrigGate_process_ret_1(TrigGate__ctx_type_3 &_ctx){
    return _ctx.process_ret_1;
 };
 
-typedef TrigGate__ctx_type_2 TrigGate_setGateLen1_type;
+typedef TrigGate__ctx_type_3 TrigGate_setGateLen1_type;
 
-static_inline void TrigGate_setGateLen1_init(TrigGate__ctx_type_2 &_output_){
-   TrigGate__ctx_type_2_init(_output_);
+static_inline void TrigGate_setGateLen1_init(TrigGate__ctx_type_3 &_output_){
+   TrigGate__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline void TrigGate_setGateLen1(TrigGate__ctx_type_2 &_ctx, float value){
+static_inline void TrigGate_setGateLen1(TrigGate__ctx_type_3 &_ctx, float value){
    _ctx.gateLen1 = value;
 };
 
-typedef TrigGate__ctx_type_2 TrigGate_setGateLen2_type;
+typedef TrigGate__ctx_type_3 TrigGate_setGateLen2_type;
 
-static_inline void TrigGate_setGateLen2_init(TrigGate__ctx_type_2 &_output_){
-   TrigGate__ctx_type_2_init(_output_);
+static_inline void TrigGate_setGateLen2_init(TrigGate__ctx_type_3 &_output_){
+   TrigGate__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline void TrigGate_setGateLen2(TrigGate__ctx_type_2 &_ctx, float value){
+static_inline void TrigGate_setGateLen2(TrigGate__ctx_type_3 &_ctx, float value){
    _ctx.gateLen2 = value;
 };
 
-typedef TrigGate__ctx_type_2 TrigGate_default_type;
+typedef TrigGate__ctx_type_3 TrigGate_default_type;
 
-static_inline void TrigGate_default_init(TrigGate__ctx_type_2 &_output_){
-   TrigGate__ctx_type_2_init(_output_);
+static_inline void TrigGate_default_init(TrigGate__ctx_type_3 &_output_){
+   TrigGate__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline void TrigGate_default(TrigGate__ctx_type_2 &_ctx){
+static_inline void TrigGate_default(TrigGate__ctx_type_3 &_ctx){
    _ctx.gateLen1 = 0.2f;
    _ctx.gateLen2 = 0.2f;
-   _ctx.dur = 0.0f;
-   _ctx.state = 0;
 }
 
 

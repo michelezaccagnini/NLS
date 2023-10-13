@@ -30,50 +30,59 @@ void CrossSeq3__ctx_type_5_init(CrossSeq3__ctx_type_5 &_output_){
    CrossSeq3__ctx_type_5 _ctx;
    _ctx.rate = 0.0f;
    _ctx.phase = 0.0f;
+   _ctx.phOff = 0.0f;
    _ctx.o = 0.0f;
-   CrossSeq3__ctx_type_0_init(_ctx._inst823);
-   CrossSeq3__ctx_type_1_init(_ctx._inst578);
-   CrossSeq3__ctx_type_3_init(_ctx._inst3b5);
+   CrossSeq3__ctx_type_1_init(_ctx._inst778);
+   CrossSeq3__ctx_type_3_init(_ctx._inst5b5);
+   CrossSeq3__ctx_type_2_init(_ctx._inst3b9);
    CrossSeq3__ctx_type_2_init(_ctx._inst1b9);
+   CrossSeq3__ctx_type_0_init(_ctx._inst1023);
    _output_ = _ctx;
    return ;
 }
 
 float CrossSeq3_lfo_interp(CrossSeq3__ctx_type_5 &_ctx, float cv, float shape, float amt, float pw, float reset, float phaseOff, float sampleTime){
-   if(CrossSeq3_change(_ctx._inst1b9,cv)){
+   if(CrossSeq3_change(_ctx._inst1b9,phaseOff)){
+      _ctx.phOff = phaseOff;
+   }
+   if(CrossSeq3_change(_ctx._inst3b9,cv)){
       _ctx.rate = (8.f * cv * sampleTime);
    }
    uint8_t update;
-   update = CrossSeq3_each(_ctx._inst3b5,8);
+   update = CrossSeq3_each(_ctx._inst5b5,8);
    if(update){
       _ctx.phase = (_ctx.phase + _ctx.rate);
    }
-   if((_ctx.phase + phaseOff) > 2.f){
-      _ctx.phase = (-2.f + _ctx.phase + phaseOff);
+   if(_ctx.phase > 2.f){
+      _ctx.phase = (-2.f + _ctx.phase);
+   }
+   float ph;
+   if((_ctx.phOff + _ctx.phase) > 2.f){
+      ph = (-2.f + _ctx.phOff + _ctx.phase);
    }
    else
    {
-      _ctx.phase = (_ctx.phase + phaseOff);
+      ph = (_ctx.phOff + _ctx.phase);
    }
    float offset_phase;
-   if((0.5f + _ctx.phase) > 2.f){
-      offset_phase = (-1.5f + _ctx.phase);
+   if((0.5f + ph) > 2.f){
+      offset_phase = (-1.5f + ph);
    }
    else
    {
-      offset_phase = (0.5f + _ctx.phase);
+      offset_phase = (0.5f + ph);
    }
    uint8_t breset;
    breset = (reset > 0.0f);
-   if(CrossSeq3_edge(_ctx._inst578,breset)){
+   if(CrossSeq3_edge(_ctx._inst778,breset)){
       _ctx.phase = 0.0f;
    }
    float saw;
-   saw = (-1.f + _ctx.phase);
+   saw = (-1.f + ph);
    offset_phase = (-1.f + offset_phase);
    if(update){
       if(shape < 1.f){
-         _ctx.o = (amt * CrossSeq3_lerp(sinf((3.14159265359f * _ctx.phase)),(-1.f * (-1.f + (2.f * fabsf(offset_phase)))),fmodf(shape,1.f)));
+         _ctx.o = (amt * CrossSeq3_lerp(sinf((3.14159265359f * ph)),(-1.f * (-1.f + (2.f * fabsf(offset_phase)))),fmodf(shape,1.f)));
       }
       else
       {
@@ -92,7 +101,7 @@ float CrossSeq3_lfo_interp(CrossSeq3__ctx_type_5 &_ctx, float cv, float shape, f
          }
       }
    }
-   return CrossSeq3_soft(_ctx._inst823,_ctx.o);
+   return CrossSeq3_soft(_ctx._inst1023,_ctx.o);
 }
 
 void CrossSeq3__ctx_type_6_init(CrossSeq3__ctx_type_6 &_output_){
@@ -151,9 +160,6 @@ float CrossSeq3_cross_detect3(float a, float b, float c){
 
 void CrossSeq3__ctx_type_8_init(CrossSeq3__ctx_type_8 &_output_){
    CrossSeq3__ctx_type_8 _ctx;
-   _ctx.x4 = 0.0f;
-   _ctx.x3 = 0.0f;
-   _ctx.x2 = 0.0f;
    _ctx.sync = 0.0f;
    _ctx.shape3 = 0.0f;
    _ctx.shape2 = 0.0f;
@@ -161,7 +167,6 @@ void CrossSeq3__ctx_type_8_init(CrossSeq3__ctx_type_8 &_output_){
    _ctx.rate3 = 0.0f;
    _ctx.rate2 = 0.0f;
    _ctx.rate1 = 0.0f;
-   _ctx.rate = 0.0f;
    _ctx.pw3 = 0.0f;
    _ctx.pw2 = 0.0f;
    _ctx.pw1 = 0.0f;
@@ -176,18 +181,10 @@ void CrossSeq3__ctx_type_8_init(CrossSeq3__ctx_type_8 &_output_){
    _ctx.process_ret_10 = 0.0f;
    _ctx.process_ret_1 = 0.0f;
    _ctx.process_ret_0 = 0.0f;
-   _ctx.pre_x = 0.0f;
-   _ctx.pre = 0.0f;
    _ctx.phaseOff3 = 0.0f;
    _ctx.phaseOff2 = 0.0f;
    _ctx.phaseOff1 = 0.0f;
-   _ctx.phase3 = 0.0f;
-   _ctx.phase2 = 0.0f;
-   _ctx.phase1 = 0.0f;
-   _ctx.phase = 0.0f;
-   _ctx.freqK = 0.0f;
    _ctx.freq = 0.0f;
-   _ctx.count = 0.0f;
    _ctx.amt3 = 0.0f;
    _ctx.amt2 = 0.0f;
    _ctx.amt1 = 0.0f;
@@ -242,7 +239,7 @@ void CrossSeq3_process(CrossSeq3__ctx_type_8 &_ctx, float sampleTime){
 }
 
 void CrossSeq3_default(CrossSeq3__ctx_type_8 &_ctx){
-   _ctx.freqK = 1.f;
+   _ctx.freq = 1.f;
    _ctx.sync = 0.0f;
    _ctx.rate1 = 1.f;
    _ctx.rate2 = 1.f;
@@ -253,20 +250,12 @@ void CrossSeq3_default(CrossSeq3__ctx_type_8 &_ctx){
    _ctx.shape1 = 0.0f;
    _ctx.shape2 = 1.f;
    _ctx.shape3 = 1.f;
-   _ctx.phase1 = 0.0f;
-   _ctx.phase2 = 0.0f;
-   _ctx.phase3 = 0.0f;
+   _ctx.phaseOff1 = 0.0f;
+   _ctx.phaseOff2 = 0.0f;
+   _ctx.phaseOff3 = 0.0f;
    _ctx.pw1 = 0.5f;
    _ctx.pw2 = 0.5f;
    _ctx.pw3 = 0.5f;
-   _ctx.x2 = 0.0f;
-   _ctx.x3 = 0.0f;
-   _ctx.x4 = 0.0f;
-   _ctx.pre_x = 0.0f;
-   _ctx.pre = 0.0f;
-   _ctx.count = 0.0f;
-   _ctx.phase = 0.0f;
-   _ctx.rate = 1.f;
 }
 
 

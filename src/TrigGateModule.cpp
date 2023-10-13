@@ -33,8 +33,8 @@ struct TrigGate : Module {
 	void process(const ProcessArgs& args) override {
 		TrigGate_setGateLen1(processor, params[LEN1_PARAM].value);
 		TrigGate_setGateLen2(processor, params[LEN2_PARAM].value);
-		float trig1 = inputs[TRIG1_INPUT].value;
-		float trig2 = inputs[TRIG2_INPUT].value;
+		float trig1 = inputs[TRIG1_INPUT].getVoltage() / 10.0f;
+		float trig2 = inputs[TRIG2_INPUT].getVoltage() / 10.0f;
 		TrigGate_process(processor,trig1, trig2, args.sampleTime);
 		float gate1 = TrigGate_process_ret_0(processor);
 		float gate2 = TrigGate_process_ret_1(processor);

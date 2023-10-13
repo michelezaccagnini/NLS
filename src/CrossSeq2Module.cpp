@@ -82,12 +82,12 @@ struct CrossSeq2 : Module {
 	void process(const ProcessArgs& args) override {
 		CrossSeq2_setFreq(processor, params[FREQ_PARAM].value, inputs[FREQ_INPUT].value);
 		CrossSeq2_setSync(processor, inputs[SYNC_INPUT].value);
-		CrossSeq2_setRate1(processor, params[RATE1_PARAM].value,   inputs[RATE1_INPUT].value * params[CVR1_PARAM].value);
-		CrossSeq2_setRate2(processor, params[RATE2_PARAM].value,   inputs[RATE2_INPUT].value * params[CVR2_PARAM].value);
-		CrossSeq2_setAmt1(processor, params[AMT1_PARAM].value,     inputs[AMT1_INPUT].value * params[CVAM1_PARAM].value);
-		CrossSeq2_setAmt2(processor, params[AMT2_PARAM].value,     inputs[AMT2_INPUT].value * params[CVAM2_PARAM].value);
-		CrossSeq2_setShape1(processor, params[SHAPE1_PARAM].value, inputs[SHAPE1_INPUT].value * params[CVSH1_PARAM].value);
-		CrossSeq2_setShape2(processor, params[SHAPE2_PARAM].value, inputs[SHAPE2_INPUT].value * params[CVSH2_PARAM].value);
+		CrossSeq2_setRate1(processor, params[RATE1_PARAM].value,   ( inputs[RATE1_INPUT].getVoltage() / 10.0f) * params[CVR1_PARAM].value);
+		CrossSeq2_setRate2(processor, params[RATE2_PARAM].value,   ( inputs[RATE2_INPUT].getVoltage() / 10.0f) * params[CVR2_PARAM].value);
+		CrossSeq2_setAmt1(processor, params[AMT1_PARAM].value,     (  inputs[AMT1_INPUT].getVoltage() / 10.0f) * params[CVAM1_PARAM].value);
+		CrossSeq2_setAmt2(processor, params[AMT2_PARAM].value,     (  inputs[AMT2_INPUT].getVoltage() / 10.0f) * params[CVAM2_PARAM].value);
+		CrossSeq2_setShape1(processor, params[SHAPE1_PARAM].value, (inputs[SHAPE1_INPUT].getVoltage() / 10.0f) * params[CVSH1_PARAM].value);
+		CrossSeq2_setShape2(processor, params[SHAPE2_PARAM].value, (inputs[SHAPE2_INPUT].getVoltage() / 10.0f) * params[CVSH2_PARAM].value);
 		CrossSeq2_setPw1(processor, params[PW1_PARAM].value);
 		CrossSeq2_setPw2(processor, params[PW2_PARAM].value);
 		CrossSeq2_setPhase1(processor, params[PHASE1_PARAM].value*2.0);

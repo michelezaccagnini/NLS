@@ -4,10 +4,19 @@ fun edge(x:bool) : bool {
    pre = x;
    return ret;
 }
+fun change(x:real):bool {
+    mem pre_x;
+    val v:bool = pre_x <> x;
+    pre_x = x;
+    return v;
+}
 
 
 fun trig2gate (trig: real, len: real, st:real){
-    mem dur : real;
+    mem sampleTime;
+    if(change(st))
+        sampleTime = st;
+    mem dur;
     mem state;
     val bgate = trig > 0.0;
     if(state == 0){
@@ -17,7 +26,7 @@ fun trig2gate (trig: real, len: real, st:real){
     }
     if(state == 1){
         if(dur < len   ){
-            dur = dur + st;
+            dur = dur + sampleTime;
         }
         if(edge(bgate)){
             dur  = 0.0;
@@ -30,6 +39,9 @@ fun trig2gate (trig: real, len: real, st:real){
     }
     return if state == 1 then 1.0 else 0.0;
 }
+and init()@[init]{
+    sampleTime = 1.0 / 44100.0;
+}
 
 fun process(trig1:real,trig2:real, st:real){
     mem gateLen1;
@@ -38,18 +50,13 @@ fun process(trig1:real,trig2:real, st:real){
     val gate2 = trig2gate(trig2, gateLen2, st); 
     return gate1, gate2; 
 }
-and setGateLen1(value:real){
+and setGateLen1(value){
     gateLen1 = value;
 }
-and setGateLen2(value:real){
+and setGateLen2(value){
     gateLen2 = value;
 }
-
-
-// Called on initialization to define initial values
 and default()@[init]{
-   mem gateLen1 = 0.2;
-   mem gateLen2 = 0.2;
-   mem dur = 0.0;
-   mem state = 0;
+    gateLen1 = 0.2;
+    gateLen2 = 0.2;
 }

@@ -65,12 +65,12 @@ float CrossSeq2_lfo_interp(CrossSeq2__ctx_type_5 &_ctx, float cv, float shape, f
       ph = (_ctx.phOff + _ctx.phase);
    }
    float offset_phase;
-   if((0.5f + _ctx.phase) > 2.f){
-      offset_phase = (-1.5f + _ctx.phase);
+   if((0.5f + ph) > 2.f){
+      offset_phase = (-1.5f + ph);
    }
    else
    {
-      offset_phase = (0.5f + _ctx.phase);
+      offset_phase = (0.5f + ph);
    }
    uint8_t breset;
    breset = (reset > 0.0f);
@@ -140,31 +140,20 @@ float CrossSeq2_cross_detect(CrossSeq2__ctx_type_6 &_ctx, float a, float b, floa
 
 void CrossSeq2__ctx_type_7_init(CrossSeq2__ctx_type_7 &_output_){
    CrossSeq2__ctx_type_7 _ctx;
-   _ctx.x4 = 0.0f;
-   _ctx.x3 = 0.0f;
-   _ctx.x2 = 0.0f;
    _ctx.sync = 0.0f;
    _ctx.shape2 = 0.0f;
    _ctx.shape1 = 0.0f;
    _ctx.rate2 = 0.0f;
    _ctx.rate1 = 0.0f;
-   _ctx.rate = 0.0f;
    _ctx.pw2 = 0.0f;
    _ctx.pw1 = 0.0f;
    _ctx.process_ret_3 = 0.0f;
    _ctx.process_ret_2 = 0.0f;
    _ctx.process_ret_1 = 0.0f;
    _ctx.process_ret_0 = 0.0f;
-   _ctx.pre_x = 0.0f;
-   _ctx.pre = 0.0f;
    _ctx.phaseOff2 = 0.0f;
    _ctx.phaseOff1 = 0.0f;
-   _ctx.phase2 = 0.0f;
-   _ctx.phase1 = 0.0f;
-   _ctx.phase = 0.0f;
-   _ctx.phOff = 0.0f;
    _ctx.freq = 0.0f;
-   _ctx.count = 0.0f;
    _ctx.amt2 = 0.0f;
    _ctx.amt1 = 0.0f;
    CrossSeq2__ctx_type_6_init(_ctx._inst36b);
@@ -202,19 +191,10 @@ void CrossSeq2_default(CrossSeq2__ctx_type_7 &_ctx){
    _ctx.amt2 = 1.f;
    _ctx.shape1 = 0.0f;
    _ctx.shape2 = 1.f;
-   _ctx.phase1 = 0.0f;
-   _ctx.phase2 = 0.0f;
+   _ctx.phaseOff1 = 0.0f;
+   _ctx.phaseOff2 = 0.0f;
    _ctx.pw1 = 0.5f;
    _ctx.pw2 = 0.5f;
-   _ctx.x2 = 0.0f;
-   _ctx.x3 = 0.0f;
-   _ctx.x4 = 0.0f;
-   _ctx.pre_x = 0.0f;
-   _ctx.pre = 0.0f;
-   _ctx.count = 0.0f;
-   _ctx.phase = 0.0f;
-   _ctx.rate = 1.f;
-   _ctx.phOff = 0.0f;
 }
 
 
