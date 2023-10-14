@@ -89,7 +89,7 @@ fun process(sampleTime:real){
    //val env = ad(gate, 0.0, 0.3);
    val trig = gate;
    val diff = (lfo1 - lfo2)  / (amt1 + amt2);
-   return trig, lfo1 / amt1, lfo2 / amt2, diff ; 
+   return trig, lfo1 / (amt1 + 0.001), lfo2 / (amt2 + 0.001), diff ; 
 }
 and setFreq(knob:real, input:real){
    freq = knob + input;

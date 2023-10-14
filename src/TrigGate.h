@@ -64,11 +64,8 @@ static_inline uint8_t TrigGate_change(TrigGate__ctx_type_1 &_ctx, float x){
 
 typedef struct TrigGate__ctx_type_2 {
    int state;
-   float sampleTime;
    float dur;
-   TrigGate__ctx_type_0 _inst891;
-   TrigGate__ctx_type_0 _inst491;
-   TrigGate__ctx_type_1 _inst1a;
+   TrigGate__ctx_type_0 _inst291;
 } TrigGate__ctx_type_2;
 
 typedef TrigGate__ctx_type_2 TrigGate_trig2gate_type;
@@ -90,8 +87,9 @@ static_inline void TrigGate_init_init(TrigGate__ctx_type_2 &_output_){
 }
 
 static_inline void TrigGate_init(TrigGate__ctx_type_2 &_ctx){
-   _ctx.sampleTime = 2.26757369615e-005f;
-};
+   _ctx.state = 0;
+   _ctx.dur = 0.0f;
+}
 
 typedef struct TrigGate__ctx_type_3 {
    float process_ret_1;

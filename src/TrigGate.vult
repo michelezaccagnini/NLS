@@ -13,23 +13,18 @@ fun change(x:real):bool {
 
 
 fun trig2gate (trig: real, len: real, st:real){
-    mem sampleTime;
-    if(change(st))
-        sampleTime = st;
     mem dur;
     mem state;
     val bgate = trig > 0.0;
     if(state == 0){
         if(edge(bgate)){
             state = 1;
+            dur = 0.0;
         }
     }
-    if(state == 1){
+    else {
         if(dur < len   ){
-            dur = dur + sampleTime;
-        }
-        if(edge(bgate)){
-            dur  = 0.0;
+            dur = dur + st;
         }
         if( dur > len  ) {
             state = 0;
@@ -40,7 +35,8 @@ fun trig2gate (trig: real, len: real, st:real){
     return if state == 1 then 1.0 else 0.0;
 }
 and init()@[init]{
-    sampleTime = 1.0 / 44100.0;
+    state = 0;
+    dur = 0.0;
 }
 
 fun process(trig1:real,trig2:real, st:real){

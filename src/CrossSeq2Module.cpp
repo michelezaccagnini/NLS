@@ -97,13 +97,27 @@ struct CrossSeq2 : Module {
 		float lfo1 = CrossSeq2_process_ret_1(processor);
 		float lfo2 = CrossSeq2_process_ret_2(processor);
 		float diff = CrossSeq2_process_ret_3(processor);
-		// Audio signals are typically +/-5V
-		// https://vcvrack.com/manual/VoltageStandards
 		outputs[TRIG_OUTPUT].setVoltage(10.f * trig);
 		outputs[LFO1_OUTPUT].setVoltage(5.f * lfo1);
 		outputs[LFO2_OUTPUT].setVoltage(5.f * lfo2);
 		outputs[DIFF_OUTPUT].setVoltage(5.f * diff);
 	}
+	void paramsFromJson(json_t* rootJ) override {
+		params[FREQ_PARAM].setValue(1.f);
+		params[RATE1_PARAM].setValue(1.f);
+		params[RATE2_PARAM].setValue(1.f);
+		params[AMT1_PARAM].setValue(1.f);
+		params[AMT2_PARAM].setValue(1.f);
+		params[SHAPE1_PARAM].setValue(0.f);
+		params[SHAPE2_PARAM].setValue(1.f);
+		params[PW1_PARAM].setValue(0.5f);
+		params[PW2_PARAM].setValue(0.5f);
+		params[PHASE1_PARAM].setValue(0.f);
+		params[PHASE2_PARAM].setValue(0.f);
+
+		Module::paramsFromJson(rootJ);
+	}
+
 };
 
 

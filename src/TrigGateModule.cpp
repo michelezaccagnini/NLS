@@ -23,26 +23,25 @@ struct TrigGate : Module {
 
 	TrigGate() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN);
-		configParam(LEN1_PARAM, 0.f, 1.f, 0.1f, "gate1 lenght");
-		configParam(LEN2_PARAM, 0.f, 1.f, 0.1f, "gate2 lenght");
-        configInput(TRIG1_INPUT, "trigger1 input");
-        configInput(TRIG2_INPUT, "trigger2 input");
+		configParam(LEN1_PARAM, 0.f, 1.f, 0.1f, "gate1");
+		configParam(LEN2_PARAM, 0.f, 1.f, 0.1f, "gate2");
+        configInput(TRIG1_INPUT, "trigger1");
+        configInput(TRIG2_INPUT, "trigger2");
 	}
 	void TrigGate_process_init();
+
+	float test = 0.0f;
 
 	void process(const ProcessArgs& args) override {
 		TrigGate_setGateLen1(processor, params[LEN1_PARAM].value);
 		TrigGate_setGateLen2(processor, params[LEN2_PARAM].value);
 		float trig1 = inputs[TRIG1_INPUT].getVoltage() / 10.0f;
 		float trig2 = inputs[TRIG2_INPUT].getVoltage() / 10.0f;
-		TrigGate_process(processor,trig1, trig2, args.sampleTime);
+		TrigGate_process(processor, trig1, trig2, args.sampleTime);
 		float gate1 = TrigGate_process_ret_0(processor);
 		float gate2 = TrigGate_process_ret_1(processor);
-		// Audio signals are typically +/-5V
-		// https://vcvrack.com/manual/VoltageStandards
 		outputs[GATE1_OUTPUT].setVoltage(10.f * gate1);
-		outputs[GATE2_OUTPUT].setVoltage(10.f * gate2);
-		
+		outputs[GATE2_OUTPUT].setVoltage(10.f * gate2);	
 	}
 };
 

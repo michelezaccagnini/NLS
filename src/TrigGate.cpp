@@ -5,48 +5,41 @@
 void TrigGate__ctx_type_2_init(TrigGate__ctx_type_2 &_output_){
    TrigGate__ctx_type_2 _ctx;
    _ctx.state = 0;
-   _ctx.sampleTime = 0.0f;
    _ctx.dur = 0.0f;
-   TrigGate__ctx_type_0_init(_ctx._inst891);
-   TrigGate__ctx_type_0_init(_ctx._inst491);
-   TrigGate__ctx_type_1_init(_ctx._inst1a);
+   TrigGate__ctx_type_0_init(_ctx._inst291);
    TrigGate_init(_ctx);
    _output_ = _ctx;
    return ;
 }
 
 float TrigGate_trig2gate(TrigGate__ctx_type_2 &_ctx, float trig, float len, float st){
-   if(TrigGate_change(_ctx._inst1a,st)){
-      _ctx.sampleTime = st;
-   }
    uint8_t bgate;
    bgate = (trig > 0.0f);
    if(_ctx.state == 0){
-      if(TrigGate_edge(_ctx._inst491,bgate)){
+      if(TrigGate_edge(_ctx._inst291,bgate)){
          _ctx.state = 1;
+         _ctx.dur = 0.0f;
       }
    }
-   if(_ctx.state == 1){
+   else
+   {
       if(_ctx.dur < len){
-         _ctx.dur = (_ctx.dur + _ctx.sampleTime);
-      }
-      if(TrigGate_edge(_ctx._inst891,bgate)){
-         _ctx.dur = 0.0f;
+         _ctx.dur = (_ctx.dur + st);
       }
       if(_ctx.dur > len){
          _ctx.state = 0;
          _ctx.dur = 0.0f;
       }
    }
-   float _if_18;
+   float _if_11;
    if(_ctx.state == 1){
-      _if_18 = 1.f;
+      _if_11 = 1.f;
    }
    else
    {
-      _if_18 = 0.0f;
+      _if_11 = 0.0f;
    }
-   return _if_18;
+   return _if_11;
 }
 
 void TrigGate__ctx_type_3_init(TrigGate__ctx_type_3 &_output_){

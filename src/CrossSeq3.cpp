@@ -222,9 +222,9 @@ void CrossSeq3_process(CrossSeq3__ctx_type_8 &_ctx, float sampleTime){
    diff23 = ((lfo2 + (- lfo3)) / (0.01f + _ctx.amt2 + _ctx.amt3));
    float diff123;
    diff123 = ((lfo1 + (- lfo2) + (- lfo3)) / (0.01f + _ctx.amt1 + _ctx.amt2 + _ctx.amt3));
-   lfo1 = (lfo1 / _ctx.amt1);
-   lfo2 = (lfo2 / _ctx.amt2);
-   lfo3 = (lfo3 / _ctx.amt3);
+   lfo1 = (lfo1 / (0.001f + _ctx.amt1));
+   lfo2 = (lfo2 / (0.001f + _ctx.amt2));
+   lfo3 = (lfo3 / (0.001f + _ctx.amt3));
    _ctx.process_ret_0 = tr12;
    _ctx.process_ret_1 = tr13;
    _ctx.process_ret_2 = tr23;
