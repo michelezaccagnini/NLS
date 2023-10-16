@@ -37,6 +37,7 @@ void CrossSeq3__ctx_type_5_init(CrossSeq3__ctx_type_5 &_output_){
    CrossSeq3__ctx_type_2_init(_ctx._inst3b9);
    CrossSeq3__ctx_type_2_init(_ctx._inst1b9);
    CrossSeq3__ctx_type_0_init(_ctx._inst1023);
+   CrossSeq3_initPhase(_ctx);
    _output_ = _ctx;
    return ;
 }
@@ -53,17 +54,9 @@ float CrossSeq3_lfo_interp(CrossSeq3__ctx_type_5 &_ctx, float cv, float shape, f
    if(update){
       _ctx.phase = (_ctx.phase + _ctx.rate);
    }
-   if(_ctx.phase > 2.f){
-      _ctx.phase = (-2.f + _ctx.phase);
-   }
+   _ctx.phase = fmodf(_ctx.phase,2.f);
    float ph;
-   if((_ctx.phOff + _ctx.phase) > 2.f){
-      ph = (-2.f + _ctx.phOff + _ctx.phase);
-   }
-   else
-   {
-      ph = (_ctx.phOff + _ctx.phase);
-   }
+   ph = fmodf((_ctx.phOff + _ctx.phase),2.f);
    float offset_phase;
    if((0.5f + ph) > 2.f){
       offset_phase = (-1.5f + ph);

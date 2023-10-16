@@ -113,6 +113,7 @@ struct CrossSeq3 : Module {
 		configOutput(DIFF123_OUTPUT, "diff123");
 	}
 	void CrossSeq3_process_init();
+	float sampleTime = 1.0f / 44100.0f;
 
 	void process(const ProcessArgs& args) override {
 		CrossSeq3_setFreq(processor, params[FREQ_PARAM].value, inputs[FREQ_INPUT].value);
@@ -132,7 +133,7 @@ struct CrossSeq3 : Module {
 		CrossSeq3_setPhase1(processor, params[PHASE1_PARAM].value);
 		CrossSeq3_setPhase2(processor, params[PHASE2_PARAM].value);
 		CrossSeq3_setPhase3(processor, params[PHASE3_PARAM].value);
-		CrossSeq3_process(processor,args.sampleTime);
+		CrossSeq3_process(processor,sampleTime);
 		float trig12 = CrossSeq3_process_ret_0(processor);
 		float trig13 = CrossSeq3_process_ret_1(processor);
 		float trig23 = CrossSeq3_process_ret_2(processor);
@@ -156,7 +157,43 @@ struct CrossSeq3 : Module {
 		outputs[DIFF23_OUTPUT].setVoltage(5.f * diff23);
 		outputs[DIFF123_OUTPUT].setVoltage(5.f * diff123);
 	}
+
+	void paramsFromJson(json_t* rootJ) override {
+		params[FREQ_PARAM].setValue(1.f);
+		params[RATE1_PARAM].setValue(1.f);
+		params[RATE2_PARAM].setValue(1.f);
+		params[RATE3_PARAM].setValue(1.f);
+		params[AMT1_PARAM].setValue(1.f);
+		params[AMT2_PARAM].setValue(1.f);
+		params[AMT3_PARAM].setValue(1.f);
+		params[SHAPE1_PARAM].setValue(0.f);
+		params[SHAPE2_PARAM].setValue(1.f);
+		params[SHAPE3_PARAM].setValue(1.f);
+		params[PW1_PARAM].setValue(0.5f);
+		params[PW2_PARAM].setValue(0.5f);
+		params[PW3_PARAM].setValue(0.5f);
+		params[PHASE1_PARAM].setValue(0.f);
+		params[PHASE2_PARAM].setValue(0.f);
+		params[PHASE3_PARAM].setValue(0.f);
+		params[	CVRT1_PARAM].setValue(0.f);
+		params[	CVRT2_PARAM].setValue(0.f);
+		params[	CVRT3_PARAM].setValue(0.f);
+		params[	CVAM1_PARAM].setValue(0.f);
+		params[	CVAM2_PARAM].setValue(0.f);
+		params[	CVAM3_PARAM].setValue(0.f);
+		params[	CVSH1_PARAM].setValue(0.f);
+		params[	CVSH2_PARAM].setValue(0.f);
+		params[	CVSH3_PARAM].setValue(0.f);
+
+		Module::paramsFromJson(rootJ);
+	}
+
+	void onSampleRateChange(const SampleRateChangeEvent& e) override {
+    sampleTime = 1.0f / e.sampleRate;
+	}
 };
+
+
 
 
 

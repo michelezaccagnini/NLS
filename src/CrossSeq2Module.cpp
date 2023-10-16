@@ -78,6 +78,7 @@ struct CrossSeq2 : Module {
 		configOutput(DIFF_OUTPUT, "diff");
 	}
 	void CrossSeq2_process_init() ;
+	float sampleTime = 1.0f / 44100.0f;
 
 	void process(const ProcessArgs& args) override {
 		CrossSeq2_setFreq(processor, params[FREQ_PARAM].value, inputs[FREQ_INPUT].value);
@@ -92,7 +93,7 @@ struct CrossSeq2 : Module {
 		CrossSeq2_setPw2(processor, params[PW2_PARAM].value);
 		CrossSeq2_setPhase1(processor, params[PHASE1_PARAM].value*2.0);
 		CrossSeq2_setPhase2(processor, params[PHASE2_PARAM].value*2.0);
-		CrossSeq2_process(processor,args.sampleTime);
+		CrossSeq2_process(processor, sampleTime);
 		float trig = CrossSeq2_process_ret_0(processor);
 		float lfo1 = CrossSeq2_process_ret_1(processor);
 		float lfo2 = CrossSeq2_process_ret_2(processor);
@@ -102,6 +103,9 @@ struct CrossSeq2 : Module {
 		outputs[LFO2_OUTPUT].setVoltage(5.f * lfo2);
 		outputs[DIFF_OUTPUT].setVoltage(5.f * diff);
 	}
+	void onSampleRateChange(const SampleRateChangeEvent& e) override {
+        sampleTime = 1.0f / e.sampleRate;
+    }
 	void paramsFromJson(json_t* rootJ) override {
 		params[FREQ_PARAM].setValue(1.f);
 		params[RATE1_PARAM].setValue(1.f);
@@ -114,6 +118,12 @@ struct CrossSeq2 : Module {
 		params[PW2_PARAM].setValue(0.5f);
 		params[PHASE1_PARAM].setValue(0.f);
 		params[PHASE2_PARAM].setValue(0.f);
+		params[	CVR1_PARAM].setValue(0.f);
+		params[	CVR2_PARAM].setValue(0.f);
+		params[	CVAM1_PARAM].setValue(0.f);
+		params[	CVAM2_PARAM].setValue(0.f);
+		params[	CVSH1_PARAM].setValue(0.f);
+		params[	CVSH2_PARAM].setValue(0.f);
 
 		Module::paramsFromJson(rootJ);
 	}

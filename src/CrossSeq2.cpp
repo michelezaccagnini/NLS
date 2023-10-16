@@ -37,6 +37,7 @@ void CrossSeq2__ctx_type_5_init(CrossSeq2__ctx_type_5 &_output_){
    CrossSeq2__ctx_type_1_init(_ctx._inst393);
    CrossSeq2__ctx_type_1_init(_ctx._inst193);
    CrossSeq2__ctx_type_0_init(_ctx._inst109);
+   CrossSeq2_initPhase(_ctx);
    _output_ = _ctx;
    return ;
 }
@@ -53,17 +54,9 @@ float CrossSeq2_lfo_interp(CrossSeq2__ctx_type_5 &_ctx, float cv, float shape, f
    if(update){
       _ctx.phase = (_ctx.phase + _ctx.rate);
    }
-   if(_ctx.phase > 2.f){
-      _ctx.phase = (-2.f + _ctx.phase);
-   }
+   _ctx.phase = fmodf(_ctx.phase,2.f);
    float ph;
-   if((_ctx.phOff + _ctx.phase) > 2.f){
-      ph = (-2.f + _ctx.phOff + _ctx.phase);
-   }
-   else
-   {
-      ph = (_ctx.phOff + _ctx.phase);
-   }
+   ph = fmodf((_ctx.phOff + _ctx.phase),2.f);
    float offset_phase;
    if((0.5f + ph) > 2.f){
       offset_phase = (-1.5f + ph);
@@ -176,8 +169,8 @@ void CrossSeq2_process(CrossSeq2__ctx_type_7 &_ctx, float sampleTime){
    float diff;
    diff = ((lfo1 + (- lfo2)) / (_ctx.amt1 + _ctx.amt2));
    _ctx.process_ret_0 = trig;
-   _ctx.process_ret_1 = (lfo1 / (0.001f + _ctx.amt1));
-   _ctx.process_ret_2 = (lfo2 / (0.001f + _ctx.amt2));
+   _ctx.process_ret_1 = lfo1;
+   _ctx.process_ret_2 = lfo2;
    _ctx.process_ret_3 = diff;
    return ;
 }

@@ -140,6 +140,19 @@ static_inline void CrossSeq3_lfo_interp_init(CrossSeq3__ctx_type_5 &_output_){
 
 float CrossSeq3_lfo_interp(CrossSeq3__ctx_type_5 &_ctx, float cv, float shape, float amt, float pw, float reset, float phaseOff, float sampleTime);
 
+typedef CrossSeq3__ctx_type_5 CrossSeq3_initPhase_type;
+
+static_inline void CrossSeq3_initPhase_init(CrossSeq3__ctx_type_5 &_output_){
+   CrossSeq3__ctx_type_5_init(_output_);
+   return ;
+}
+
+static_inline void CrossSeq3_initPhase(CrossSeq3__ctx_type_5 &_ctx){
+   _ctx.phase = 0.0f;
+   _ctx.rate = 1.f;
+   _ctx.phOff = 0.0f;
+}
+
 typedef struct CrossSeq3__ctx_type_6 {
    float open;
    CrossSeq3__ctx_type_2 _inst1b9;
