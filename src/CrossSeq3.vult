@@ -108,7 +108,7 @@ fun process(sampleTime:real){
    val diff12 = (lfo1 - lfo2) ; // / (amt1 + amt2 + 0.01 );
    val diff13 = (lfo1 - lfo3) ; // / (amt1 + amt3 + 0.01 );
    val diff23 = (lfo2 - lfo3) ; // / (amt2 + amt3 + 0.01 );
-   val diff123 = (lfo1 - lfo2 - lfo3) ; // / (amt1 + amt2 + amt3 + 0.01 ) ;
+    val diff123 = (lfo1 - lfo2 - lfo3) ; // / (amt1 + amt2 + amt3 + 0.01 ) ;
    //uncomment to normalize LFO outs
    //lfo1 = lfo1 / (amt1 + 0.001);
    //lfo2 = lfo2 / (amt2 + 0.001);
