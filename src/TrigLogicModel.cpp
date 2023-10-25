@@ -44,14 +44,14 @@ struct TrigLogic : Module {
 	void TrigLogic_process_init();
 
 	void process(const ProcessArgs& args) override {
-		TrigLogic_setType1(processor, params[TYPE1_SWITCH].value);
+		 TrigLogic_setType1(processor, params[TYPE1_SWITCH].value);
 		TrigLogic_setType2(processor, params[TYPE2_SWITCH].value);
 		TrigLogic_setS1(processor, params[SIGN1_PARAM].value);
 		TrigLogic_setS2(processor, params[SIGN2_PARAM].value);
 		TrigLogic_setAndOr(processor, params[OP_SWITCH].value);
-        float trig = inputs[TRIG_INPUT].value;
-        float lfo1 = inputs[LFO1_INPUT].value;
-        float lfo2 = inputs[LFO2_INPUT].value;
+        float trig = inputs[TRIG_INPUT].getVoltage() / 10.0f;
+        float lfo1 = inputs[LFO1_INPUT].getVoltage() / 10.0f;
+        float lfo2 = inputs[LFO2_INPUT].getVoltage() / 10.0f;
 		TrigLogic_process(processor,trig,lfo1,lfo2);
 		float tr = TrigLogic_process_ret_0(processor);
 		float invtr = TrigLogic_process_ret_1(processor);

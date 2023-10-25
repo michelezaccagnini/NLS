@@ -167,7 +167,7 @@ void CrossSeq2_process(CrossSeq2__ctx_type_7 &_ctx, float sampleTime){
    float trig;
    trig = gate;
    float diff;
-   diff = ((lfo1 + (- lfo2)) / (_ctx.amt1 + _ctx.amt2));
+   diff = (lfo1 + (- lfo2));
    _ctx.process_ret_0 = trig;
    _ctx.process_ret_1 = lfo1;
    _ctx.process_ret_2 = lfo2;

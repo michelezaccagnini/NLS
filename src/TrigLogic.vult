@@ -35,8 +35,6 @@ fun process(trig, lfo1, lfo2){
     val l = logic(lfo1, lfo2, type1, type2, s1, s2, andOr);
     val ret1 = if l then trig else 0.0;
     val ret2 = if not(l) then trig else 0.0;
-    //ret1 = if direction(lfo1) then 1.0 else 0.0; 
-    //ret2 = if direction(lfo2) then 1.0 else 0.0; 
     return  ret1, ret2;
 }
 and setType1(value){
