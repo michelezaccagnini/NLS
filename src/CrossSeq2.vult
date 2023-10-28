@@ -91,7 +91,7 @@ fun process(sampleTime:real){
    val lfo2 = lfo_interp(rate2*freq, shape2, amt2, pw2, sync,phaseOff2, sampleTime) ;
    val gate = cross_detect(lfo1, lfo2, sampleTime);
    val trig = gate;
-   val diff = (lfo1 - lfo2) ;//  / (amt1 + amt2);
+   val diff = (lfo1 - lfo2) ;
    //return trig, lfo1 / (amt1 + 0.001), lfo2 / (amt2 + 0.001), diff ; 
    return trig, lfo1 , lfo2 , diff ; 
 }
