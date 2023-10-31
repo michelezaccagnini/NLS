@@ -140,8 +140,10 @@ float CrossSeq3_cross_detect3(float a, float b, float c){
    diff23 = (b + (- c));
    float adiff;
    adiff = (fabsf(diff12) + fabsf(diff13) + fabsf(diff23));
+   float fudge;
+   fudge = 0.05f;
    float ret;
-   if(adiff < 0.1f){
+   if(adiff < fudge){
       ret = 1.f;
    }
    else

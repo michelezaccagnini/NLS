@@ -8,12 +8,6 @@ struct GraviHarm : Module {
       KNOB2,
       KNOB3,
       KNOB4,
-
-      MOD1,
-      MOD2,
-      MOD3,
-      MOD4,
-
       NUM_PARAMS
    };
    enum InputIds {
@@ -21,7 +15,6 @@ struct GraviHarm : Module {
       MOD_IN2,
       MOD_IN3,
       MOD_IN4,
-
       IN1,
       IN2,
       IN3,
@@ -57,11 +50,6 @@ GraviHarm::GraviHarm() {
    configParam(GraviHarm::KNOB4, -5.0, 5.0, 0.0, "Octave", " octave", -5, 5);
    paramQuantities[KNOB4]->snapEnabled = true;
 
-   configParam(GraviHarm::MOD1, -1.0, 1.0, 0.0, "Mod 1", " %", 0.0f, 100.f);
-   configParam(GraviHarm::MOD2, -1.0, 1.0, 0.0, "Mod 2", " %", 0.0f, 100.f);
-   configParam(GraviHarm::MOD3, -1.0, 1.0, 0.0, "Mod 3", " %", 0.0f, 100.f);
-   configParam(GraviHarm::MOD4, -1.0, 1.0, 0.0, "Mod 4", " %", 0.0f, 100.f);
-
    Processor_process_init(processor);
 }
 
@@ -83,10 +71,7 @@ void GraviHarm::process(const ProcessArgs &args) {
       float knobChor = params[KNOB2].getValue();
       float knobPlan = params[KNOB3].getValue();
       float knobOcta = params[KNOB4].getValue();
-      //float mod1 = params[MOD1].getValue();
-      //float mod2 = params[MOD2].getValue();
-      //float mod3 = params[MOD3].getValue();
-      //float mod4 = params[MOD4].getValue();
+
       Processor_setKnobNote(processor, knobNote);
       Processor_setKnobChor(processor, knobChor);
       Processor_setKnobPlan(processor, knobPlan);
@@ -105,7 +90,7 @@ struct GraviHarmWidget : ModuleWidget {
    GraviHarmWidget(GraviHarm *module) {
       setModule(module);
 
-      setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/Playground.svg")));
+      setPanel(APP->window->loadSvg(asset::plugin(pluginInstance, "res/GraviHarm.svg")));
 
       addChild(createWidget<ScrewBlack>(Vec(15, 3)));
       addChild(createWidget<ScrewBlack>(Vec(box.size.x - 30, 3)));
@@ -118,7 +103,6 @@ struct GraviHarmWidget : ModuleWidget {
       addParam(createParam<Rogan3PWhite>(Vec(89, 130), module, GraviHarm::KNOB4));
 
       for (int i = 0; i < 4; i++) {
-         addParam(createParam<RoundSmallBlackKnob>(Vec(10 + 35 * i, 204), module, GraviHarm::MOD1 + i));
          addInput(createInput<PJ301MPort>(Vec(10 + 35 * i, 238), module, GraviHarm::MOD_IN1 + i));
       }
 

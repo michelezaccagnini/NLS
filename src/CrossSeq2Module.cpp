@@ -46,23 +46,23 @@ struct CrossSeq2 : Module {
 
 	CrossSeq2() {
 		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN);
-		configParam(FREQ_PARAM, 0.f, 10.f, 1.f, "freq");
-		configParam(RATE1_PARAM, 0.f, 10.f, 1.f, "rate1");
-		configParam(RATE2_PARAM, 0.f, 10.f, 0.5f, "rate2");
-		configParam(AMT1_PARAM, 0.f, 1.0f, 1.f, "amount1");
-		configParam(AMT2_PARAM, 0.f, 1.f, 1.f, "amount2");
-		configParam(SHAPE1_PARAM, 0.f, 3.f, 0.f, "shape1");
-		configParam(SHAPE2_PARAM, 0.f, 3.f, 1.f, "shape2");
-		configParam(PHASE1_PARAM, 0.f, 1.f, 0.f, "phase1");
-		configParam(PHASE2_PARAM, 0.f, 1.f, 0.f, "phase2");
-		configParam(PW1_PARAM, 0.f, 1.f, 0.5f, "pw1");
-		configParam(PW2_PARAM, 0.f, 1.f, 0.5f, "pw2");
-		configParam(CVR1_PARAM, -1.f, 1.f, 0.f, "cv rate1");
-		configParam(CVR2_PARAM, -1.f, 1.f, 0.f, "cv rate2");
-		configParam(CVAM1_PARAM, -1.f, 1.f, 0.f, "cv amount1");
-		configParam(CVAM2_PARAM, -1.f, 1.f, 0.f, "cv amount2");
-		configParam(CVSH1_PARAM, -1.f, 1.f, 0.f, "cv shape1");
-		configParam(CVSH2_PARAM, -1.f, 1.f, 0.f, "cv shape2");
+		configParam(FREQ_PARAM, 0.f, 10.f, 1.f,   "freq"      );
+		configParam(RATE1_PARAM, 0.f, 10.f, 1.f,  "rate1"     );
+		configParam(RATE2_PARAM, 0.f, 10.f, 0.5f, "rate2"     );
+		configParam(AMT1_PARAM, 0.f, 1.0f, 1.f,   "amount1"   );
+		configParam(AMT2_PARAM, 0.f, 1.f, 1.f,    "amount2"   );
+		configParam(SHAPE1_PARAM, 0.f, 3.f, 0.f,  "shape1"    );
+		configParam(SHAPE2_PARAM, 0.f, 3.f, 1.f,  "shape2"    );
+		configParam(PHASE1_PARAM, 0.f, 1.f, 0.f,  "phase1"    );
+		configParam(PHASE2_PARAM, 0.f, 1.f, 0.f,  "phase2"    );
+		configParam(PW1_PARAM, 0.f, 1.f, 0.5f,    "pw1"       );
+		configParam(PW2_PARAM, 0.f, 1.f, 0.5f,    "pw2"       );
+		configParam(CVR1_PARAM, -1.f, 1.f, 0.f,   "cvrate1"  );
+		configParam(CVR2_PARAM, -1.f, 1.f, 0.f,   "cvrate2"  );
+		configParam(CVAM1_PARAM, -1.f, 1.f, 0.f,  "cvamount1");
+		configParam(CVAM2_PARAM, -1.f, 1.f, 0.f,  "cvamount2");
+		configParam(CVSH1_PARAM, -1.f, 1.f, 0.f,  "cvshape1" );
+		configParam(CVSH2_PARAM, -1.f, 1.f, 0.f,  "cvshape2" );
 		
 		configInput(FREQ_INPUT, "freq input");
 		configInput(RATE1_INPUT, "rate1 input");
@@ -79,20 +79,56 @@ struct CrossSeq2 : Module {
 	}
 	void CrossSeq2_process_init() ;
 	float sampleTime = 1.0f / 44100.0f;
-
+	
+float freq      ;       
+float rate1    ;   
+float rate2    ;   
+float amount1  ;
+float amount2  ;
+float shape1   ;
+float shape2   ;
+float phase1   ;
+float phase2   ;
+float pw1       ;
+float pw2       ;
+float cvrate1  ;
+float cvrate2  ;
+float cvamount1;
+float cvamount2;
+float cvshape1 ;
+float cvshape2 ;
 	void process(const ProcessArgs& args) override {
-		CrossSeq2_setFreq(processor, params[FREQ_PARAM].value, inputs[FREQ_INPUT].value);
+		freq      = params[FREQ_PARAM].value;
+        rate1     = params[RATE1_PARAM].value;
+        rate2     = params[RATE2_PARAM].value;
+        amount1   = params[AMT1_PARAM].value;
+        amount2   = params[AMT2_PARAM].value;
+        shape1    = params[SHAPE1_PARAM].value;
+        shape2    = params[SHAPE2_PARAM].value;
+        phase1    = params[PHASE1_PARAM].value;
+        phase2    = params[PHASE2_PARAM].value;
+        pw1       = params[PW1_PARAM].value;
+        pw2       = params[PW2_PARAM].value;
+        cvrate1   = params[CVR1_PARAM].value;
+        cvrate2   = params[CVR2_PARAM].value;
+        cvamount1 = params[CVAM1_PARAM].value;
+        cvamount2 = params[CVAM2_PARAM].value;
+        cvshape1  = params[CVSH1_PARAM].value;
+        cvshape2  = params[CVSH2_PARAM].value;
+
+		
+		CrossSeq2_setFreq(processor, freq, inputs[FREQ_INPUT].value);
 		CrossSeq2_setSync(processor, inputs[SYNC_INPUT].value);
-		CrossSeq2_setRate1(processor, params[RATE1_PARAM].value,   ( inputs[RATE1_INPUT].getVoltage() / 10.0f) * params[CVR1_PARAM].value);
-		CrossSeq2_setRate2(processor, params[RATE2_PARAM].value,   ( inputs[RATE2_INPUT].getVoltage() / 10.0f) * params[CVR2_PARAM].value);
-		CrossSeq2_setAmt1(processor, params[AMT1_PARAM].value,     (  inputs[AMT1_INPUT].getVoltage() / 10.0f) * params[CVAM1_PARAM].value);
-		CrossSeq2_setAmt2(processor, params[AMT2_PARAM].value,     (  inputs[AMT2_INPUT].getVoltage() / 10.0f) * params[CVAM2_PARAM].value);
-		CrossSeq2_setShape1(processor, params[SHAPE1_PARAM].value, (inputs[SHAPE1_INPUT].getVoltage() / 10.0f) * params[CVSH1_PARAM].value);
-		CrossSeq2_setShape2(processor, params[SHAPE2_PARAM].value, (inputs[SHAPE2_INPUT].getVoltage() / 10.0f) * params[CVSH2_PARAM].value);
-		CrossSeq2_setPw1(processor, params[PW1_PARAM].value);
-		CrossSeq2_setPw2(processor, params[PW2_PARAM].value);
-		CrossSeq2_setPhase1(processor, params[PHASE1_PARAM].value*2.0);
-		CrossSeq2_setPhase2(processor, params[PHASE2_PARAM].value*2.0);
+		CrossSeq2_setRate1(processor, rate1,   ( inputs[RATE1_INPUT].getVoltage() / 10.0f) * cvrate1);
+		CrossSeq2_setRate2(processor, rate2,   ( inputs[RATE2_INPUT].getVoltage() / 10.0f) * cvrate2);
+		CrossSeq2_setAmt1(processor, amount1,     (  inputs[AMT1_INPUT].getVoltage() / 10.0f) * cvamount1);
+		CrossSeq2_setAmt2(processor, amount2,     (  inputs[AMT2_INPUT].getVoltage() / 10.0f) * cvamount2);
+		CrossSeq2_setShape1(processor, shape1, (inputs[SHAPE1_INPUT].getVoltage() / 10.0f) * cvshape1);
+		CrossSeq2_setShape2(processor, shape2, (inputs[SHAPE2_INPUT].getVoltage() / 10.0f) * cvshape2);
+		CrossSeq2_setPw1(processor, pw1);
+		CrossSeq2_setPw2(processor, pw2);
+		CrossSeq2_setPhase1(processor, phase1*2.0);
+		CrossSeq2_setPhase2(processor, phase2*2.0);
 		CrossSeq2_process(processor, sampleTime);
 		float trig = CrossSeq2_process_ret_0(processor);
 		float lfo1 = CrossSeq2_process_ret_1(processor);
@@ -102,6 +138,51 @@ struct CrossSeq2 : Module {
 		outputs[LFO1_OUTPUT].setVoltage(5.f * lfo1);
 		outputs[LFO2_OUTPUT].setVoltage(5.f * lfo2);
 		outputs[DIFF_OUTPUT].setVoltage(5.f * diff);
+	}
+	json_t* dataToJson() override {
+		json_t* rootJ = json_object();
+		json_object_set_new(rootJ, "freq",      json_real(freq     ));
+		json_object_set_new(rootJ, "rate1",     json_real(rate1    ));
+		json_object_set_new(rootJ, "rate2",     json_real(rate2    ));
+		json_object_set_new(rootJ, "amount1",   json_real(amount1  ));
+		json_object_set_new(rootJ, "amount2",   json_real(amount2  ));
+		json_object_set_new(rootJ, "shape1",    json_real(shape1   ));
+		json_object_set_new(rootJ, "shape2",    json_real(shape2   ));
+		json_object_set_new(rootJ, "phase1",    json_real(phase1   ));
+		json_object_set_new(rootJ, "phase2",    json_real(phase2   ));
+		json_object_set_new(rootJ, "pw1",       json_real(pw1      ));
+		json_object_set_new(rootJ, "pw2",       json_real(pw2      ));
+		json_object_set_new(rootJ, "cvrate1",   json_real(cvrate1  ));
+		json_object_set_new(rootJ, "cvrate2",   json_real(cvrate2  ));
+		json_object_set_new(rootJ, "cvamount1", json_real(cvamount1));
+		json_object_set_new(rootJ, "cvamount2", json_real(cvamount2));
+		json_object_set_new(rootJ, "cvshape1",  json_real(cvshape1 ));
+		json_object_set_new(rootJ, "cvshape2",  json_real(cvshape2 ));
+
+		return rootJ;
+	}
+	
+	void dataFromJson(json_t* rootJ) override {
+		json_t* modeJ = json_object_get(rootJ, "mode");
+		if (modeJ){
+			freq       = json_real_value(modeJ);
+			rate1      = json_real_value(modeJ);
+			rate2      = json_real_value(modeJ);
+			amount1    = json_real_value(modeJ);
+			amount2    = json_real_value(modeJ);
+			shape1     = json_real_value(modeJ);
+			shape2     = json_real_value(modeJ);
+			phase1     = json_real_value(modeJ);
+			phase2     = json_real_value(modeJ);
+			pw1        = json_real_value(modeJ);
+			pw2        = json_real_value(modeJ);
+			cvrate1   =  json_real_value(modeJ);
+			cvrate2   =  json_real_value(modeJ);
+			cvamount1 =  json_real_value(modeJ);
+			cvamount2 =  json_real_value(modeJ);
+			cvshape1  =  json_real_value(modeJ);
+			cvshape2  =  json_real_value(modeJ);
+		}
 	}
 	void onSampleRateChange(const SampleRateChangeEvent& e) override {
         sampleTime = 1.0f / e.sampleRate;

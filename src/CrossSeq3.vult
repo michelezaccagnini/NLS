@@ -91,7 +91,9 @@ fun cross_detect3(a:real, b:real, c:real)
     val diff13 = a - c;
     val diff23 = b - c;
     val adiff = abs(diff12) + abs(diff13) + abs(diff23); 
-    val ret = if adiff < 0.1 then 1.0 else 0.0; 
+    // fudge: how small the difference has to be to produce trigger?
+    val fudge = 0.05;
+    val ret = if adiff < fudge then 1.0 else 0.0; 
     return ret;
 }
 
