@@ -93,6 +93,7 @@ void TrigLogic__ctx_type_3_init(TrigLogic__ctx_type_3 &_output_){
    _ctx.inv = false;
    _ctx.andOr = false;
    TrigLogic__ctx_type_2_init(_ctx._inst129);
+   TrigLogic_default(_ctx);
    _output_ = _ctx;
    return ;
 }

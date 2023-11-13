@@ -37,7 +37,6 @@ void CrossSeq3__ctx_type_5_init(CrossSeq3__ctx_type_5 &_output_){
    CrossSeq3__ctx_type_2_init(_ctx._inst3b9);
    CrossSeq3__ctx_type_2_init(_ctx._inst1b9);
    CrossSeq3__ctx_type_0_init(_ctx._inst1023);
-   CrossSeq3_initPhase(_ctx);
    _output_ = _ctx;
    return ;
 }
@@ -186,17 +185,16 @@ void CrossSeq3__ctx_type_8_init(CrossSeq3__ctx_type_8 &_output_){
    _ctx.phaseOff3 = 0.0f;
    _ctx.phaseOff2 = 0.0f;
    _ctx.phaseOff1 = 0.0f;
+   CrossSeq3__ctx_type_5_init(_ctx.l3);
+   CrossSeq3__ctx_type_5_init(_ctx.l2);
+   CrossSeq3__ctx_type_5_init(_ctx.l1);
    _ctx.freq = 0.0f;
    _ctx.amt3 = 0.0f;
    _ctx.amt2 = 0.0f;
    _ctx.amt1 = 0.0f;
-   CrossSeq3__ctx_type_6_init(_ctx._inst6c3);
-   CrossSeq3__ctx_type_6_init(_ctx._inst5c3);
-   CrossSeq3__ctx_type_6_init(_ctx._inst4c3);
-   CrossSeq3__ctx_type_5_init(_ctx._inst32f);
-   CrossSeq3__ctx_type_5_init(_ctx._inst22f);
-   CrossSeq3__ctx_type_5_init(_ctx._inst1926);
-   CrossSeq3__ctx_type_5_init(_ctx._inst12f);
+   CrossSeq3__ctx_type_6_init(_ctx._inst3c3);
+   CrossSeq3__ctx_type_6_init(_ctx._inst2c3);
+   CrossSeq3__ctx_type_6_init(_ctx._inst1c3);
    CrossSeq3_default(_ctx);
    _output_ = _ctx;
    return ;
@@ -204,11 +202,11 @@ void CrossSeq3__ctx_type_8_init(CrossSeq3__ctx_type_8 &_output_){
 
 void CrossSeq3_process(CrossSeq3__ctx_type_8 &_ctx, float sampleTime){
    float lfo1;
-   lfo1 = CrossSeq3_lfo_interp(_ctx._inst12f,(_ctx.freq * _ctx.rate1),_ctx.shape1,_ctx.amt1,_ctx.pw1,_ctx.sync,_ctx.phaseOff1,sampleTime);
+   lfo1 = CrossSeq3_lfo_interp(_ctx.l1,(_ctx.freq * _ctx.rate1),_ctx.shape1,_ctx.amt1,_ctx.pw1,_ctx.sync,_ctx.phaseOff1,sampleTime);
    float lfo2;
-   lfo2 = CrossSeq3_lfo_interp(_ctx._inst22f,(_ctx.freq * _ctx.rate2),_ctx.shape2,_ctx.amt2,_ctx.pw2,_ctx.sync,_ctx.phaseOff2,sampleTime);
+   lfo2 = CrossSeq3_lfo_interp(_ctx.l2,(_ctx.freq * _ctx.rate2),_ctx.shape2,_ctx.amt2,_ctx.pw2,_ctx.sync,_ctx.phaseOff2,sampleTime);
    float lfo3;
-   lfo3 = CrossSeq3_lfo_interp(_ctx._inst32f,(_ctx.freq * _ctx.rate3),_ctx.shape3,_ctx.amt3,_ctx.pw3,_ctx.sync,_ctx.phaseOff3,sampleTime);
+   lfo3 = CrossSeq3_lfo_interp(_ctx.l3,(_ctx.freq * _ctx.rate3),_ctx.shape3,_ctx.amt3,_ctx.pw3,_ctx.sync,_ctx.phaseOff3,sampleTime);
    float diff12;
    diff12 = (lfo1 + (- lfo2));
    float diff13;
@@ -218,11 +216,11 @@ void CrossSeq3_process(CrossSeq3__ctx_type_8 &_ctx, float sampleTime){
    float diff123;
    diff123 = (lfo1 + (- lfo2) + (- lfo3));
    float tr12;
-   tr12 = CrossSeq3_cross_detect(_ctx._inst4c3,lfo1,lfo2,sampleTime);
+   tr12 = CrossSeq3_cross_detect(_ctx._inst1c3,lfo1,lfo2,sampleTime);
    float tr13;
-   tr13 = CrossSeq3_cross_detect(_ctx._inst5c3,lfo1,lfo3,sampleTime);
+   tr13 = CrossSeq3_cross_detect(_ctx._inst2c3,lfo1,lfo3,sampleTime);
    float tr23;
-   tr23 = CrossSeq3_cross_detect(_ctx._inst6c3,lfo2,lfo3,sampleTime);
+   tr23 = CrossSeq3_cross_detect(_ctx._inst3c3,lfo2,lfo3,sampleTime);
    float tr123;
    tr123 = CrossSeq3_cross_detect3(lfo1,lfo2,lfo3);
    _ctx.process_ret_0 = tr12;
@@ -240,7 +238,9 @@ void CrossSeq3_process(CrossSeq3__ctx_type_8 &_ctx, float sampleTime){
 }
 
 void CrossSeq3_default(CrossSeq3__ctx_type_8 &_ctx){
-   CrossSeq3_initPhase(_ctx._inst1926);
+   CrossSeq3_initPhase(_ctx.l1);
+   CrossSeq3_initPhase(_ctx.l2);
+   CrossSeq3_initPhase(_ctx.l3);
    _ctx.freq = 1.f;
    _ctx.sync = 0.0f;
    _ctx.rate1 = 1.f;

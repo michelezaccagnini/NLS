@@ -176,13 +176,12 @@ typedef struct CrossSeq2__ctx_type_7 {
    float process_ret_0;
    float phaseOff2;
    float phaseOff1;
+   CrossSeq2__ctx_type_5 l2;
+   CrossSeq2__ctx_type_5 l1;
    float freq;
    float amt2;
    float amt1;
-   CrossSeq2__ctx_type_6 _inst36b;
-   CrossSeq2__ctx_type_5 _inst27f;
-   CrossSeq2__ctx_type_5 _inst17f;
-   CrossSeq2__ctx_type_5 _inst14c3;
+   CrossSeq2__ctx_type_6 _inst16b;
 } CrossSeq2__ctx_type_7;
 
 typedef CrossSeq2__ctx_type_7 CrossSeq2_process_type;

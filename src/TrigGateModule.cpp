@@ -3,7 +3,6 @@
 
 
 struct TrigGate : Module {
-
 	enum ParamId {
 		LEN1_PARAM,	
 		LEN2_PARAM,	
@@ -20,32 +19,34 @@ struct TrigGate : Module {
 		OUTPUTS_LEN
 	};
 	TrigGate_process_type processor;
-
-	TrigGate() {
-		config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN);
-		configParam(LEN1_PARAM, 0.f, 1.f, 0.1f, "gate1");
-		configParam(LEN2_PARAM, 0.f, 1.f, 0.1f, "gate2");
-        configInput(TRIG1_INPUT, "trigger1");
-        configInput(TRIG2_INPUT, "trigger2");
-	}
-	void TrigGate_process_init();
-
-	float test = 0.0f;
-
-	void process(const ProcessArgs& args) override {
-		TrigGate_setGateLen1(processor, params[LEN1_PARAM].value);
-		TrigGate_setGateLen2(processor, params[LEN2_PARAM].value);
-		float trig1 = inputs[TRIG1_INPUT].getVoltage() / 10.0f;
-		float trig2 = inputs[TRIG2_INPUT].getVoltage() / 10.0f;
-		TrigGate_process(processor, trig1, trig2, args.sampleTime);
-		float gate1 = TrigGate_process_ret_0(processor);
-		float gate2 = TrigGate_process_ret_1(processor);
-		outputs[GATE1_OUTPUT].setVoltage(10.f * gate1);
-		outputs[GATE2_OUTPUT].setVoltage(10.f * gate2);	
-	}
+	TrigGate();
+	void process(const ProcessArgs &args) override;
+	int loopCounter = 0;
 };
 
-
+TrigGate::TrigGate() {
+	config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN);
+	configParam(LEN1_PARAM, 0.f, 1.f, 0.1f, "gate1");
+	configParam(LEN2_PARAM, 0.f, 1.f, 0.1f, "gate2");
+    configInput(TRIG1_INPUT, "trigger1");
+    configInput(TRIG2_INPUT, "trigger2");
+	TrigGate_process_init(processor);
+}
+void TrigGate::process(const ProcessArgs& args) {
+	if(loopCounter-- == 0)
+	{
+		loopCounter = 3;
+		TrigGate_setGateLen1(processor, params[LEN1_PARAM].value);
+		TrigGate_setGateLen2(processor, params[LEN2_PARAM].value);
+	}
+	float trig1 = inputs[TRIG1_INPUT].getVoltage() / 10.0f;
+	float trig2 = inputs[TRIG2_INPUT].getVoltage() / 10.0f;
+	TrigGate_process(processor, trig1, trig2, args.sampleTime);
+	float gate1 = TrigGate_process_ret_0(processor);
+	float gate2 = TrigGate_process_ret_1(processor);
+	outputs[GATE1_OUTPUT].setVoltage(10.f * gate1);
+	outputs[GATE2_OUTPUT].setVoltage(10.f * gate2);	
+}
 
 struct TrigGateWidget : ModuleWidget {
 	TrigGateWidget(TrigGate* module) {

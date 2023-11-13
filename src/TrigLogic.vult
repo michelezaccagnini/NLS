@@ -55,7 +55,7 @@ and setAndOr(value){
 and setInv(value){
     inv = value > 0.0;
 }
-and default(){
+and default()@[init]{
     mem type1 = true;
     mem type2 = true;
     mem s1 = 1;

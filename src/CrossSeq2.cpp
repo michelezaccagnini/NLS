@@ -37,7 +37,6 @@ void CrossSeq2__ctx_type_5_init(CrossSeq2__ctx_type_5 &_output_){
    CrossSeq2__ctx_type_1_init(_ctx._inst393);
    CrossSeq2__ctx_type_1_init(_ctx._inst193);
    CrossSeq2__ctx_type_0_init(_ctx._inst109);
-   CrossSeq2_initPhase(_ctx);
    _output_ = _ctx;
    return ;
 }
@@ -153,13 +152,12 @@ void CrossSeq2__ctx_type_7_init(CrossSeq2__ctx_type_7 &_output_){
    _ctx.process_ret_0 = 0.0f;
    _ctx.phaseOff2 = 0.0f;
    _ctx.phaseOff1 = 0.0f;
+   CrossSeq2__ctx_type_5_init(_ctx.l2);
+   CrossSeq2__ctx_type_5_init(_ctx.l1);
    _ctx.freq = 0.0f;
    _ctx.amt2 = 0.0f;
    _ctx.amt1 = 0.0f;
-   CrossSeq2__ctx_type_6_init(_ctx._inst36b);
-   CrossSeq2__ctx_type_5_init(_ctx._inst27f);
-   CrossSeq2__ctx_type_5_init(_ctx._inst17f);
-   CrossSeq2__ctx_type_5_init(_ctx._inst14c3);
+   CrossSeq2__ctx_type_6_init(_ctx._inst16b);
    CrossSeq2_default(_ctx);
    _output_ = _ctx;
    return ;
@@ -167,11 +165,11 @@ void CrossSeq2__ctx_type_7_init(CrossSeq2__ctx_type_7 &_output_){
 
 void CrossSeq2_process(CrossSeq2__ctx_type_7 &_ctx, float sampleTime){
    float lfo1;
-   lfo1 = CrossSeq2_lfo_interp(_ctx._inst17f,(_ctx.freq * _ctx.rate1),_ctx.shape1,_ctx.amt1,_ctx.pw1,_ctx.sync,_ctx.phaseOff1,sampleTime);
+   lfo1 = CrossSeq2_lfo_interp(_ctx.l1,(_ctx.freq * _ctx.rate1),_ctx.shape1,_ctx.amt1,_ctx.pw1,_ctx.sync,_ctx.phaseOff1,sampleTime);
    float lfo2;
-   lfo2 = CrossSeq2_lfo_interp(_ctx._inst27f,(_ctx.freq * _ctx.rate2),_ctx.shape2,_ctx.amt2,_ctx.pw2,_ctx.sync,_ctx.phaseOff2,sampleTime);
+   lfo2 = CrossSeq2_lfo_interp(_ctx.l2,(_ctx.freq * _ctx.rate2),_ctx.shape2,_ctx.amt2,_ctx.pw2,_ctx.sync,_ctx.phaseOff2,sampleTime);
    float gate;
-   gate = CrossSeq2_cross_detect(_ctx._inst36b,lfo1,lfo2,sampleTime);
+   gate = CrossSeq2_cross_detect(_ctx._inst16b,lfo1,lfo2,sampleTime);
    float trig;
    trig = gate;
    float diff;
@@ -184,7 +182,8 @@ void CrossSeq2_process(CrossSeq2__ctx_type_7 &_ctx, float sampleTime){
 }
 
 void CrossSeq2_default(CrossSeq2__ctx_type_7 &_ctx){
-   CrossSeq2_initPhase(_ctx._inst14c3);
+   CrossSeq2_initPhase(_ctx.l1);
+   CrossSeq2_initPhase(_ctx.l2);
    _ctx.freq = 1.f;
    _ctx.sync = 0.0f;
    _ctx.rate1 = 1.f;

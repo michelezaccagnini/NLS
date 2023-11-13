@@ -64,6 +64,8 @@ struct CrossSeq3 : Module {
 	CrossSeq3();
 	void process(const ProcessArgs &args) override;
 	
+	int loopCounter = 0;
+	
 };
 CrossSeq3::CrossSeq3() {
 	config(PARAMS_LEN, INPUTS_LEN, OUTPUTS_LEN);
@@ -118,49 +120,27 @@ CrossSeq3::CrossSeq3() {
 }
 
 void CrossSeq3::process(const ProcessArgs& args) {
-	float	freq      = params[FREQ_PARAM].value;
-    float    rate1     = params[RATE1_PARAM].value;
-    float    rate2     = params[RATE2_PARAM].value;
-    float    rate3     = params[RATE3_PARAM].value;
-    float    amount1   = params[AMT1_PARAM].value;
-    float    amount2   = params[AMT2_PARAM].value;
-    float    amount3   = params[AMT3_PARAM].value;
-    float    shape1    = params[SHAPE1_PARAM].value;
-    float    shape2    = params[SHAPE2_PARAM].value;
-    float    shape3    = params[SHAPE3_PARAM].value;
-    float    phase1    = params[PHASE1_PARAM].value;
-    float    phase2    = params[PHASE2_PARAM].value;
-    float    phase3    = params[PHASE3_PARAM].value;
-    float    pw1       = params[PW1_PARAM].value;
-    float    pw2       = params[PW2_PARAM].value;
-    float    pw3       = params[PW3_PARAM].value;
-    float    cvrate1   = params[CVRT1_PARAM].value;
-    float    cvrate2   = params[CVRT2_PARAM].value;
-    float    cvrate3   = params[CVRT3_PARAM].value;
-    float    cvamount1 = params[CVAM1_PARAM].value;
-    float    cvamount2 = params[CVAM2_PARAM].value;
-    float    cvamount3 = params[CVAM3_PARAM].value;
-    float    cvshape1  = params[CVSH1_PARAM].value;
-    float    cvshape2  = params[CVSH2_PARAM].value;
-    float    cvshape3  = params[CVSH3_PARAM].value;
-
-		CrossSeq3_setFreq(processor, freq, inputs[FREQ_INPUT].value);
+	if(loopCounter-- == 0)
+	{
+		loopCounter = 3;
+		CrossSeq3_setFreq(processor, params[FREQ_PARAM].value, inputs[FREQ_INPUT].value);
 		CrossSeq3_setSync(processor, inputs[SYNC_INPUT].value);
-		CrossSeq3_setRate1(processor, rate1,   ( inputs[RATE1_INPUT].getVoltage() / 10.0f) * cvrate1);
-		CrossSeq3_setRate2(processor, rate2,   ( inputs[RATE2_INPUT].getVoltage() / 10.0f) * cvrate2);
-		CrossSeq3_setRate3(processor, rate3,   ( inputs[RATE3_INPUT].getVoltage() / 10.0f) * cvrate3);
-		CrossSeq3_setAmt1(processor, amount1,     (  inputs[AMT1_INPUT].getVoltage() / 10.0f) *  cvamount1);
-		CrossSeq3_setAmt2(processor, amount2,     (  inputs[AMT2_INPUT].getVoltage() / 10.0f) *  cvamount2);
-		CrossSeq3_setAmt3(processor, amount3,     (  inputs[AMT3_INPUT].getVoltage() / 10.0f) *  cvamount3);
-		CrossSeq3_setShape1(processor, shape1, (inputs[SHAPE1_INPUT].getVoltage() / 10.0f) *  cvshape1);
-		CrossSeq3_setShape2(processor, shape2, (inputs[SHAPE2_INPUT].getVoltage() / 10.0f) *  cvshape2);
-		CrossSeq3_setShape3(processor, shape3, (inputs[SHAPE3_INPUT].getVoltage() / 10.0f) *  cvshape3);
-		CrossSeq3_setPw1(processor, pw1);
-		CrossSeq3_setPw2(processor, pw2);
-		CrossSeq3_setPw3(processor, pw3);
-		CrossSeq3_setPhase1(processor, phase1);
-		CrossSeq3_setPhase2(processor, phase2);
-		CrossSeq3_setPhase3(processor, phase3);
+		CrossSeq3_setRate1(processor, params[RATE1_PARAM].value,   ( inputs[RATE1_INPUT].getVoltage() / 10.0f) *  params[CVRT1_PARAM].value);
+		CrossSeq3_setRate2(processor, params[RATE2_PARAM].value,   ( inputs[RATE2_INPUT].getVoltage() / 10.0f) *  params[CVRT2_PARAM].value);
+		CrossSeq3_setRate3(processor, params[RATE3_PARAM].value,   ( inputs[RATE3_INPUT].getVoltage() / 10.0f) *  params[CVRT3_PARAM].value);
+		CrossSeq3_setAmt1(processor, params[AMT1_PARAM].value,     (  inputs[AMT1_INPUT].getVoltage() / 10.0f) *  params[CVAM1_PARAM].value);
+		CrossSeq3_setAmt2(processor, params[AMT2_PARAM].value,     (  inputs[AMT2_INPUT].getVoltage() / 10.0f) *  params[CVAM2_PARAM].value);
+		CrossSeq3_setAmt3(processor, params[AMT3_PARAM].value,     (  inputs[AMT3_INPUT].getVoltage() / 10.0f) *  params[CVAM3_PARAM].value);
+		CrossSeq3_setShape1(processor, params[SHAPE1_PARAM].value, (inputs[SHAPE1_INPUT].getVoltage() / 10.0f) *  params[CVSH1_PARAM].value);
+		CrossSeq3_setShape2(processor, params[SHAPE2_PARAM].value, (inputs[SHAPE2_INPUT].getVoltage() / 10.0f) *  params[CVSH2_PARAM].value);
+		CrossSeq3_setShape3(processor, params[SHAPE3_PARAM].value, (inputs[SHAPE3_INPUT].getVoltage() / 10.0f) *  params[CVSH3_PARAM].value);
+		CrossSeq3_setPw1(processor, params[PW1_PARAM].value);
+		CrossSeq3_setPw2(processor, params[PW2_PARAM].value);
+		CrossSeq3_setPw3(processor, params[PW3_PARAM].value);
+		CrossSeq3_setPhase1(processor, params[PHASE1_PARAM].value);
+		CrossSeq3_setPhase2(processor, params[PHASE2_PARAM].value);
+		CrossSeq3_setPhase3(processor, params[PHASE3_PARAM].value);
+	}
 		
 		CrossSeq3_process(processor,args.sampleTime);
 		float trig12 = CrossSeq3_process_ret_0(processor);
@@ -186,13 +166,6 @@ void CrossSeq3::process(const ProcessArgs& args) {
 		outputs[DIFF23_OUTPUT].setVoltage(5.f * diff23);
 		outputs[DIFF123_OUTPUT].setVoltage(5.f * diff123);
 	}
-
-
-	
-
-
-
-
 
 struct CrossSeq3Widget : ModuleWidget {
 	CrossSeq3Widget(CrossSeq3* module) {

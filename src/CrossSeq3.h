@@ -196,17 +196,16 @@ typedef struct CrossSeq3__ctx_type_8 {
    float phaseOff3;
    float phaseOff2;
    float phaseOff1;
+   CrossSeq3__ctx_type_5 l3;
+   CrossSeq3__ctx_type_5 l2;
+   CrossSeq3__ctx_type_5 l1;
    float freq;
    float amt3;
    float amt2;
    float amt1;
-   CrossSeq3__ctx_type_6 _inst6c3;
-   CrossSeq3__ctx_type_6 _inst5c3;
-   CrossSeq3__ctx_type_6 _inst4c3;
-   CrossSeq3__ctx_type_5 _inst32f;
-   CrossSeq3__ctx_type_5 _inst22f;
-   CrossSeq3__ctx_type_5 _inst1926;
-   CrossSeq3__ctx_type_5 _inst12f;
+   CrossSeq3__ctx_type_6 _inst3c3;
+   CrossSeq3__ctx_type_6 _inst2c3;
+   CrossSeq3__ctx_type_6 _inst1c3;
 } CrossSeq3__ctx_type_8;
 
 typedef CrossSeq3__ctx_type_8 CrossSeq3_process_type;
