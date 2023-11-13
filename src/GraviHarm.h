@@ -14,99 +14,102 @@ typedef struct _tuple___real_int_int_int__ {
    int field_3;
 } _tuple___real_int_int_int__;
 
-typedef struct Processor__ctx_type_0 {
+typedef struct GraviHarm__ctx_type_0 {
    int pre_x;
-} Processor__ctx_type_0;
+} GraviHarm__ctx_type_0;
 
-typedef Processor__ctx_type_0 Processor_change_type;
+typedef GraviHarm__ctx_type_0 GraviHarm_change_type;
 
-static_inline void Processor__ctx_type_0_init(Processor__ctx_type_0 &_output_){
-   Processor__ctx_type_0 _ctx;
+static_inline void GraviHarm__ctx_type_0_init(GraviHarm__ctx_type_0 &_output_){
+   GraviHarm__ctx_type_0 _ctx;
    _ctx.pre_x = 0;
    _output_ = _ctx;
    return ;
 }
 
-static_inline void Processor_change_init(Processor__ctx_type_0 &_output_){
-   Processor__ctx_type_0_init(_output_);
+static_inline void GraviHarm_change_init(GraviHarm__ctx_type_0 &_output_){
+   GraviHarm__ctx_type_0_init(_output_);
    return ;
 }
 
-static_inline uint8_t Processor_change(Processor__ctx_type_0 &_ctx, int x){
+static_inline uint8_t GraviHarm_change(GraviHarm__ctx_type_0 &_ctx, int x){
    uint8_t v;
    v = (_ctx.pre_x != x);
    _ctx.pre_x = x;
    return v;
 }
 
-typedef struct Processor__ctx_type_1 {
+typedef struct GraviHarm__ctx_type_1 {
    uint8_t pre;
-} Processor__ctx_type_1;
+} GraviHarm__ctx_type_1;
 
-typedef Processor__ctx_type_1 Processor_edge_type;
+typedef GraviHarm__ctx_type_1 GraviHarm_edge_type;
 
-static_inline void Processor__ctx_type_1_init(Processor__ctx_type_1 &_output_){
-   Processor__ctx_type_1 _ctx;
+static_inline void GraviHarm__ctx_type_1_init(GraviHarm__ctx_type_1 &_output_){
+   GraviHarm__ctx_type_1 _ctx;
    _ctx.pre = false;
    _output_ = _ctx;
    return ;
 }
 
-static_inline void Processor_edge_init(Processor__ctx_type_1 &_output_){
-   Processor__ctx_type_1_init(_output_);
+static_inline void GraviHarm_edge_init(GraviHarm__ctx_type_1 &_output_){
+   GraviHarm__ctx_type_1_init(_output_);
    return ;
 }
 
-static_inline uint8_t Processor_edge(Processor__ctx_type_1 &_ctx, uint8_t x){
+static_inline uint8_t GraviHarm_edge(GraviHarm__ctx_type_1 &_ctx, uint8_t x){
    uint8_t ret;
    ret = (x && bool_not(_ctx.pre));
    _ctx.pre = x;
    return ret;
 }
 
-typedef struct Processor__ctx_type_2 {
+typedef struct GraviHarm__ctx_type_2 {
    int count;
-} Processor__ctx_type_2;
+} GraviHarm__ctx_type_2;
 
-typedef Processor__ctx_type_2 Processor_counter_type;
+typedef GraviHarm__ctx_type_2 GraviHarm_counter_type;
 
-static_inline void Processor__ctx_type_2_init(Processor__ctx_type_2 &_output_){
-   Processor__ctx_type_2 _ctx;
+static_inline void GraviHarm__ctx_type_2_init(GraviHarm__ctx_type_2 &_output_){
+   GraviHarm__ctx_type_2 _ctx;
    _ctx.count = 0;
    _output_ = _ctx;
    return ;
 }
 
-static_inline void Processor_counter_init(Processor__ctx_type_2 &_output_){
-   Processor__ctx_type_2_init(_output_);
+static_inline void GraviHarm_counter_init(GraviHarm__ctx_type_2 &_output_){
+   GraviHarm__ctx_type_2_init(_output_);
    return ;
 }
 
-static_inline int Processor_counter(Processor__ctx_type_2 &_ctx){
+static_inline int GraviHarm_counter(GraviHarm__ctx_type_2 &_ctx){
    _ctx.count = (1 + _ctx.count);
+   if((_ctx.count < 0) || (_ctx.count > 25)){
+      _ctx.count = 0;
+   }
    return _ctx.count;
 }
 
-typedef Processor__ctx_type_2 Processor_reset_type;
+typedef GraviHarm__ctx_type_2 GraviHarm_reset_type;
 
-static_inline void Processor_reset_init(Processor__ctx_type_2 &_output_){
-   Processor__ctx_type_2_init(_output_);
+static_inline void GraviHarm_reset_init(GraviHarm__ctx_type_2 &_output_){
+   GraviHarm__ctx_type_2_init(_output_);
    return ;
 }
 
-static_inline void Processor_reset(Processor__ctx_type_2 &_ctx){
+static_inline void GraviHarm_reset(GraviHarm__ctx_type_2 &_ctx){
    _ctx.count = 0;
 };
 
-typedef struct Processor__ctx_type_3 {
+typedef struct GraviHarm__ctx_type_3 {
    int process_ret_3;
    int process_ret_2;
    int process_ret_1;
    float process_ret_0;
    float planeLevel;
-   Processor__ctx_type_2 plan;
+   GraviHarm__ctx_type_2 plan;
    float noteLevel;
-   Processor__ctx_type_2 note;
+   GraviHarm__ctx_type_2 note;
    int knobPlan;
    int knobOcta;
    int knobNote;
@@ -115,128 +118,124 @@ typedef struct Processor__ctx_type_3 {
    int countNote;
    int countChor;
    float chordLevel;
-   Processor__ctx_type_2 chor;
-   Processor__ctx_type_0 _inst976;
-   Processor__ctx_type_0 _inst776;
-   Processor__ctx_type_1 _inst5c4;
-   Processor__ctx_type_1 _inst3c4;
-   Processor__ctx_type_1 _inst1c4;
-   Processor__ctx_type_1 _inst13c4;
-   Processor__ctx_type_0 _inst1176;
-} Processor__ctx_type_3;
+   GraviHarm__ctx_type_2 chor;
+   GraviHarm__ctx_type_0 _inst93d;
+   GraviHarm__ctx_type_0 _inst73d;
+   GraviHarm__ctx_type_1 _inst51b;
+   GraviHarm__ctx_type_1 _inst31b;
+   GraviHarm__ctx_type_1 _inst131b;
+   GraviHarm__ctx_type_1 _inst11b;
+   GraviHarm__ctx_type_0 _inst113d;
+} GraviHarm__ctx_type_3;
 
-typedef Processor__ctx_type_3 Processor_process_type;
+typedef GraviHarm__ctx_type_3 GraviHarm_process_type;
 
-void Processor__ctx_type_3_init(Processor__ctx_type_3 &_output_);
+void GraviHarm__ctx_type_3_init(GraviHarm__ctx_type_3 &_output_);
 
-static_inline void Processor_process_init(Processor__ctx_type_3 &_output_){
-   Processor__ctx_type_3_init(_output_);
+static_inline void GraviHarm_process_init(GraviHarm__ctx_type_3 &_output_){
+   GraviHarm__ctx_type_3_init(_output_);
    return ;
 }
 
-void Processor_process(Processor__ctx_type_3 &_ctx, float inNote, float inChord, float trigNote, float trigChor, float trigPlan, float sync, float fs);
+void GraviHarm_process(GraviHarm__ctx_type_3 &_ctx, float inNote, float inChord, float inPlan, float trigNote, float trigChor, float trigPlan, float reset, float fs);
 
-typedef Processor__ctx_type_3 Processor_process_ret_0_type;
+typedef GraviHarm__ctx_type_3 GraviHarm_process_ret_0_type;
 
-static_inline void Processor_process_ret_0_init(Processor__ctx_type_3 &_output_){
-   Processor__ctx_type_3_init(_output_);
+static_inline void GraviHarm_process_ret_0_init(GraviHarm__ctx_type_3 &_output_){
+   GraviHarm__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline float Processor_process_ret_0(Processor__ctx_type_3 &_ctx){
+static_inline float GraviHarm_process_ret_0(GraviHarm__ctx_type_3 &_ctx){
    return _ctx.process_ret_0;
 };
 
-typedef Processor__ctx_type_3 Processor_process_ret_1_type;
+typedef GraviHarm__ctx_type_3 GraviHarm_process_ret_1_type;
 
-static_inline void Processor_process_ret_1_init(Processor__ctx_type_3 &_output_){
-   Processor__ctx_type_3_init(_output_);
+static_inline void GraviHarm_process_ret_1_init(GraviHarm__ctx_type_3 &_output_){
+   GraviHarm__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline int Processor_process_ret_1(Processor__ctx_type_3 &_ctx){
+static_inline int GraviHarm_process_ret_1(GraviHarm__ctx_type_3 &_ctx){
    return _ctx.process_ret_1;
 };
 
-typedef Processor__ctx_type_3 Processor_process_ret_2_type;
+typedef GraviHarm__ctx_type_3 GraviHarm_process_ret_2_type;
 
-static_inline void Processor_process_ret_2_init(Processor__ctx_type_3 &_output_){
-   Processor__ctx_type_3_init(_output_);
+static_inline void GraviHarm_process_ret_2_init(GraviHarm__ctx_type_3 &_output_){
+   GraviHarm__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline int Processor_process_ret_2(Processor__ctx_type_3 &_ctx){
+static_inline int GraviHarm_process_ret_2(GraviHarm__ctx_type_3 &_ctx){
    return _ctx.process_ret_2;
 };
 
-typedef Processor__ctx_type_3 Processor_process_ret_3_type;
+typedef GraviHarm__ctx_type_3 GraviHarm_process_ret_3_type;
 
-static_inline void Processor_process_ret_3_init(Processor__ctx_type_3 &_output_){
-   Processor__ctx_type_3_init(_output_);
+static_inline void GraviHarm_process_ret_3_init(GraviHarm__ctx_type_3 &_output_){
+   GraviHarm__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline int Processor_process_ret_3(Processor__ctx_type_3 &_ctx){
+static_inline int GraviHarm_process_ret_3(GraviHarm__ctx_type_3 &_ctx){
    return _ctx.process_ret_3;
 };
 
-typedef Processor__ctx_type_3 Processor_setKnobNote_type;
+typedef GraviHarm__ctx_type_3 GraviHarm_setKnobNote_type;
 
-static_inline void Processor_setKnobNote_init(Processor__ctx_type_3 &_output_){
-   Processor__ctx_type_3_init(_output_);
+static_inline void GraviHarm_setKnobNote_init(GraviHarm__ctx_type_3 &_output_){
+   GraviHarm__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline void Processor_setKnobNote(Processor__ctx_type_3 &_ctx, int knob){
+static_inline void GraviHarm_setKnobNote(GraviHarm__ctx_type_3 &_ctx, int knob){
    _ctx.knobNote = knob;
 };
 
-typedef Processor__ctx_type_3 Processor_setKnobChor_type;
+typedef GraviHarm__ctx_type_3 GraviHarm_setKnobChor_type;
 
-static_inline void Processor_setKnobChor_init(Processor__ctx_type_3 &_output_){
-   Processor__ctx_type_3_init(_output_);
+static_inline void GraviHarm_setKnobChor_init(GraviHarm__ctx_type_3 &_output_){
+   GraviHarm__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline void Processor_setKnobChor(Processor__ctx_type_3 &_ctx, int knob){
+static_inline void GraviHarm_setKnobChor(GraviHarm__ctx_type_3 &_ctx, int knob){
    _ctx.knobChor = knob;
 };
 
-typedef Processor__ctx_type_3 Processor_setKnobPlan_type;
+typedef GraviHarm__ctx_type_3 GraviHarm_setKnobPlan_type;
 
-static_inline void Processor_setKnobPlan_init(Processor__ctx_type_3 &_output_){
-   Processor__ctx_type_3_init(_output_);
+static_inline void GraviHarm_setKnobPlan_init(GraviHarm__ctx_type_3 &_output_){
+   GraviHarm__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline void Processor_setKnobPlan(Processor__ctx_type_3 &_ctx, int knob){
+static_inline void GraviHarm_setKnobPlan(GraviHarm__ctx_type_3 &_ctx, int knob){
    _ctx.knobPlan = knob;
 };
 
-typedef Processor__ctx_type_3 Processor_setKnobOcta_type;
+typedef GraviHarm__ctx_type_3 GraviHarm_setKnobOcta_type;
 
-static_inline void Processor_setKnobOcta_init(Processor__ctx_type_3 &_output_){
-   Processor__ctx_type_3_init(_output_);
+static_inline void GraviHarm_setKnobOcta_init(GraviHarm__ctx_type_3 &_output_){
+   GraviHarm__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline void Processor_setKnobOcta(Processor__ctx_type_3 &_ctx, int knob){
+static_inline void GraviHarm_setKnobOcta(GraviHarm__ctx_type_3 &_ctx, int knob){
    _ctx.knobOcta = knob;
 };
 
-typedef Processor__ctx_type_3 Processor_default_type;
+typedef GraviHarm__ctx_type_3 GraviHarm_default_type;
 
-static_inline void Processor_default_init(Processor__ctx_type_3 &_output_){
-   Processor__ctx_type_3_init(_output_);
+static_inline void GraviHarm_default_init(GraviHarm__ctx_type_3 &_output_){
+   GraviHarm__ctx_type_3_init(_output_);
    return ;
 }
 
-static_inline void Processor_default(Processor__ctx_type_3 &_ctx){
-   Processor_reset(_ctx.note);
-   Processor_reset(_ctx.chor);
-   Processor_reset(_ctx.plan);
-}
+void GraviHarm_default(GraviHarm__ctx_type_3 &_ctx);
 
 
 
-#endif // ENGINE_H
+#endif // GRAVIHARM_H

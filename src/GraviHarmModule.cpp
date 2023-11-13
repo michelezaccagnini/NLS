@@ -4,88 +4,90 @@
 struct GraviHarm : Module {
 
    enum ParamIds {
-      KNOB1,
-      KNOB2,
-      KNOB3,
-      KNOB4,
+      NOTEK,
+      CHORK,
+      PLANK,
+      OCTAK,
       NUM_PARAMS
    };
    enum InputIds {
-      MOD_IN1,
-      MOD_IN2,
-      MOD_IN3,
-      MOD_IN4,
-      IN1,
-      IN2,
-      IN3,
-      IN4,
+      TRI_NOTE,
+      TRI_CHOR,
+      TRI_PLAN,
+      RESET,
+      IN_NOTE,
+      IN_CHOR,
+      IN_PLAN,
 
       NUM_INPUTS
    };
    enum OutputIds {
-      OUT1,
-      OUT2,
-      OUT3,
-      OUT4,
+      VOCT,
+      NOTE_IND,
+      CHOR_IND,
+      PLAN_IND,
 
       NUM_OUTPUTS
    };
    enum LightIds { NUM_LIGHTS };
 
-   Processor_process_type processor;
+   GraviHarm_process_type processor;
 
-      GraviHarm();
-   void process(const ProcessArgs &args) override;
-};
+   GraviHarm(){
+      config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
+      configParam(NOTEK, 0, 4, 0, "Note");
+      paramQuantities[NOTEK]->snapEnabled = true;
+      configParam(CHORK, 0, 4, 0, "Chord");
+      paramQuantities[CHORK]->snapEnabled = true;
+      configParam(PLANK, 0, 24, 0, "Planet");
+      paramQuantities[PLANK]->snapEnabled = true;
+      configParam(OCTAK, -5, 5, 0, "Octave");
+      paramQuantities[OCTAK]->snapEnabled = true;
+      configInput(IN_NOTE, "note"  );
+      configInput(IN_CHOR, "chord" );
+      configInput(IN_PLAN, "planet");
+      configInput(TRI_NOTE, "note trig");
+      configInput(TRI_CHOR, "chord trig");
+      configInput(TRI_PLAN, "planet trig");
+      configInput(RESET, "reset");
+   }
+   void GraviHarm_process_init() ;
+   void process(const ProcessArgs &args) override {
+      // Reads all the input values and normalizes the values
+      float inNote = (inputs[IN_NOTE].getVoltage() / 10.0f);
+      float inChor = (inputs[IN_CHOR].getVoltage() / 10.0f) ;
+      float inPlan = (inputs[IN_PLAN].getVoltage() / 10.0f ) ;
+      //float  = (inputs[IN4].getVoltage() ) ;
 
-GraviHarm::GraviHarm() {
-   config(NUM_PARAMS, NUM_INPUTS, NUM_OUTPUTS, NUM_LIGHTS);
+      float trigNote = inputs[TRI_NOTE].getVoltage()/ 10.0f;
+      float trigChor = inputs[TRI_CHOR].getVoltage()/ 10.0f;
+      float trigPlan = inputs[TRI_PLAN].getVoltage()/ 10.0f;
+      float reset = inputs[RESET].getVoltage() / 10.0f;
+      // Reads all the parameters and sets them.
+      // The parameters could be set at a lower rate if needed
+      //{
+      float knobNote = params[NOTEK].getValue();
+      float knobChor = params[CHORK].getValue();
+      float knobPlan = params[PLANK].getValue();
+      float knobOcta = params[OCTAK].getValue();
 
-   configParam(GraviHarm::KNOB1, 0.0, 4.0, 0.0, "Note", " index", 0, 4);
-   paramQuantities[KNOB1]->snapEnabled = true;
-   configParam(GraviHarm::KNOB2, 0.0, 4.0, 0.0, "Chord", " index", 0, 4);
-   paramQuantities[KNOB2]->snapEnabled = true;
-   configParam(GraviHarm::KNOB3, 0.0, 24.0, 0.0, "Planet", " index", 0, 24);
-   paramQuantities[KNOB3]->snapEnabled = true;
-   configParam(GraviHarm::KNOB4, -5.0, 5.0, 0.0, "Octave", " octave", -5, 5);
-   paramQuantities[KNOB4]->snapEnabled = true;
-
-   Processor_process_init(processor);
-}
-
-void GraviHarm::process(const ProcessArgs &args) {
-   // Reads all the input values and normalizes the values
-   float inNote = (inputs[IN1].getVoltage() / 10.0f);
-   float inChor = (inputs[IN2].getVoltage() / 10.0f) ;
-   //float inPlan = (inputs[IN3].getVoltage() / 10.0f ) ;
-   //float  = (inputs[IN4].getVoltage() ) ;
-   
-   float trigNote = inputs[MOD_IN1].getVoltage();
-   float trigChor = inputs[MOD_IN2].getVoltage();
-   float trigPlan = inputs[MOD_IN3].getVoltage();
-   float reset = inputs[MOD_IN4].getVoltage() / 10.0f;
-   // Reads all the parameters and sets them.
-   // The parameters could be set at a lower rate if needed
-   //{
-      float knobNote = params[KNOB1].getValue();
-      float knobChor = params[KNOB2].getValue();
-      float knobPlan = params[KNOB3].getValue();
-      float knobOcta = params[KNOB4].getValue();
-
-      Processor_setKnobNote(processor, knobNote);
-      Processor_setKnobChor(processor, knobChor);
-      Processor_setKnobPlan(processor, knobPlan);
-      Processor_setKnobOcta(processor, knobOcta);
+      GraviHarm_setKnobNote(processor, knobNote);
+      GraviHarm_setKnobChor(processor, knobChor);
+      GraviHarm_setKnobPlan(processor, knobPlan);
+      GraviHarm_setKnobOcta(processor, knobOcta);
    //}
 
-   Processor_process(processor, inNote, inChor, trigNote, trigChor, trigPlan,  reset, args.sampleRate);
+      GraviHarm_process(processor, inNote, inChor, inPlan, trigNote, trigChor, trigPlan,  reset, args.sampleRate);
 
-   outputs[OUT1].setVoltage(Processor_process_ret_0(processor));
-   outputs[OUT2].setVoltage(Processor_process_ret_1(processor));
-   outputs[OUT3].setVoltage(Processor_process_ret_2(processor));
-   outputs[OUT4].setVoltage(Processor_process_ret_3(processor));
-}
+      outputs[VOCT].setVoltage(GraviHarm_process_ret_0(processor));
+      outputs[NOTE_IND].setVoltage(GraviHarm_process_ret_1(processor));
+      outputs[CHOR_IND].setVoltage(GraviHarm_process_ret_2(processor));
+      outputs[PLAN_IND].setVoltage(GraviHarm_process_ret_3(processor));
+   }
+   //json_t* dataToJson() override {
+	//	json_t* rootJ = json_object();
 
+};
 struct GraviHarmWidget : ModuleWidget {
    GraviHarmWidget(GraviHarm *module) {
       setModule(module);
@@ -97,20 +99,20 @@ struct GraviHarmWidget : ModuleWidget {
       addChild(createWidget<ScrewBlack>(Vec(15, 367)));
       addChild(createWidget<ScrewBlack>(Vec(box.size.x - 30, 367)));
 
-      addParam(createParam<Rogan3PWhite>(Vec(19, 59), module, GraviHarm::KNOB1));
-      addParam(createParam<Rogan3PWhite>(Vec(89, 59), module, GraviHarm::KNOB2));
-      addParam(createParam<Rogan3PWhite>(Vec(19, 130), module, GraviHarm::KNOB3));
-      addParam(createParam<Rogan3PWhite>(Vec(89, 130), module, GraviHarm::KNOB4));
+      addParam(createParam<Rogan3PWhite>(Vec(19, 59), module, GraviHarm::NOTEK));
+      addParam(createParam<Rogan3PWhite>(Vec(89, 59), module, GraviHarm::CHORK));
+      addParam(createParam<Rogan3PWhite>(Vec(19, 130), module, GraviHarm::PLANK));
+      addParam(createParam<Rogan3PWhite>(Vec(89, 130), module, GraviHarm::OCTAK));
 
       for (int i = 0; i < 4; i++) {
-         addInput(createInput<PJ301MPort>(Vec(10 + 35 * i, 238), module, GraviHarm::MOD_IN1 + i));
+         addInput(createInput<PJ301MPort>(Vec(10 + 35 * i, 238), module, GraviHarm::TRI_NOTE + i));
       }
 
-      for (int i = 0; i < 4; i++)
-         addInput(createInput<PJ301MPort>(Vec(10 + 35 * i, 273), module, GraviHarm::IN1 + i));
+      for (int i = 0; i < 3; i++)
+         addInput(createInput<PJ301MPort>(Vec(20 + 45 * i, 273), module, GraviHarm::IN_NOTE + i));
 
       for (int i = 0; i < 4; i++)
-         addOutput(createOutput<PJ301MPort>(Vec(10 + 35 * i, 313), module, GraviHarm::OUT1 + i));
+         addOutput(createOutput<PJ301MPort>(Vec(10 + 35 * i, 313), module, GraviHarm::VOCT + i));
    }
 };
 

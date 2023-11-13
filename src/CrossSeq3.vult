@@ -41,27 +41,29 @@ fun lfo_interp(cv, shape, amt, pw, reset, phaseOff, sampleTime) {
    mem phOff;
    if(change(phaseOff))
       phOff = phaseOff;
+   //with very low frequencies update needs to happen every sample 
+   //not to lose syncronicity with other LFOs, especially trigger 123
+   val updateRate = if cv > 0.5 then 8.0 else 1.0;
    if(change(cv))
-      rate = cv * sampleTime * 8.0;
-   val update = each(8); 
+      rate = cv * sampleTime * (updateRate * 2.0);
+   val update = each(int(updateRate)); 
+   
    if(update)
       phase = phase + rate;
-   phase = phase % 2.0;
-   val ph = (phase + phOff) % 2.0;
-   //for smooth interpolation between sine and tri I need to offset the phase of the
-   //tri
-   val offset_phase = if ph + 0.5 > 2.0 then (ph + 0.5) - 2.0 else ph + 0.5;
+   phase = if phase > 2.0 then phase - 2.0 else phase;
+   val ph = if phase + phOff > 2.0 then phase + phOff - 2.0 else phase + phOff;
+
    val breset = reset > 0.0;
    if(edge(breset))
-      phase = 0.0;
+      phase = 1.0;
    val saw = ph - 1.0;
-   offset_phase = offset_phase - 1.0;
    if(update)
       o =
          if shape < 1.0 then 
-            lerp((sin(ph*3.141592653589793)), (abs(offset_phase) * 2.0 - 1.0)*-1.0, shape % 1.0)*amt
+         //subtract 0.5 for sine to make it coincide with other waveforms
+            lerp((sin((ph -0.5) *3.141592653589793 )), (abs(saw) * 2.0 - 1.0)*-1.0, shape % 1.0)*amt
          else if shape < 2.0 then
-            lerp((abs(offset_phase) * 2.0 - 1.0)*-1.0, saw, shape % 1.0)*amt
+            lerp((abs(saw) * 2.0 - 1.0)*-1.0, saw, shape % 1.0)*amt
          else if shape < 3.0 then 
             lerp(saw, (if saw > pw then 1.0 else -1.0), shape % 1.0)*amt
          else
@@ -69,7 +71,7 @@ fun lfo_interp(cv, shape, amt, pw, reset, phaseOff, sampleTime) {
    return soft(o);
 }
 and initPhase()@[init]{
-   phase = 0.0;
+   phase = 1.0;
    rate = 1.0;
    phOff = 0.0;
 }
@@ -92,7 +94,7 @@ fun cross_detect3(a:real, b:real, c:real)
     val diff23 = b - c;
     val adiff = abs(diff12) + abs(diff13) + abs(diff23); 
     // fudge: how small the difference has to be to produce trigger?
-    val fudge = 0.05;
+    val fudge = 0.1;
     val ret = if adiff < fudge then 1.0 else 0.0; 
     return ret;
 }
@@ -102,15 +104,18 @@ fun process(sampleTime:real){
    val lfo1 = lfo_interp(rate1*freq, shape1, amt1, pw1, sync, phaseOff1, sampleTime) ;
    val lfo2 = lfo_interp(rate2*freq, shape2, amt2, pw2, sync, phaseOff2, sampleTime) ;
    val lfo3 = lfo_interp(rate3*freq, shape3, amt3, pw3, sync, phaseOff3, sampleTime) ;
+    //uncomment to normalize diffs outs
+   val diff12 = (lfo1 - lfo2) ; // / (amt1 + amt2 + 0.01 );
+   val diff13 = (lfo1 - lfo3) ; // / (amt1 + amt3 + 0.01 );
+   val diff23 = (lfo2 - lfo3) ; // / (amt2 + amt3 + 0.01 );
+   val diff123 = ((lfo1 - lfo2) - lfo3) ; // / (amt1 + amt2 + amt3 + 0.01 ) ;
+   
+   
    val tr12 = cross_detect(lfo1, lfo2,sampleTime);
    val tr13 = cross_detect(lfo1, lfo3,sampleTime);
    val tr23 = cross_detect(lfo2, lfo3,sampleTime);
    val tr123 = cross_detect3(lfo1, lfo2, lfo3);
-   //uncomment to normalize diffs outs
-   val diff12 = (lfo1 - lfo2) ; // / (amt1 + amt2 + 0.01 );
-   val diff13 = (lfo1 - lfo3) ; // / (amt1 + amt3 + 0.01 );
-   val diff23 = (lfo2 - lfo3) ; // / (amt2 + amt3 + 0.01 );
-    val diff123 = (lfo1 - lfo2 - lfo3) ; // / (amt1 + amt2 + amt3 + 0.01 ) ;
+  
    //uncomment to normalize LFO outs
    //lfo1 = lfo1 / (amt1 + 0.001);
    //lfo2 = lfo2 / (amt2 + 0.001);
@@ -172,6 +177,7 @@ and setPw3(knob:real){
 
 // Called on initialization to define initial values
 and default()@[init]{
+   _ = initPhase();
    freq = 1.0;
    sync = 0.0;
    rate1 = 1.0;

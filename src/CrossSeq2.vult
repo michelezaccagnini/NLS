@@ -40,27 +40,29 @@ fun lfo_interp(cv, shape, amt, pw, reset, phaseOff, sampleTime) {
    mem phOff;
    if(change(phaseOff))
       phOff = phaseOff;
+   //with very low frequencies update needs to happen every sample 
+   //not to lose syncronicity with other LFOs, especially trigger 123
+   val updateRate = if cv > 0.5 then 8.0 else 1.0;
    if(change(cv))
-      rate = cv * sampleTime * 8.0;
-   val update = each(8); 
+      rate = cv * sampleTime * (updateRate * 2.0);
+   val update = each(int(updateRate)); 
+   
    if(update)
       phase = phase + rate;
-   phase = phase % 2.0;
-   val ph = (phase + phOff) % 2.0;
-   //for smooth interpolation between sine and tri I need to offset the phase of the
-   //tri
-   val offset_phase = if ph + 0.5 > 2.0 then (ph + 0.5) - 2.0 else ph + 0.5;
+   phase = if phase > 2.0 then phase - 2.0 else phase;
+   val ph = if phase + phOff > 2.0 then phase + phOff - 2.0 else phase + phOff;
+
    val breset = reset > 0.0;
    if(edge(breset))
-      phase = 0.0;
+      phase = 1.0;
    val saw = ph - 1.0;
-   offset_phase = offset_phase - 1.0;
    if(update)
       o =
          if shape < 1.0 then 
-            lerp((sin(ph*3.141592653589793)), (abs(offset_phase) * 2.0 - 1.0)*-1.0, shape % 1.0)*amt
+         //subtract 0.5 for sine to make it coincide with other waveforms
+            lerp((sin((ph -0.5) *3.141592653589793 )), (abs(saw) * 2.0 - 1.0)*-1.0, shape % 1.0)*amt
          else if shape < 2.0 then
-            lerp((abs(offset_phase) * 2.0 - 1.0)*-1.0, saw, shape % 1.0)*amt
+            lerp((abs(saw) * 2.0 - 1.0)*-1.0, saw, shape % 1.0)*amt
          else if shape < 3.0 then 
             lerp(saw, (if saw > pw then 1.0 else -1.0), shape % 1.0)*amt
          else
@@ -68,7 +70,7 @@ fun lfo_interp(cv, shape, amt, pw, reset, phaseOff, sampleTime) {
    return soft(o);
 }
 and initPhase()@[init]{
-   phase = 0.0;
+   phase = 1.0;
    rate = 1.0;
    phOff = 0.0;
 }
@@ -136,6 +138,7 @@ and setPw2(knob:real){
 
 // Called on initialization to define initial values
 and default() @[init]{
+   _ = initPhase();
    freq = 1.0;
    sync = 0.0;
    rate1 = 1.0;

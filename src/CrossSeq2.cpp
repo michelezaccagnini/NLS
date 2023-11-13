@@ -46,41 +46,48 @@ float CrossSeq2_lfo_interp(CrossSeq2__ctx_type_5 &_ctx, float cv, float shape, f
    if(CrossSeq2_change(_ctx._inst193,phaseOff)){
       _ctx.phOff = phaseOff;
    }
-   if(CrossSeq2_change(_ctx._inst393,cv)){
-      _ctx.rate = (8.f * cv * sampleTime);
-   }
-   uint8_t update;
-   update = CrossSeq2_each(_ctx._inst57b,8);
-   if(update){
-      _ctx.phase = (_ctx.phase + _ctx.rate);
-   }
-   _ctx.phase = fmodf(_ctx.phase,2.f);
-   float ph;
-   ph = fmodf((_ctx.phOff + _ctx.phase),2.f);
-   float offset_phase;
-   if((0.5f + ph) > 2.f){
-      offset_phase = (-1.5f + ph);
+   float updateRate;
+   if(cv > 0.5f){
+      updateRate = 8.f;
    }
    else
    {
-      offset_phase = (0.5f + ph);
+      updateRate = 1.f;
+   }
+   if(CrossSeq2_change(_ctx._inst393,cv)){
+      _ctx.rate = (2.f * cv * sampleTime * updateRate);
+   }
+   uint8_t update;
+   update = CrossSeq2_each(_ctx._inst57b,float_to_int(updateRate));
+   if(update){
+      _ctx.phase = (_ctx.phase + _ctx.rate);
+   }
+   if(_ctx.phase > 2.f){
+      _ctx.phase = (-2.f + _ctx.phase);
+   }
+   float ph;
+   if((_ctx.phOff + _ctx.phase) > 2.f){
+      ph = (-2.f + _ctx.phOff + _ctx.phase);
+   }
+   else
+   {
+      ph = (_ctx.phOff + _ctx.phase);
    }
    uint8_t breset;
    breset = (reset > 0.0f);
    if(CrossSeq2_edge(_ctx._inst75d,breset)){
-      _ctx.phase = 0.0f;
+      _ctx.phase = 1.f;
    }
    float saw;
    saw = (-1.f + ph);
-   offset_phase = (-1.f + offset_phase);
    if(update){
       if(shape < 1.f){
-         _ctx.o = (amt * CrossSeq2_lerp(sinf((3.14159265359f * ph)),(-1.f * (-1.f + (2.f * fabsf(offset_phase)))),fmodf(shape,1.f)));
+         _ctx.o = (amt * CrossSeq2_lerp(sinf((3.14159265359f * (-0.5f + ph))),(-1.f * (-1.f + (2.f * fabsf(saw)))),fmodf(shape,1.f)));
       }
       else
       {
          if(shape < 2.f){
-            _ctx.o = (amt * CrossSeq2_lerp((-1.f * (-1.f + (2.f * fabsf(offset_phase)))),saw,fmodf(shape,1.f)));
+            _ctx.o = (amt * CrossSeq2_lerp((-1.f * (-1.f + (2.f * fabsf(saw)))),saw,fmodf(shape,1.f)));
          }
          else
          {
@@ -152,6 +159,7 @@ void CrossSeq2__ctx_type_7_init(CrossSeq2__ctx_type_7 &_output_){
    CrossSeq2__ctx_type_6_init(_ctx._inst36b);
    CrossSeq2__ctx_type_5_init(_ctx._inst27f);
    CrossSeq2__ctx_type_5_init(_ctx._inst17f);
+   CrossSeq2__ctx_type_5_init(_ctx._inst14c3);
    CrossSeq2_default(_ctx);
    _output_ = _ctx;
    return ;
@@ -176,6 +184,7 @@ void CrossSeq2_process(CrossSeq2__ctx_type_7 &_ctx, float sampleTime){
 }
 
 void CrossSeq2_default(CrossSeq2__ctx_type_7 &_ctx){
+   CrossSeq2_initPhase(_ctx._inst14c3);
    _ctx.freq = 1.f;
    _ctx.sync = 0.0f;
    _ctx.rate1 = 1.f;

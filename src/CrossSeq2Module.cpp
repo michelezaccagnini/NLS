@@ -80,23 +80,23 @@ struct CrossSeq2 : Module {
 	void CrossSeq2_process_init() ;
 	float sampleTime = 1.0f / 44100.0f;
 	
-float freq      ;       
-float rate1    ;   
-float rate2    ;   
-float amount1  ;
-float amount2  ;
-float shape1   ;
-float shape2   ;
-float phase1   ;
-float phase2   ;
-float pw1       ;
-float pw2       ;
-float cvrate1  ;
-float cvrate2  ;
-float cvamount1;
-float cvamount2;
-float cvshape1 ;
-float cvshape2 ;
+	float freq      ;       
+	float rate1    ;   
+	float rate2    ;   
+	float amount1  ;
+	float amount2  ;
+	float shape1   ;
+	float shape2   ;
+	float phase1   ;
+	float phase2   ;
+	float pw1       ;
+	float pw2       ;
+	float cvrate1  ;
+	float cvrate2  ;
+	float cvamount1;
+	float cvamount2;
+	float cvshape1 ;
+	float cvshape2 ;
 	void process(const ProcessArgs& args) override {
 		freq      = params[FREQ_PARAM].value;
         rate1     = params[RATE1_PARAM].value;
@@ -163,51 +163,100 @@ float cvshape2 ;
 	}
 	
 	void dataFromJson(json_t* rootJ) override {
-		json_t* modeJ = json_object_get(rootJ, "mode");
-		if (modeJ){
-			freq       = json_real_value(modeJ);
-			rate1      = json_real_value(modeJ);
-			rate2      = json_real_value(modeJ);
-			amount1    = json_real_value(modeJ);
-			amount2    = json_real_value(modeJ);
-			shape1     = json_real_value(modeJ);
-			shape2     = json_real_value(modeJ);
-			phase1     = json_real_value(modeJ);
-			phase2     = json_real_value(modeJ);
-			pw1        = json_real_value(modeJ);
-			pw2        = json_real_value(modeJ);
-			cvrate1   =  json_real_value(modeJ);
-			cvrate2   =  json_real_value(modeJ);
-			cvamount1 =  json_real_value(modeJ);
-			cvamount2 =  json_real_value(modeJ);
-			cvshape1  =  json_real_value(modeJ);
-			cvshape2  =  json_real_value(modeJ);
+		json_t* freqJ = json_object_get(rootJ, 		"freq     ");
+		json_t* rate1J = json_object_get(rootJ, 	"rate1    ");
+		json_t* rate2J = json_object_get(rootJ, 	"rate2    ");
+		json_t* amount1J = json_object_get(rootJ, 	"amount1  ");
+		json_t* amount2J = json_object_get(rootJ, 	"amount2  ");
+		json_t* shape1J = json_object_get(rootJ, 	"shape1   ");
+		json_t* shape2J = json_object_get(rootJ, 	"shape2   ");
+		json_t* phase1J = json_object_get(rootJ, 	"phase1   ");
+		json_t* phase2J = json_object_get(rootJ, 	"phase2   ");
+		json_t* pw1J = json_object_get(rootJ, 		"pw1      ");
+		json_t* pw2J = json_object_get(rootJ, 		"pw2      ");
+		json_t* cvrate1J = json_object_get(rootJ, 	"cvrate1  ");
+		json_t* cvrate2J = json_object_get(rootJ, 	"cvrate2  ");
+		json_t* cvamount1J = json_object_get(rootJ, "cvamount1");
+		json_t* cvamount2J = json_object_get(rootJ, "cvamount2");
+		json_t* cvshape1J = json_object_get(rootJ, "cvshape1 ");
+		json_t* cvshape2J = json_object_get(rootJ, "cvshape2 ");
+		if (freqJ){
+			freq       = json_real_value(freqJ     );
 		}
+		if (rate1J){
+			rate1      = json_real_value(rate1J    );
+		}
+		if (rate2J){
+			rate2      = json_real_value(rate2J    );
+		}
+		if (amount1J){
+			amount1    = json_real_value(amount1J  );
+		}
+		if (amount2J){
+			amount2    = json_real_value(amount2J  );
+		}
+		if (shape1J){
+			shape1     = json_real_value(shape1J   );
+		}
+		if (shape2J){
+			shape2     = json_real_value(shape2J   );
+		}
+		if (phase1J){
+			phase1     = json_real_value(phase1J   );
+		}
+		if (phase2J){
+			phase2     = json_real_value(phase2J   );
+		}
+		if (pw1J){
+			pw1        = json_real_value(pw1J      );
+		}
+		if (pw2J){
+			pw2        = json_real_value(pw2J      );
+		}
+		if (cvrate1J){
+			cvrate1   =  json_real_value(cvrate1J  );
+		}
+		if (cvrate2J){
+			cvrate2   =  json_real_value(cvrate2J  );
+		}
+		if (cvamount1J){
+			cvamount1 =  json_real_value(cvamount1J);
+		}
+		if (cvamount2J){
+			cvamount2 =  json_real_value(cvamount2J);
+		}
+		if (cvshape1J){
+			cvshape1  =  json_real_value(cvshape1J );
+		}
+		if (cvshape2J){
+			cvshape2  =  json_real_value(cvshape2J );
+		}
+		
 	}
 	void onSampleRateChange(const SampleRateChangeEvent& e) override {
         sampleTime = 1.0f / e.sampleRate;
     }
-	void paramsFromJson(json_t* rootJ) override {
-		params[FREQ_PARAM].setValue(1.f);
-		params[RATE1_PARAM].setValue(1.f);
-		params[RATE2_PARAM].setValue(1.f);
-		params[AMT1_PARAM].setValue(1.f);
-		params[AMT2_PARAM].setValue(1.f);
-		params[SHAPE1_PARAM].setValue(0.f);
-		params[SHAPE2_PARAM].setValue(1.f);
-		params[PW1_PARAM].setValue(0.5f);
-		params[PW2_PARAM].setValue(0.5f);
-		params[PHASE1_PARAM].setValue(0.f);
-		params[PHASE2_PARAM].setValue(0.f);
-		params[	CVR1_PARAM].setValue(0.f);
-		params[	CVR2_PARAM].setValue(0.f);
-		params[	CVAM1_PARAM].setValue(0.f);
-		params[	CVAM2_PARAM].setValue(0.f);
-		params[	CVSH1_PARAM].setValue(0.f);
-		params[	CVSH2_PARAM].setValue(0.f);
-
-		Module::paramsFromJson(rootJ);
-	}
+	//void paramsFromJson(json_t* rootJ) override {
+	//	params[FREQ_PARAM].setValue(1.f);
+	//	params[RATE1_PARAM].setValue(1.f);
+	//	params[RATE2_PARAM].setValue(1.f);
+	//	params[AMT1_PARAM].setValue(1.f);
+	//	params[AMT2_PARAM].setValue(1.f);
+	//	params[SHAPE1_PARAM].setValue(0.f);
+	//	params[SHAPE2_PARAM].setValue(1.f);
+	//	params[PW1_PARAM].setValue(0.5f);
+	//	params[PW2_PARAM].setValue(0.5f);
+	//	params[PHASE1_PARAM].setValue(0.f);
+	//	params[PHASE2_PARAM].setValue(0.f);
+	//	params[	CVR1_PARAM].setValue(0.f);
+	//	params[	CVR2_PARAM].setValue(0.f);
+	//	params[	CVAM1_PARAM].setValue(0.f);
+	//	params[	CVAM2_PARAM].setValue(0.f);
+	//	params[	CVSH1_PARAM].setValue(0.f);
+	//	params[	CVSH2_PARAM].setValue(0.f);
+//
+	//	Module::paramsFromJson(rootJ);
+	//}
 
 };
 

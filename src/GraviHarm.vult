@@ -13,13 +13,16 @@ fun edge(x:bool) : bool {
 }
 fun counter(){
    mem count = count + 1;
+   //bug fix for initial erratic behavior 
+   if(count < 0 || count > 25)
+      count = 0;
    return count;
 }
 and reset(){
    count = 0;
 }
 
-fun process(inNote:real,   inChord:real, trigNote:real, trigChor:real, trigPlan:real, sync:real,  fs:real) {
+fun process(inNote:real,   inChord:real, inPlan: real, trigNote:real, trigChor:real, trigPlan:real, reset:real,  fs:real) {
  
    val pitchArr : array (real,625) = 
    [0.0,0.583333333,1.333333333,1.833333333,2.166666667,
@@ -108,25 +111,29 @@ fun process(inNote:real,   inChord:real, trigNote:real, trigChor:real, trigPlan:
    if(change(knobPlan))
       countPlan = 0;
 
-   if(edge(sync > 0.0) ){
+   if(edge(reset > 0.0) ){
       _ = note:reset();
+      countNote = note:counter();
       _ = chor:reset();
+      countChor = chor:counter();
       _ = plan:reset();
+      countPlan = plan:counter();
    }
 
 
-   val out1;
+   val voct;
    val noteInp = int(inNote * 4.0);
    val chorInp = int(inChord * 4.0);
+   val planInp = int(inPlan * 24.0);
    val indNote = (countNote + knobNote + noteInp) % 5;
    val indChor = (countChor + knobChor + chorInp) % 5;
-   val indPlan = (countPlan + knobPlan) % 25;
+   val indPlan = (countPlan + knobPlan + planInp) % 25;
 
    val index : int = int(indNote  + indChor * 5 + indPlan * 25 );
 
-   out1 = pitchArr[index] + real(knobOcta);
+   voct = pitchArr[index] + real(knobOcta);
    //out1 = trigChor;
-   return out1, indNote, indChor, indPlan;
+   return voct, indNote, indChor, countPlan;
 }
 and setKnobNote(knob:int){
    knobNote = knob;
@@ -141,9 +148,17 @@ and setKnobOcta(knob:int){
    knobOcta = knob;
 }
 and default()@[init]{
-   _ = note:reset();
-   _ = chor:reset();
-   _ = plan:reset();
+   noteLevel = 0.0;
+   chordLevel = 0.0;
+   planeLevel = 0.0;
+   countNote = 0;
+   countChor = 0;
+   countPlan = 0;
+   knobPlan = 0;
+   knobChor = 0;
+   knobPlan = 0;
+   knobOcta = 0;
+
 }
 
 

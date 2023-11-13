@@ -148,7 +148,7 @@ static_inline void CrossSeq3_initPhase_init(CrossSeq3__ctx_type_5 &_output_){
 }
 
 static_inline void CrossSeq3_initPhase(CrossSeq3__ctx_type_5 &_ctx){
-   _ctx.phase = 0.0f;
+   _ctx.phase = 1.f;
    _ctx.rate = 1.f;
    _ctx.phOff = 0.0f;
 }
@@ -205,6 +205,7 @@ typedef struct CrossSeq3__ctx_type_8 {
    CrossSeq3__ctx_type_6 _inst4c3;
    CrossSeq3__ctx_type_5 _inst32f;
    CrossSeq3__ctx_type_5 _inst22f;
+   CrossSeq3__ctx_type_5 _inst1926;
    CrossSeq3__ctx_type_5 _inst12f;
 } CrossSeq3__ctx_type_8;
 
