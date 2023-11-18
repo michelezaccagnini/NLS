@@ -2,11 +2,11 @@
   "slug": "NLS",
   "name": "NLS",
   "version": "2.1.6.0",
-  "license": "proprietary",
+  "license": "GNU General Public License v3.0",
   "brand": "NLS",
   "author": "Michele Zaccagnini",
   "authorEmail": "michelezaccagnini88@gmail.com",
-  "authorUrl": "linktr.ee/michelezac",
+  "authorUrl": "https://linktr.ee/michelezac",
   "pluginUrl": "https://github.com/michelezaccagnini/NLS/tree/main",
   "manualUrl": "",
   "sourceUrl": "https://github.com/michelezaccagnini/NLS/tree/main",
@@ -36,8 +36,6 @@
       "name": "TrigLogic",
       "description": "let triggers through based on signal logic",
       "tags": ["Logic", "Utility"]
-    }
-    
-    
+    }  
   ]
 }
