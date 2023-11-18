@@ -32,8 +32,8 @@ Amount, shape and rate params are added to inputs and scaled by CV input knob
 
 ### XSeq2 - XSeq3: Outputs
 - triggers: LFO intersections
-- lfos (normalized: the amount parameter does not affect the output, only the intersections are affected)
-- differences: running differences of LFOs (normalized)
+- lfos
+- differences: running differences of LFOs 
 
 ### TrigLogic : Inputs/Output
 
