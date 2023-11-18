@@ -28,7 +28,7 @@ Amount, shape and rate params are added to inputs and scaled by CV input knob
 - amt: amplitude of LFOs
 - shape: LFO waveform (interpolated)
 - phase: phase of LFOs
-- pw: duty cycle for triangle and rectangle wave
+- pw: duty cycle for rectangle wave
 
 ### XSeq2 - XSeq3: Outputs
 - triggers: LFO intersections
