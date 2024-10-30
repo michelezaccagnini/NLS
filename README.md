@@ -21,7 +21,7 @@ XSeq2 and XSeq3 are capable of producing multiple CVs aside from the triggers an
 
 ![XSeq3](https://github.com/michelezaccagnini/NLS/blob/main/Images/cross3New.jpg)
 
-Amount, shape and rate params are added to inputs and scaled by CV input knob
+Amount, shape and rate params are added to CV inputs and scaled by CV input knob
 - sync: LFOs phase reset
 - frequency: overall frequency of LFOs
 - rate: rate for LFOs
@@ -29,6 +29,8 @@ Amount, shape and rate params are added to inputs and scaled by CV input knob
 - shape: LFO waveform (interpolated)
 - phase: phase of LFOs
 - pw: duty cycle for rectangle wave
+
+NOTE: Rate CV input is scaled down by a factor 4: e.g. to get ONE additional rate point added to the kowb value the CV input should be 4 and the CV knob set to 1.
 
 ### XSeq2 - XSeq3: Outputs
 - triggers: LFO intersections
