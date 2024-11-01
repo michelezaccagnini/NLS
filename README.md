@@ -30,7 +30,7 @@ Amount, shape and rate params are added to CV inputs and scaled by CV input knob
 - phase: phase of LFOs
 - pw: duty cycle for rectangle wave
 
-NOTE: Rate CV input is scaled down by a factor 4: e.g. to get ONE additional rate point added to the kowb value the CV input should be 4 and the CV knob set to 1.
+NOTE: Rate CV input is scaled down by a factor 10: e.g. to get ONE additional rate point added to the kowb value the CV input should be 10 and the CV knob set to 1.
 
 ### XSeq2 - XSeq3: Outputs
 - triggers: LFO intersections
